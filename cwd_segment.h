@@ -32,7 +32,7 @@ public:
 	virtual ~cwd_segment ();
 
 public:
-	int powerline_set_segment_value(char* value, true_color fg, true_color bg);
+	int powerline_segment_set_value(char* value, true_color fg, true_color bg);
 	// int test_vt ();
 private:
 	/* data */

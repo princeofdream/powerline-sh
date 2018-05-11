@@ -25,7 +25,16 @@
 
 #include <string.h>
 
+
+
+#define JCG(frm,args...) printf("---<%s:%d>---" frm "---\n",__FILE__,__LINE__,##args)
+#define JEG(frm,args...) printf("---<%s:%d>---" frm "---\n",__FILE__,__LINE__,##args)
+#define JDG(frm,args...) printf(frm,##args)
+
+
 #define COLOR_STRING_LEN 64
+#define POWERLINE_SEGMENT_NAME_MAX_LEN 64
+#define POWERLINE_MAX_SEGMENT 256
 
 /*! \enum displaytype
  *

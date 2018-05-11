@@ -39,8 +39,15 @@ int main(int argc, char *argv[])
 	// sprintf(string_content,"\e[%d;%d;%dm=======\n",i0,5,48);
 	// printf("\e[38;5;%dm\e[48;5;240m test[%d] \e[48;5;166m\e[38;5;%dm\n",i0,i0,i0);
 
-	m_colortheme.show_color_map();
-	m_cwd.powerline_set_segment_value(NULL,fg,bg);
+	// m_colortheme.show_color_map();
+	m_cwd.powerline_segment_set_value(NULL,fg,bg);
+	m_cwd.powerline_register_segment("cwd");
+	m_cwd.powerline_get_segment_list();
+	m_cwd.powerline_register_segment("cwd2");
+	m_cwd.powerline_register_segment("cwd3");
+	m_cwd.powerline_register_segment("cwd5");
+	m_cwd.powerline_get_segment_list();
+	m_cwd.powerline_free_all();
 	return 0;
 }
 

@@ -21,7 +21,7 @@ CC=${CROSS_COMPILE}gcc
 CXX=${CROSS_COMPILE}g++
 
 OBJS=main.o colortheme.o segments.o
-# OBJS+=abstract_segments.o
+OBJS+=abstract_segments.o
 OBJS+=cwd_segment.o
 
 INCS=abstract_segments.h

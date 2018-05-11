@@ -27,11 +27,11 @@ cwd_segment::~cwd_segment ()
 {
 }
 
-
 int
-cwd_segment::powerline_set_segment_value(char* value, true_color fg, true_color bg)
+cwd_segment::powerline_segment_set_value(char* value, true_color fg, true_color bg)
 {
 	printf("by JamesL<%s:%d>\n",__FILE__,__LINE__);
+	return 0;
 }
 
 

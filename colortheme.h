@@ -19,7 +19,7 @@
 #ifndef __COLORTHEME_HEADER__
 #define __COLORTHEME_HEADER__
 
-#include "basic.h"
+#include <basic.h>
 
 
 class colortheme

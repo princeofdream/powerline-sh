@@ -27,6 +27,7 @@ class abstract_segments
 public:
 	abstract_segments ();
 	// virtual ~abstract_segments () = 0;
+	~abstract_segments ();
 
 public:
 	// virtual int test_vt() = 0;

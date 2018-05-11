@@ -16,15 +16,7 @@
  * =====================================================================================
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-
-#include "basic.h"
-#include "colortheme.h"
-#include "cwd_segment.h"
-
-class colortheme m_colortheme;
-class cwd_segment m_cwd;
+#include <main.h>
 
 int main(int argc, char *argv[])
 {
@@ -47,7 +39,8 @@ int main(int argc, char *argv[])
 	m_cwd.powerline_register_segment("cwd3");
 	m_cwd.powerline_register_segment("cwd5");
 	m_cwd.powerline_get_segment_list();
-	m_cwd.powerline_free_all();
+	m_host.powerline_register_segment("host");
+	m_host.powerline_get_segment_list();
 	return 0;
 }
 

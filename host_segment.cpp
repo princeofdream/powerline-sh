@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  segments.h
+ *       Filename:  host_segment.cpp
  *
- *    Description:  segments header
+ *    Description:  host_segment
  *
  *        Version:  1.0
- *        Created:  05/07/2018 04:14:49 PM
+ *        Created:  05/11/2018 02:40:08 PM
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -16,32 +16,25 @@
  * =====================================================================================
  */
 
-#ifndef __SEGMENTS_HEADER__
-#define __SEGMENTS_HEADER__
-
-#include <basic.h>
+#include <host_segment.h>
 
 
-
-class segments
+host_segment::host_segment()
 {
-public:
-	segments ();
-	virtual ~segments ();
+	JCG("%s",__FUNCTION__);
+}
 
-public:
-	int set_segment_color(char* src, int color, char** dest);
-
-private:
-	char* segment_string;
-};
+host_segment::~host_segment()
+{
+	JCG("%s",__FUNCTION__);
+}
 
 
-
-
-
-
-
-#endif
+int
+host_segment::powerline_segment_set_value(char* value, true_color fg, true_color bg)
+{
+	JCG();
+	return 0;
+}
 
 

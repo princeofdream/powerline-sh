@@ -16,15 +16,17 @@
  * =====================================================================================
  */
 
-#include "cwd_segment.h"
+#include <cwd_segment.h>
 
 cwd_segment::cwd_segment ()
 {
+	JCG("%s",__FUNCTION__);
 }
 
 
 cwd_segment::~cwd_segment ()
 {
+	JCG("%s",__FUNCTION__);
 }
 
 int

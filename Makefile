@@ -23,20 +23,23 @@ CXX=${CROSS_COMPILE}g++
 OBJS=main.o colortheme.o segments.o
 OBJS+=abstract_segments.o
 OBJS+=cwd_segment.o
+OBJS+=host_segment.o
+
 
 INCS=abstract_segments.h
 
 OUTPUT=powerline-sh
 
-CFLAGS=-I$(HOME)/Environment/env_rootfs/include
+CFLAGS = -I$(HOME)/Environment/env_rootfs/include
+CFLAGS += -I./
 LDFLAGS=-L/home/james/Environment/env_rootfs/lib64 -Wl,-rpath=/home/james/Environment/env_rootfs/lib64
 LDFLAGS+=-L/home/james/Environment/env_rootfs/lib -Wl,-rpath=/home/james/Environment/env_rootfs/lib
 
 all: $(OBJS) $(INS)
 	$(CXX) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $(OUTPUT)
 
-# $(OBJS):
-	# $(CC) -c $<
+%.o: %.cpp
+	$(CXX) $(CFLAGS) -c $< -o $@
 
 
 clean:

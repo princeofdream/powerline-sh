@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  cwd_segment.h
+ *       Filename:  host_segment.h
  *
- *    Description:  cwd_segment.h
+ *    Description:  host segment header
  *
  *        Version:  1.0
- *        Created:  05/09/2018 11:26:30 PM
+ *        Created:  05/11/2018 02:40:35 PM
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -17,19 +17,17 @@
  */
 
 
-#ifndef __CWD_SEGMENTS_HEADER__
-#define __CWD_SEGMENTS_HEADER__
+#ifndef __HOST_SEGMENT_HEADER__
+#define __HOST_SEGMENT_HEADER__
 
 #include <basic.h>
 #include <abstract_segments.h>
 
-
-// class cwd_segment
-class cwd_segment :public abstract_segments
+class host_segment :public abstract_segments
 {
 public:
-	cwd_segment ();
-	virtual ~cwd_segment ();
+	host_segment ();
+	virtual ~host_segment ();
 
 public:
 	int powerline_segment_set_value(char* value, true_color fg, true_color bg);
@@ -37,8 +35,7 @@ private:
 	/* data */
 };
 
-
-#endif /* ifndef __CWD_SEGMENTS_HEADER__ */
+#endif /* ifndef __HOST_SEGMENT_HEADER__ */
 
 
 

@@ -15,7 +15,7 @@
  *
  * =====================================================================================
  */
-#include "colortheme.h"
+#include <colortheme.h>
 
 
 colortheme::colortheme(void)

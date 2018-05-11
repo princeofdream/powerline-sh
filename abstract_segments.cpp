@@ -16,17 +16,20 @@
  * =====================================================================================
  */
 
-#include "abstract_segments.h"
+#include <abstract_segments.h>
 
 abstract_segments::abstract_segments()
 {
+	JCG("%s",__FUNCTION__);
 	segments_count = 0;
 	segments_list = (char**)malloc(POWERLINE_MAX_SEGMENT);
 }
 
-// abstract_segments::~abstract_segments()
-// {
-// }
+abstract_segments::~abstract_segments()
+{
+	JCG("%s",__FUNCTION__);
+	powerline_free_all();
+}
 
 int
 abstract_segments::powerline_register_segment(char* name)
@@ -97,5 +100,6 @@ abstract_segments::powerline_free_all()
 		i0++;
 	}
 	free(segments_list);
+	segments_count = 0;
 }
 

@@ -20,86 +20,53 @@
 
 abstract_segments::abstract_segments()
 {
+	// m_segments = new segments();
 	JCG("%s",__FUNCTION__);
-	segments_count = 0;
-	segments_list = (char**)malloc(POWERLINE_MAX_SEGMENT);
 }
 
 abstract_segments::~abstract_segments()
 {
 	JCG("%s",__FUNCTION__);
-	powerline_free_all();
 }
 
 int
-abstract_segments::powerline_register_segment(char* name)
+abstract_segments::register_segment(char* name)
 {
-	char** segments_list_store;
-
-	if (name == NULL)
-	{
-		JEG("name is null, will not add to list!");
-		return -1;
-	}
-	else if (strlen(name) > POWERLINE_SEGMENT_NAME_MAX_LEN) {
-		JEG("name too long! will not add to list!");
-		return -2;
-	}
-
-	segments_list[segments_count] = (char*)malloc(POWERLINE_SEGMENT_NAME_MAX_LEN);
-	memset(segments_list[segments_count], 0x0, sizeof(POWERLINE_SEGMENT_NAME_MAX_LEN));
-	sprintf(segments_list[segments_count], "%s", name);
-	segments_count++;
+	m_segments.register_segment(name);
 	return 0;
 }
 
 int
-abstract_segments::powerline_get_segment_list()
+abstract_segments::get_segment_list()
 {
-	powerline_get_segment_by_name(NULL);
-}
-
-int
-abstract_segments::powerline_get_segment_by_name(char* name)
-{
-	int i0 = 0;
-	while( i0 < segments_count)
-	{
-		JCG("--segment[%d]-->%s<--",i0, segments_list[i0]);
-		i0++;
-	}
+	m_segments.get_segment_list();
 	return 0;
 }
 
 int
-abstract_segments::powerline_get_segment_by_order(unsigned int index)
+abstract_segments::get_segment_by_name(char* name)
 {
-}
-
-int
-abstract_segments::powerline_segment_set_foreground(true_color value)
-{
-	fg_color = value;
+	m_segments.get_segment_by_name(name);
 	return 0;
 }
 
 int
-abstract_segments::powerline_segment_set_background(true_color value)
+abstract_segments::get_segment_by_order(unsigned int index)
 {
-	bg_color = value;
+	m_segments.get_segment_by_order(index);
 	return 0;
 }
 
 int
-abstract_segments::powerline_free_all()
+abstract_segments::segment_set_foreground(true_color value)
 {
-	int i0 = 0;
-	while (i0 < segments_count)
-	{
-		free(segments_list[i0]);
-		i0++;
-	}
-	free(segments_list);
-	segments_count = 0;
+	return 0;
 }
+
+int
+abstract_segments::segment_set_background(true_color value)
+{
+	return 0;
+}
+
 

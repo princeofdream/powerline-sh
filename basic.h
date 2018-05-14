@@ -33,8 +33,8 @@
 
 
 #define COLOR_STRING_LEN 64
-#define POWERLINE_SEGMENT_NAME_MAX_LEN 64
-#define POWERLINE_MAX_SEGMENT 256
+#define SEGMENT_NAME_MAX_LEN 64
+#define MAX_SEGMENTS 256
 
 /*! \enum displaytype
  *

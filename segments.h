@@ -30,16 +30,22 @@ public:
 	virtual ~segments ();
 
 public:
-	int set_segment_color(char* src, int color, char** dest);
+	// int delete_segment_from_list(char* item);
+int register_segment(char* item);
+int get_segment_list();
+int get_segment_by_name(char* name);
+int get_segment_by_order(unsigned int index);
+int segment_set_foreground(true_color fg_color);
+int segment_set_background(true_color bg_color);
+int segment_set_color(true_color fg_color,true_color bg_color);
 
 private:
-	char* segment_string;
+	char** segments_list = NULL;
+	unsigned int segments_count = 0;
 };
 
 
-
-
-
+extern class segments m_segments;
 
 
 #endif

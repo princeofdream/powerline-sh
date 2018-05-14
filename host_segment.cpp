@@ -31,7 +31,7 @@ host_segment::~host_segment()
 
 
 int
-host_segment::powerline_segment_set_value(char* value, true_color fg, true_color bg)
+host_segment::segment_set_value(char* value, true_color fg, true_color bg)
 {
 	JCG();
 	return 0;

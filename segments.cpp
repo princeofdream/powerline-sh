@@ -25,32 +25,40 @@ segments::segments()
 	JCG("%s",__FUNCTION__);
 	segments_count = 0;
 	segments_list = (char**)malloc(MAX_SEGMENTS);
+	m_unit = (segment_unit*)malloc(MAX_SEGMENTS);
+	JCG("segment unit size:%d",sizeof(segment_unit));
 }
 
 segments::~segments()
 {
 	JCG("%s",__FUNCTION__);
+	free(segments_list);
+	free(m_unit);
 }
 
 
 int
 segments::register_segment(char* item)
 {
-	char** segments_list_store;
-
 	if (item == NULL)
 	{
 		JEG("item is null, will not add to list!");
 		return -1;
 	}
 	else if (strlen(item) > SEGMENT_NAME_MAX_LEN) {
-		JEG("item too long! will not add to list!");
+		JEG("item name too long! will not add to list!");
 		return -2;
 	}
 
 	segments_list[segments_count] = (char*)malloc(SEGMENT_NAME_MAX_LEN);
 	memset(segments_list[segments_count], 0x0, sizeof(SEGMENT_NAME_MAX_LEN));
 	sprintf(segments_list[segments_count], "%s", item);
+
+	m_unit[segments_count].name = (char*)malloc(strlen(item)+1);
+	m_unit[segments_count].index = 0;
+	memset(m_unit[segments_count].name,0x0,strlen(item)+1);
+	sprintf(m_unit[segments_count].name,"%s",item);
+
 	segments_count++;
 	return 0;
 }
@@ -67,7 +75,8 @@ segments::get_segment_by_name(char* name)
 	int i0 = 0;
 	while( i0 < segments_count)
 	{
-		JCG("--segment[%d]-->%s<--",i0, segments_list[i0]);
+		// JCG("--segment[%d]-->%s<--",i0, segments_list[i0]);
+		JCG("segments[%d] name:%s",i0,m_unit[i0].name);
 		i0++;
 	}
 	return 0;

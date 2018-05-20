@@ -30,10 +30,10 @@ public:
 
 public:
 	int display_truecolor(int colortype, int colorstyle, true_color fg, true_color bg, char* content, char** dest);
-	// int display_256color(int colortype, int colorstyle, true_color fg, true_color bg, char* content, char** dest);
+	int display_256color(int colortype, int colorstyle, true_color fg, true_color bg, char* content, char** dest);
 	// int display_16color(int colortype, int colorstyle, true_color fg, true_color bg, char* content, char** dest);
 	int show_truecolor_map();
-	// int show_256color_map();
+	int show_256color_map();
 	// int show_16color_map();
 	int show_color_map();
 	int get_color_theme();

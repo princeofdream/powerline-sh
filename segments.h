@@ -22,6 +22,15 @@
 #include <basic.h>
 
 
+typedef	struct segments_unit_t {
+	/* data */
+	unsigned short index;
+	char* name;
+	char* value;
+	true_color fg_color;
+	true_color bg_color;
+	struct segment_unit_t *next_unit;
+} segment_unit;
 
 class segments
 {
@@ -40,6 +49,7 @@ int segment_set_background(true_color bg_color);
 int segment_set_color(true_color fg_color,true_color bg_color);
 
 private:
+	segment_unit *m_unit = NULL;
 	char** segments_list = NULL;
 	unsigned int segments_count = 0;
 };

@@ -73,11 +73,21 @@ enum colorreset {
 	COLOR_RESET_HIDDEN    = 28,
 };
 
+/*! \enum colortype
+ *
+ *  Detailed description
+ */
+enum colortype {
+	COLOR_TYPE_TRUE_COLOR = 0,
+	COLOR_TYPE_256_COLOR,
+	COLOR_TYPE_16_COLOR,
+};
 
 typedef	struct true_color_t {
-	int red;
-	int green;
-	int blue;
+	unsigned short red;
+	unsigned short green;
+	unsigned short blue;
+	colortype type;
 } true_color;
 
 #if 0

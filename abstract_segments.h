@@ -42,7 +42,6 @@ public:
 
 private:
 	/* data */
-	// segments* m_segments = NULL;
 };
 
 #endif /* ifndef __ABSTRACT_SEGMENTS_HEADER__ */

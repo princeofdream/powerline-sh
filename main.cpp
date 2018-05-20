@@ -31,7 +31,8 @@ int main(int argc, char *argv[])
 	// sprintf(string_content,"\e[%d;%d;%dm=======\n",i0,5,48);
 	// printf("\e[38;5;%dm\e[48;5;240m test[%d] \e[48;5;166m\e[38;5;%dm\n",i0,i0,i0);
 
-	// m_colortheme.show_color_map();
+	// m_colortheme.show_truecolor_map();
+	m_colortheme.show_256color_map();
 	m_cwd.segment_set_value(NULL,fg,bg);
 	m_cwd.register_segment("cwd");
 	m_cwd.get_segment_list();

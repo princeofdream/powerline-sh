@@ -32,7 +32,8 @@ public:
 	virtual ~cwd_segment ();
 
 public:
-	int segment_set_value(char* value, true_color fg, true_color bg);
+	// int segment_set_value(char* value, true_color fg, true_color bg);
+	int get_segment_value(char** value);
 private:
 	/* data */
 };

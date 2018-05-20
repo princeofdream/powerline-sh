@@ -20,6 +20,7 @@
 #define __SEGMENTS_HEADER__
 
 #include <basic.h>
+#include <colortheme.h>
 
 
 typedef	struct segments_unit_t {
@@ -27,9 +28,10 @@ typedef	struct segments_unit_t {
 	unsigned short index;
 	char* name;
 	char* value;
+	char* pvalue;
 	true_color fg_color;
 	true_color bg_color;
-	struct segment_unit_t *next_unit;
+	// struct segment_unit_t *next_unit;
 } segment_unit;
 
 class segments
@@ -42,14 +44,14 @@ public:
 	// int delete_segment_from_list(char* item);
 int register_segment(char* item);
 int get_segment_list();
-int get_segment_by_name(char* name);
+int get_segment_by_name(char* name, segment_unit** unit);
 int get_segment_by_order(unsigned int index);
 int segment_set_foreground(true_color fg_color);
 int segment_set_background(true_color bg_color);
 int segment_set_color(true_color fg_color,true_color bg_color);
 
 private:
-	segment_unit *m_unit = NULL;
+	segment_unit **m_unit = NULL;
 	char** segments_list = NULL;
 	unsigned int segments_count = 0;
 };

@@ -29,12 +29,25 @@ cwd_segment::~cwd_segment ()
 	JCG("%s",__FUNCTION__);
 }
 
+#if 0
 int
 cwd_segment::segment_set_value(char* value, true_color fg, true_color bg)
 {
-	printf("by JamesL<%s:%d>\n",__FILE__,__LINE__);
+	JCG("%s",__FUNCTION__);
 	return 0;
 }
+#endif
 
+int
+cwd_segment::get_segment_value(char** value)
+{
+	char cwd_path[MAXLEN];
+
+	JCG("%s",__FUNCTION__);
+	getcwd(cwd_path,MAXLEN);
+	segment_set_value(cwd_path);
+
+	return 0;
+}
 
 

@@ -22,6 +22,7 @@
 
 #include <basic.h>
 #include <segments.h>
+#include <colortheme.h>
 
 class abstract_segments
 {
@@ -32,16 +33,22 @@ public:
 
 public:
 	// virtual int test_vt() = 0;
-	virtual int segment_set_value(char* value, true_color fg, true_color bg) = 0;
+	int segment_set_value_with_color(char* value, true_color fg, true_color bg);
+	int segment_set_value(char* value);
 	int register_segment(char* name);
 	int get_segment_list();
-	int get_segment_by_name(char* name);
-	int get_segment_by_order(unsigned int index);
+	int get_segment_by_name(char* name, segment_unit** unit);
+	int get_segment_by_order(unsigned int index, segment_unit** unit);
 	int segment_set_foreground(true_color value);
 	int segment_set_background(true_color value);
+	virtual int get_segment_value(char** value) = 0;
 
 private:
 	/* data */
+	char segment_name[SEGMENT_NAME_MAX_LEN];
+	char segment_value[MAXLEN];
+	char segment_color_value[MAXLEN];
+	segment_unit* unit;
 };
 
 #endif /* ifndef __ABSTRACT_SEGMENTS_HEADER__ */

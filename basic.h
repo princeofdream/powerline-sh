@@ -22,19 +22,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
+#include <unistd.h>
 
 #include <string.h>
 
 
 
-#define JCG(frm,args...) printf("---<%s:%d>---" frm "---\n",__FILE__,__LINE__,##args)
-#define JEG(frm,args...) printf("---<%s:%d>---" frm "---\n",__FILE__,__LINE__,##args)
+#define JCG(frm,args...) printf("---<%s:%d>---" frm "\n",__FILE__,__LINE__,##args)
+#define JEG(frm,args...) printf("---<%s:%d>---" frm "\n",__FILE__,__LINE__,##args)
 #define JDG(frm,args...) printf(frm,##args)
 
 
 #define COLOR_STRING_LEN 64
 #define SEGMENT_NAME_MAX_LEN 64
 #define MAX_SEGMENTS 256
+#ifdef MAXLEN
+#undef MAXLEN
+#endif
+#define MAXLEN 1024
 
 /*! \enum displaytype
  *

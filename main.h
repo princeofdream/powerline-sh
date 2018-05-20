@@ -28,9 +28,9 @@
 #include <cwd_segment.h>
 #include <host_segment.h>
 
-class colortheme m_colortheme;
-class cwd_segment m_cwd;
-class host_segment m_host;
+class colortheme *m_colortheme;
+class cwd_segment *m_cwd;
+class host_segment *m_host;
 
 #endif /* ifndef __MAIN_HEADER__
 

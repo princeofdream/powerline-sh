@@ -38,7 +38,7 @@ LDFLAGS+=-L/home/james/Environment/env_rootfs/lib -Wl,-rpath=/home/james/Environ
 all: $(OBJS) $(INS)
 	$(CXX) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $(OUTPUT)
 
-%.o: %.cpp
+%.o: %.cpp %.h
 	$(CXX) $(CFLAGS) -c $< -o $@
 
 

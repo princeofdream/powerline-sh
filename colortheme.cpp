@@ -52,7 +52,7 @@ colortheme::display_truecolor(int colortype, int colorstyle, true_color fg, true
 		return -1;
 
 	*dest = (char*)malloc(strlen(color_string) + 1);
-	memset(*dest,0x0,sizeof(dest));
+	memset(*dest,0x0,strlen(color_string)+1);
 	memcpy(*dest, color_string, strlen(color_string)+1);
 
 	return 0;
@@ -83,7 +83,7 @@ colortheme::display_256color(int colortype, int colorstyle, true_color fg, true_
 		return -1;
 
 	*dest = (char*)malloc(strlen(color_string) + 1);
-	memset(*dest,0x0,sizeof(dest));
+	memset(*dest,0x0,strlen(color_string)+1);
 	memcpy(*dest, color_string, strlen(color_string)+1);
 	return 0;
 }

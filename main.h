@@ -27,10 +27,12 @@
 #include <colortheme.h>
 #include <cwd_segment.h>
 #include <host_segment.h>
+#include <common_segment_manager.h>
 
 class colortheme *m_colortheme;
 class cwd_segment *m_cwd;
 class host_segment *m_host;
+class common_segment_manager *m_sgmgr;
 
 #endif /* ifndef __MAIN_HEADER__
 

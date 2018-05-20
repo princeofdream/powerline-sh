@@ -41,15 +41,23 @@ int main(int argc, char *argv[])
 	m_cwd->register_segment("cwd");
 	m_cwd->get_segment_list();
 
-	JCG("-----------------------------------");
-	m_cwd->register_segment("cwd3");
-	m_cwd->register_segment("cwd5");
-	m_cwd->get_segment_list();
 
 	JCG("-----------------------------------");
 	m_host = new host_segment();
 	m_host->register_segment("host");
 	m_host->get_segment_list();
+
+	JCG("-----------------------------------");
+	m_sgmgr = new common_segment_manager();
+	m_sgmgr->register_segment("ssh");
+	// delete(m_colortheme);
+	// delete(m_cwd);
+	// delete(m_host);
+	// delete(m_sgmgr);
+	// m_colortheme = NULL;
+	// m_cwd = NULL;
+	// m_host = NULL;
+	// m_sgmgr = NULL;
 	return 0;
 }
 

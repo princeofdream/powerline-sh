@@ -24,6 +24,7 @@ OBJS=main.o colortheme.o segments.o
 OBJS+=abstract_segments.o
 OBJS+=cwd_segment.o
 OBJS+=host_segment.o
+OBJS+=common_segment_manager.o
 
 
 INCS=abstract_segments.h

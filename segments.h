@@ -42,13 +42,16 @@ public:
 
 public:
 	// int delete_segment_from_list(char* item);
-int register_segment(char* item);
-int get_segment_list();
-int get_segment_by_name(char* name, segment_unit** unit);
-int get_segment_by_order(unsigned int index);
-int segment_set_foreground(true_color fg_color);
-int segment_set_background(true_color bg_color);
-int segment_set_color(true_color fg_color,true_color bg_color);
+	int register_segment(char* item);
+	int get_segment_list_common(char** value_list, char* type);
+	int get_segment_list(char** value_list);
+	int get_segment_value_list(char** value_list);
+	int get_segment_pvalue_list(char** value_list);
+	int get_segment_by_name(char* name, segment_unit** unit);
+	int get_segment_by_order(unsigned int index);
+	int segment_set_foreground(true_color fg_color);
+	int segment_set_background(true_color bg_color);
+	int segment_set_color(true_color fg_color,true_color bg_color);
 
 private:
 	segment_unit **m_unit = NULL;

@@ -54,8 +54,21 @@ common_segment_manager::get_segment_value(char** value)
 	else if (strcmp(*value,"ssh") == 0)
 	{
 		get_value = getenv("SSH_CLIENT");
-		sprintf(common_value, "%s", get_value);
+		// sprintf(common_value, "%s", get_value);
+		if (strlen(get_value) > 0)
+		{
+			sprintf(common_value, "%s", "⌁");
+		}
 	}
+	else if (strcmp(*value,"user") == 0)
+	{
+		get_value = getenv("USER");
+		if (strlen(get_value) > 0)
+		{
+			sprintf(common_value, "%s", get_value);
+		}
+	}
+	if(strlen(common_value) > 0)
 	if(strlen(common_value) > 0)
 		segment_set_value(common_value);
 

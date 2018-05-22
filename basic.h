@@ -40,6 +40,7 @@
 #undef MAXLEN
 #endif
 #define MAXLEN 1024
+#define SEPERATE_SYMBOL ""
 
 /*! \enum displaytype
  *

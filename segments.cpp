@@ -82,40 +82,89 @@ segments::register_segment(char* item)
 }
 
 int
-segments::get_segment_list()
+segments::get_segment_list_common(char** value_list, char* type)
 {
-	get_segment_by_name(NULL, NULL);
+	int i0 = 0;
+	char item_value[MAXLEN];
+
+	*value_list = (char*)malloc(MAXLEN*2);
+	memset(*value_list, 0x0, MAXLEN*2);
+
+	if (type == NULL)
+	{
+		JEG("get list type can not be NULL");
+		return -1;
+	}
+
+	while( i0 < segments_count )
+	{
+		memset(item_value, 0x0, sizeof(item_value));
+		if (strcmp(type, "name") == 0 && m_unit[i0]->name != NULL)
+		{
+			sprintf(item_value,"%s",m_unit[i0]->name);
+		}
+		else if (strcmp(type, "value") == 0 && m_unit[i0]->value != NULL)
+		{
+			sprintf(item_value,"%s",m_unit[i0]->value);
+		}
+		else if (strcmp(type, "pvalue") == 0 && m_unit[i0]->pvalue != NULL)
+		{
+			sprintf(item_value,"%s",m_unit[i0]->pvalue);
+		}
+		else
+		{
+			i0++;
+			continue;
+		}
+
+		if (strlen(*value_list) <= 0)
+			sprintf(*value_list,"%s",item_value);
+		else
+			sprintf(*value_list,"%s%s%s",*value_list,SEPERATE_SYMBOL,item_value);
+		i0++;
+	}
+	return 0;
+}
+
+int
+segments::get_segment_list(char** value_list)
+{
+	get_segment_list_common(value_list,"name");
+	return 0;
+}
+
+int
+segments::get_segment_value_list(char** value_list)
+{
+	get_segment_list_common(value_list,"value");
+	return 0;
+}
+
+int
+segments::get_segment_pvalue_list(char** value_list)
+{
+	get_segment_list_common(value_list,"pvalue");
 }
 
 int
 segments::get_segment_by_name(char* name, segment_unit** unit)
 {
 	int i0 = 0;
-	if (name == NULL)
+	while( i0 < segments_count )
 	{
-		while( i0 < segments_count )
+		// JCG("segments[%d] name:%s",i0,m_unit[i0]->name);
+		/* *unit = (segment_unit*)malloc(sizeof(segment_unit)); */
+		// memcpy(*unit,m_unit[i0],sizeof(segment_unit));
+		if(name == NULL)
 		{
-#if 1
 			JCG("segments[%d] name:%s",i0,m_unit[i0]->name);
-#else
-			JCG("segments[%d] name:%s",i0,segments_list[i0]);
-#endif
-			i0++;
 		}
-	}
-	else
-	{
-		while( i0 < segments_count )
+		else if (strcmp(m_unit[i0]->name, name) == 0)
 		{
-			// JCG("segments[%d] name:%s",i0,m_unit[i0]->name);
-			/* *unit = (segment_unit*)malloc(sizeof(segment_unit)); */
-			// memcpy(*unit,m_unit[i0],sizeof(segment_unit));
-			if (strcmp(m_unit[i0]->name, name) == 0)
-			{
-				*unit = m_unit[i0];
-			}
-			i0++;
+			*unit = m_unit[i0];
+			break;
 		}
+		i0++;
 	}
 	return 0;
 }

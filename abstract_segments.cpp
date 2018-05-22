@@ -69,9 +69,23 @@ abstract_segments::register_segment(char* name)
 }
 
 int
-abstract_segments::get_segment_list()
+abstract_segments::get_segment_list(char** value_list)
 {
-	m_segments.get_segment_list();
+	m_segments.get_segment_list(value_list);
+	return 0;
+}
+
+int
+abstract_segments::get_segment_value_list(char** value_list)
+{
+	m_segments.get_segment_value_list(value_list);
+	return 0;
+}
+
+int
+abstract_segments::get_segment_pvalue_list(char** value_list)
+{
+	m_segments.get_segment_pvalue_list(value_list);
 	return 0;
 }
 

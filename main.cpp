@@ -26,6 +26,7 @@ int main(int argc, char *argv[])
 	true_color fg;
 	true_color bg;
 	segment_unit *cwd_unit;
+	char* segment_list = NULL;
 
 	memset(string_content,0x0,sizeof(string_content));
 	style = 38;
@@ -36,20 +37,47 @@ int main(int argc, char *argv[])
 	m_colortheme = new colortheme();
 	m_colortheme->show_256color_map();
 
-	m_cwd = new cwd_segment();
-	// m_cwd->segment_set_value(NULL);
-	m_cwd->register_segment("cwd");
-	m_cwd->get_segment_list();
 
 
-	JCG("-----------------------------------");
-	m_host = new host_segment();
-	m_host->register_segment("host");
-	m_host->get_segment_list();
-
-	JCG("-----------------------------------");
 	m_sgmgr = new common_segment_manager();
+	m_sgmgr->register_segment("user");
 	m_sgmgr->register_segment("ssh");
+
+	/* ************************************** */
+	// m_host = new host_segment();
+	// m_host->register_segment("host");
+
+	/* ************************************** */
+	m_cwd = new cwd_segment();
+	m_cwd->register_segment("cwd");
+
+	/* ************************************** */
+	m_sgmgr->register_segment("git");
+	m_sgmgr->register_segment("prom");
+
+	// m_sgmgr->get_segment_list(&segment_list);
+	// JCG("segments list: %s",segment_list);
+	if (segment_list!=NULL)
+	{
+		free(segment_list);
+		segment_list = NULL;
+	}
+	JCG();
+	m_sgmgr->get_segment_value_list(&segment_list);
+	JCG("segments list: %s",segment_list);
+	if (segment_list!=NULL)
+	{
+		JCG();
+		free(segment_list);
+		segment_list = NULL;
+	}
+	// m_sgmgr->get_segment_pvalue_list(&segment_list);
+	// JCG("segments list: %s",segment_list);
+	if (segment_list!=NULL)
+	{
+		free(segment_list);
+		segment_list = NULL;
+	}
 	// delete(m_colortheme);
 	// delete(m_cwd);
 	// delete(m_host);

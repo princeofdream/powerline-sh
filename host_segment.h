@@ -31,7 +31,7 @@ public:
 
 public:
 	// int segment_set_value(char* value, true_color fg, true_color bg);
-	int get_segment_value(char** value);
+	int get_segment_value(char* name, char** value);
 private:
 	/* data */
 };

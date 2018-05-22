@@ -40,13 +40,22 @@ host_segment::segment_set_value(char* value, true_color fg, true_color bg)
 
 
 int
-host_segment::get_segment_value(char** value)
+host_segment::get_segment_value(char* name, char** value)
 {
 	char host_name[MAXLEN];
 
 	JCG("%s",__FUNCTION__);
 	gethostname(host_name,MAXLEN);
-	segment_set_value(host_name);
+
+	if (host_name!= NULL && strlen(host_name) > 0)
+	{
+#if 1
+		*value = (char*)malloc(MAXLEN);
+		sprintf(*value,"%s",host_name);
+#else
+		segment_set_value(host_name);
+#endif
+	}
 
 	return 0;
 }

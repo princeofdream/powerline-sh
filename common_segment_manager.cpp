@@ -39,7 +39,7 @@ common_segment_manager::segment_set_value(char* value, true_color fg, true_color
 #endif
 
 int
-common_segment_manager::get_segment_value(char** value)
+common_segment_manager::get_segment_value(char* name, char** value)
 {
 	char common_value[MAXLEN];
 	char* get_value;
@@ -47,11 +47,11 @@ common_segment_manager::get_segment_value(char** value)
 	JCG("%s",__FUNCTION__);
 
 	memset(common_value,0x0,sizeof(common_value));
-	if (strcmp(*value,"cwd") == 0)
+	if (strcmp(name,"cwd") == 0)
 	{
 		getcwd(common_value,MAXLEN);
 	}
-	else if (strcmp(*value,"ssh") == 0)
+	else if (strcmp(name,"ssh") == 0)
 	{
 		get_value = getenv("SSH_CLIENT");
 		// sprintf(common_value, "%s", get_value);
@@ -60,7 +60,7 @@ common_segment_manager::get_segment_value(char** value)
 			sprintf(common_value, "%s", "⌁");
 		}
 	}
-	else if (strcmp(*value,"user") == 0)
+	else if (strcmp(name,"user") == 0)
 	{
 		get_value = getenv("USER");
 		if (strlen(get_value) > 0)
@@ -68,11 +68,21 @@ common_segment_manager::get_segment_value(char** value)
 			sprintf(common_value, "%s", get_value);
 		}
 	}
-	if(strlen(common_value) > 0)
-	if(strlen(common_value) > 0)
+
+	if (common_value!= NULL && strlen(common_value) > 0)
+	{
+#if 1
+		*value = (char*)malloc(MAXLEN);
+		sprintf(*value,"%s",common_value);
+		JCG("value:%s",*value);
+#else
 		segment_set_value(common_value);
+#endif
+	}
 
 	return 0;
+
+
 }
 
 

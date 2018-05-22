@@ -30,10 +30,6 @@ abstract_segments::abstract_segments()
 abstract_segments::~abstract_segments()
 {
 	JCG("%s",__FUNCTION__);
-	if (segment_name != NULL)
-	{
-		free(segment_name);
-	}
 }
 
 int
@@ -46,14 +42,24 @@ int
 abstract_segments::segment_set_value(char* value)
 {
 	segment_unit *unit;
+
+	memset(segment_value,0x0,sizeof(segment_value));
 	sprintf(segment_value,"%s",value);
 	get_segment_by_name(segment_name, &unit);
-	JCG("set value to: %s",value);
-	if (unit->value == NULL)
-		unit->value = (char*)malloc(MAXLEN);
-	memset(unit->value,0x0,MAXLEN);
-	sprintf(unit->value,"%s",value);
-	JCG("\nget segment info\nname:\t%s\nvalue:\t%s\npvalue:\t%s\nindex:\t%d",unit->name, unit->value,unit->pvalue,unit->index);
+
+	if (value != NULL)
+	{
+		memset(unit->value,0x0,MAXLEN);
+		sprintf(unit->value,"%s",value);
+		// memcpy(unit->value,value,strlen(value)+1);
+		JCG("\nget segment info\nname:\t%s\nvalue:\t%s\npvalue:\t%s\nindex:\t%d",unit->name, unit->value,unit->pvalue,unit->index);
+		// JCG("segment [%s] address: 0x%x, name address: 0x%x, value: 0x%x",unit->name, unit, unit->name, unit->value);
+	}
+	else
+	{
+		JEG("value is NULL!");
+		return -1;
+	}
 
 	return 0;
 }
@@ -61,10 +67,22 @@ abstract_segments::segment_set_value(char* value)
 int
 abstract_segments::register_segment(char* name)
 {
+	char* value = NULL;
+
+	memset(segment_value,0x0,sizeof(segment_value));
 	memset(segment_name,0x0,sizeof(segment_name));
+
 	sprintf(segment_name,"%s",name);
 	m_segments.register_segment(name);
-	get_segment_value(&name);
+	get_segment_value(name, &value);
+	JCG("%s get value---->%s",name, value);
+	if (value != NULL)
+	{
+		JCG("value:%s",value);
+		segment_set_value(value);
+		free(value);
+		value = NULL;
+	}
 	return 0;
 }
 

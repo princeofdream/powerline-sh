@@ -61,10 +61,14 @@ segments::register_segment(char* item)
 	}
 
 #if 1
+	// JCG("segment [%s] address: 0x%x, name address: 0x%x, value: 0x%x",m_unit[segments_count]->name, m_unit[segments_count], m_unit[segments_count]->name, m_unit[segments_count]->value);
 	m_unit[segments_count] = (segment_unit*)malloc(sizeof(segment_unit));
 	m_unit[segments_count]->name = (char*)malloc(strlen(item)+1);
+	m_unit[segments_count]->value = (char*)malloc(MAXLEN);
+	m_unit[segments_count]->pvalue = (char*)malloc(MAXLEN);
 	m_unit[segments_count]->index = segments_count;
 	sprintf(m_unit[segments_count]->name, "%s", item);
+	JCG("segment [%s] address: 0x%x, name address: 0x%x, value: 0x%x",m_unit[segments_count]->name, m_unit[segments_count], m_unit[segments_count]->name, m_unit[segments_count]->value);
 #else
 	segments_list[segments_count] = (char*)malloc(SEGMENT_NAME_MAX_LEN);
 	memset(segments_list[segments_count], 0x0, sizeof(SEGMENT_NAME_MAX_LEN));
@@ -90,6 +94,7 @@ segments::get_segment_list_common(char** value_list, char* type)
 	*value_list = (char*)malloc(MAXLEN*2);
 	memset(*value_list, 0x0, MAXLEN*2);
 
+	JCG();
 	if (type == NULL)
 	{
 		JEG("get list type can not be NULL");
@@ -119,7 +124,7 @@ segments::get_segment_list_common(char** value_list, char* type)
 
 		if (strlen(*value_list) <= 0)
 			sprintf(*value_list,"%s",item_value);
-		else
+		else if (strlen(item_value) > 0)
 			sprintf(*value_list,"%s%s%s",*value_list,SEPERATE_SYMBOL,item_value);
 		i0++;
 	}
@@ -155,6 +160,7 @@ segments::get_segment_by_name(char* name, segment_unit** unit)
 		// JCG("segments[%d] name:%s",i0,m_unit[i0]->name);
 		/* *unit = (segment_unit*)malloc(sizeof(segment_unit)); */
 		// memcpy(*unit,m_unit[i0],sizeof(segment_unit));
+		JCG("segment [%s] address: 0x%x, name address: 0x%x, value: 0x%x",m_unit[i0]->name, m_unit[i0], m_unit[i0]->name, m_unit[i0]->value);
 		if(name == NULL)
 		{
 			JCG("segments[%d] name:%s",i0,m_unit[i0]->name);

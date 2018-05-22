@@ -43,7 +43,7 @@ public:
 	int get_segment_by_order(unsigned int index, segment_unit** unit);
 	int segment_set_foreground(true_color value);
 	int segment_set_background(true_color value);
-	virtual int get_segment_value(char** value) = 0;
+	virtual int get_segment_value(char* name, char** value) = 0;
 
 private:
 	/* data */

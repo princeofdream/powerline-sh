@@ -33,9 +33,8 @@ int main(int argc, char *argv[])
 	// sprintf(string_content,"\e[%d;%d;%dm=======\n",i0,5,48);
 	// printf("\e[38;5;%dm\e[48;5;240m test[%d] \e[48;5;166m\e[38;5;%dm\n",i0,i0,i0);
 
-	// m_colortheme.show_truecolor_map();
 	m_colortheme = new colortheme();
-	m_colortheme->show_256color_map();
+	// m_colortheme->show_256color_map();
 
 
 
@@ -53,7 +52,7 @@ int main(int argc, char *argv[])
 
 	/* ************************************** */
 	m_sgmgr->register_segment("git");
-	m_sgmgr->register_segment("prom");
+	m_sgmgr->register_segment("prompt");
 
 	// m_sgmgr->get_segment_list(&segment_list);
 	// JCG("segments list: %s",segment_list);
@@ -62,30 +61,42 @@ int main(int argc, char *argv[])
 		free(segment_list);
 		segment_list = NULL;
 	}
-	JCG();
 	m_sgmgr->get_segment_value_list(&segment_list);
 	JCG("segments list: %s",segment_list);
 	if (segment_list!=NULL)
 	{
-		JCG();
 		free(segment_list);
 		segment_list = NULL;
 	}
-	// m_sgmgr->get_segment_pvalue_list(&segment_list);
-	// JCG("segments list: %s",segment_list);
+
+	m_sgmgr->get_segment_pvalue_list(&segment_list);
+	JCG("segments list: %s",segment_list);
+
 	if (segment_list!=NULL)
 	{
 		free(segment_list);
 		segment_list = NULL;
 	}
-	// delete(m_colortheme);
-	// delete(m_cwd);
-	// delete(m_host);
-	// delete(m_sgmgr);
-	// m_colortheme = NULL;
-	// m_cwd = NULL;
-	// m_host = NULL;
-	// m_sgmgr = NULL;
+	if (m_colortheme != NULL)
+	{
+		delete(m_colortheme);
+		m_colortheme = NULL;
+	}
+	if (m_cwd != NULL)
+	{
+		delete(m_cwd);
+		m_cwd = NULL;
+	}
+	if (m_host != NULL)
+	{
+		delete(m_host);
+		m_host = NULL;
+	}
+	if (m_sgmgr != NULL)
+	{
+		delete(m_sgmgr);
+		m_sgmgr = NULL;
+	}
 	return 0;
 }
 

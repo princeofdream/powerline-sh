@@ -29,18 +29,20 @@ host_segment::~host_segment()
 	JCG("%s",__FUNCTION__);
 }
 
-#if 0
 int
-host_segment::segment_set_value(char* value, true_color fg, true_color bg)
+host_segment::segment_get_foreground(segment_color** value)
 {
-	JCG();
 	return 0;
 }
-#endif
-
 
 int
-host_segment::get_segment_value(char* name, char** value)
+host_segment::segment_get_background(segment_color** value)
+{
+	return 0;
+}
+
+int
+host_segment::segment_get_value(char* name, char** value)
 {
 	char host_name[MAXLEN];
 

@@ -29,17 +29,20 @@ common_segment_manager::~common_segment_manager ()
 	JCG("%s",__FUNCTION__);
 }
 
-#if 0
 int
-common_segment_manager::segment_set_value(char* value, true_color fg, true_color bg)
+common_segment_manager::segment_get_foreground(segment_color** value)
 {
-	JCG("%s",__FUNCTION__);
 	return 0;
 }
-#endif
 
 int
-common_segment_manager::get_segment_value(char* name, char** value)
+common_segment_manager::segment_get_background(segment_color** value)
+{
+	return 0;
+}
+
+int
+common_segment_manager::segment_get_value(char* name, char** value)
 {
 	char common_value[MAXLEN];
 	char* get_value;

@@ -32,8 +32,10 @@ public:
 	virtual ~common_segment_manager ();
 
 public:
-	// int segment_set_value(char* value, true_color fg, true_color bg);
-	int get_segment_value(char* name, char** value);
+	// int segment_set_value(char* value, segment_color fg, segment_color bg);
+	int segment_get_foreground(segment_color** value);
+	int segment_get_background(segment_color** value);
+	int segment_get_value(char* name, char** value);
 private:
 	/* data */
 };

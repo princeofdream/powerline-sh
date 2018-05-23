@@ -16,7 +16,7 @@
  * =====================================================================================
  */
 #include <colortheme.h>
-
+#include <common_share.h>
 
 colortheme::colortheme(void)
 {
@@ -231,9 +231,17 @@ colortheme::show_color_map()
 }
 
 int
-colortheme::get_color_theme()
+colortheme::get_color_theme(char* extern_path)
 {
-	return 0;
+	int fd0;
+
+	common_share m_share;
+
+	m_share.get_config_file(&fd0, NULL, extern_path);
+
+	JCG("get fd: %d",fd0);
+	if (fd0 > 0)
+		close(fd0);
 }
 
 int

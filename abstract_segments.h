@@ -41,9 +41,12 @@ public:
 	int get_segment_pvalue_list(char** value_list);
 	int get_segment_by_name(char* name, segment_unit** unit);
 	int get_segment_by_order(unsigned int index, segment_unit** unit);
-	int segment_set_foreground(true_color value);
-	int segment_set_background(true_color value);
-	virtual int get_segment_value(char* name, char** value) = 0;
+
+	int on_segment_change(int action);
+
+	virtual int segment_get_foreground(segment_color** value) = 0;
+	virtual int segment_get_background(segment_color** value) = 0;
+	virtual int segment_get_value(char* name, char** value) = 0;
 
 private:
 	/* data */

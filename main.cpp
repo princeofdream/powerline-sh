@@ -35,6 +35,7 @@ int main(int argc, char *argv[])
 
 	m_colortheme = new colortheme();
 	// m_colortheme->show_256color_map();
+	m_colortheme->get_color_theme(NULL);
 
 
 

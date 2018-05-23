@@ -182,19 +182,19 @@ segments::get_segment_by_order(unsigned int index)
 }
 
 int
-segments::segment_set_foreground(true_color fg_color)
+segments::segment_get_foreground(segment_color** fg_color)
 {
 	return 0;
 }
 
 int
-segments::segment_set_background(true_color bg_color)
+segments::segment_get_background(segment_color** bg_color)
 {
 	return 0;
 }
 
 int
-segments::segment_set_color(true_color fg_color,true_color bg_color)
+segments::segment_set_color(segment_color** fg_color,segment_color** bg_color)
 {
 	return 0;
 }

@@ -23,9 +23,9 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
-
 #include <string.h>
 
+#include <theme_basic.h>
 
 
 #define JCG(frm,args...) printf("---<%s:%d>---" frm "\n",__FILE__,__LINE__,##args)
@@ -41,6 +41,10 @@
 #endif
 #define MAXLEN 1024
 #define SEPERATE_SYMBOL ""
+
+#define SEGMENT_ACTION_COUNT 8
+
+#define DEFAULT_THEME_CONFIG_FILE_NAME ".powershell_sh_rc"
 
 /*! \enum displaytype
  *
@@ -87,6 +91,18 @@ enum colortype {
 	COLOR_TYPE_TRUE_COLOR = 0,
 	COLOR_TYPE_256_COLOR,
 	COLOR_TYPE_16_COLOR,
+};
+
+/*! \enum segmentaction
+ *
+ *  Detailed description
+ */
+enum segmentaction {
+	SEGMENT_ACTION_NORMAL = 0,
+	SEGMENT_ACTION_ACTIVE,
+	SEGMENT_ACTION_DEACTIVE,
+	SEGMENT_ACTION_WARNING,
+	SEGMENT_ACTION_ERROR,
 };
 
 typedef	struct true_color_t {

@@ -36,7 +36,7 @@ public:
 	int show_256color_map();
 	// int show_16color_map();
 	int show_color_map();
-	int get_color_theme();
+	int get_color_theme(char* extern_path);
 	int get_color();
 
 private:

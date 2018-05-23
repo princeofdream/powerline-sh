@@ -23,14 +23,19 @@
 #include <colortheme.h>
 
 
+typedef	struct segment_color_t {
+	/* data */
+	true_color fg_color[SEGMENT_ACTION_COUNT];
+	true_color bg_color[SEGMENT_ACTION_COUNT];
+} segment_color;
+
 typedef	struct segments_unit_t {
 	/* data */
 	unsigned short index;
 	char* name;
 	char* value;
 	char* pvalue;
-	true_color fg_color;
-	true_color bg_color;
+	segment_color color;
 	// struct segment_unit_t *next_unit;
 } segment_unit;
 
@@ -49,9 +54,10 @@ public:
 	int get_segment_pvalue_list(char** value_list);
 	int get_segment_by_name(char* name, segment_unit** unit);
 	int get_segment_by_order(unsigned int index);
-	int segment_set_foreground(true_color fg_color);
-	int segment_set_background(true_color bg_color);
-	int segment_set_color(true_color fg_color,true_color bg_color);
+
+	int segment_get_foreground(segment_color** fg_color);
+	int segment_get_background(segment_color** bg_color);
+	int segment_set_color(segment_color** fg_color,segment_color** bg_color);
 
 private:
 	segment_unit **m_unit = NULL;

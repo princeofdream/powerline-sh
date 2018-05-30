@@ -25,8 +25,6 @@
 #include <unistd.h>
 #include <string.h>
 
-#include <theme_basic.h>
-
 
 #define JCG(frm,args...) printf("---<%s:%d>---" frm "\n",__FILE__,__LINE__,##args)
 #define JEG(frm,args...) printf("---<%s:%d>---" frm "\n",__FILE__,__LINE__,##args)
@@ -36,6 +34,7 @@
 #define COLOR_STRING_LEN 64
 #define SEGMENT_NAME_MAX_LEN 64
 #define MAX_SEGMENTS 256
+#define MAX_THEME_SIZE (MAX_SEGMENTS * 8)
 #ifdef MAXLEN
 #undef MAXLEN
 #endif
@@ -45,6 +44,7 @@
 #define SEGMENT_ACTION_COUNT 8
 
 #define DEFAULT_THEME_CONFIG_FILE_NAME ".powershell_sh_rc"
+#define DEFAULT_THEME_CONFIG_THEME_NAME ".powershell_sh_theme"
 
 /*! \enum displaytype
  *

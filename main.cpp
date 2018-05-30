@@ -27,6 +27,7 @@ int main(int argc, char *argv[])
 	true_color bg;
 	segment_unit *cwd_unit;
 	char* segment_list = NULL;
+	unsigned int color_value;
 
 	memset(string_content,0x0,sizeof(string_content));
 	style = 38;
@@ -72,6 +73,9 @@ int main(int argc, char *argv[])
 
 	m_sgmgr->get_segment_pvalue_list(&segment_list);
 	JCG("segments list: %s",segment_list);
+
+	m_colortheme->get_color_by_name("TIME_BG", (unsigned short*)&color_value);
+	JCG("get theme value: %d", color_value);
 
 	if (segment_list!=NULL)
 	{

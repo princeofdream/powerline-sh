@@ -21,6 +21,11 @@
 
 #include <basic.h>
 
+typedef struct theme_color_map_t {
+	/* data */
+	char name[SEGMENT_NAME_MAX_LEN];
+	unsigned short color;
+} theme_color_map;
 
 class colortheme
 {
@@ -37,7 +42,8 @@ public:
 	// int show_16color_map();
 	int show_color_map();
 	int get_color_theme(char* extern_path);
-	int get_color();
+	int get_color_theme_from_file(char* extern_path);
+	int get_color_by_name(char* name, unsigned short* value);
 
 private:
 	/* data */

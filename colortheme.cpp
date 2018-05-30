@@ -18,8 +18,67 @@
 #include <colortheme.h>
 #include <common_share.h>
 
+theme_color_map combile_color_map[MAX_THEME_SIZE];
+theme_color_map default_theme[] =
+{
+	{ "USERNAME_FG"          , 250 } ,
+	{ "USERNAME_BG"          , 240 } ,
+	{ "USERNAME_ROOT_BG"     , 124 } ,
+	{ "HOSTNAME_FG"          , 250 } ,
+	{ "HOSTNAME_BG"          , 238 } ,
+	{ "HOME_SPECIAL_DISPLAY" , 1   } ,
+	{ "HOME_BG"              , 31  } ,  // blueish
+	{ "HOME_FG"              , 15  } ,  // white
+	{ "PATH_BG"              , 237 } ,  // dark grey
+	{ "PATH_FG"              , 250 } ,  // light grey
+	{ "CWD_FG"               , 254 } ,  // nearly-white grey
+	{ "SEPARATOR_FG"         , 244 } ,
+	{ "READONLY_BG"          , 124 } ,
+	{ "READONLY_FG"          , 254 } ,
+	{ "SSH_BG"               , 166 } ,  // medium orange
+	{ "SSH_FG"               , 254 } ,
+	{ "REPO_CLEAN_BG"        , 148 } ,  // a light green color
+	{ "REPO_CLEAN_FG"        , 0   } ,  // black
+	{ "REPO_DIRTY_BG"        , 161 } ,  // pink/red
+	{ "REPO_DIRTY_FG"        , 15  } ,  // white
+	{ "JOBS_FG"              , 39  } ,
+	{ "JOBS_BG"              , 238 } ,
+	{ "CMD_PASSED_BG"        , 236 } ,
+	{ "CMD_PASSED_FG"        , 15  } ,
+	{ "CMD_FAILED_BG"        , 161 } ,
+	{ "CMD_FAILED_FG"        , 15  } ,
+	{ "SVN_CHANGES_BG"       , 148 } ,
+	{ "SVN_CHANGES_FG"       , 22  } ,  // dark green
+	{ "GIT_AHEAD_BG"         , 240 } ,
+	{ "GIT_AHEAD_FG"         , 250 } ,
+	{ "GIT_BEHIND_BG"        , 240 } ,
+	{ "GIT_BEHIND_FG"        , 250 } ,
+	{ "GIT_STAGED_BG"        , 22  } ,
+	{ "GIT_STAGED_FG"        , 15  } ,
+	{ "GIT_NOTSTAGED_BG"     , 130 } ,
+	{ "GIT_NOTSTAGED_FG"     , 15  } ,
+	{ "GIT_UNTRACKED_BG"     , 52  } ,
+	{ "GIT_UNTRACKED_FG"     , 15  } ,
+	{ "GIT_CONFLICTED_BG"    , 9   } ,
+	{ "GIT_CONFLICTED_FG"    , 15  } ,
+	{ "GIT_STASH_BG"         , 221 } ,
+	{ "GIT_STASH_FG"         , 0   } ,
+	{ "VIRTUAL_ENV_BG"       , 35  } ,  // a mid-tone green
+	{ "VIRTUAL_ENV_FG"       , 00  } ,
+	{ "BATTERY_NORMAL_BG"    , 22  } ,
+	{ "BATTERY_NORMAL_FG"    , 7   } ,
+	{ "BATTERY_LOW_BG"       , 196 } ,
+	{ "BATTERY_LOW_FG"       , 7   } ,
+	{ "AWS_PROFILE_FG"       , 39  } ,
+	{ "AWS_PROFILE_BG"       , 238 } ,
+	{ "TIME_FG"              , 250 } ,
+	{ "TIME_BG"              , 238 } ,
+};
+
 colortheme::colortheme(void)
 {
+	memset(combile_color_map,0x0,sizeof(combile_color_map));
+	memcpy(combile_color_map, default_theme,sizeof(default_theme));
 }
 
 colortheme::~colortheme(void)
@@ -230,23 +289,57 @@ colortheme::show_color_map()
 	show_256color_map();
 }
 
+
+
 int
 colortheme::get_color_theme(char* extern_path)
+{
+	int ret;
+
+	ret = get_color_theme_from_file(extern_path);
+	if (ret > 0)
+	{
+		memset(combile_color_map,0x0,sizeof(combile_color_map));
+		JCG("use theme in file!");
+	}
+	return 0;
+}
+
+int
+colortheme::get_color_theme_from_file(char* extern_path)
 {
 	int fd0;
 
 	common_share m_share;
 
 	m_share.get_config_file(&fd0, NULL, extern_path);
-
+	if (fd0 < 0)
+	{
+		JEG("get config file error! use default theme");
+		return fd0;
+	}
 	JCG("get fd: %d",fd0);
-	if (fd0 > 0)
-		close(fd0);
+
+
+	close(fd0);
+	return 0;
 }
 
 int
-colortheme::get_color()
+colortheme::get_color_by_name(char* name, unsigned short* value)
 {
-	return 0;
+	int i0;
+
+	i0 = 0;
+	while (i0 < MAX_THEME_SIZE )
+	{
+		if(strcasecmp(combile_color_map[i0].name, name) == 0)
+		{
+			*value = combile_color_map[i0].color;
+			return 0;
+		}
+		i0++;
+	}
+	return -1;
 }
 

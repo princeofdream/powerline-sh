@@ -93,7 +93,7 @@ colortheme::display_truecolor(int colortype, int colorstyle, true_color fg, true
 	char color_string[COLOR_STRING_LEN];
 
 	memset(color_string,0x0,sizeof(color_string));
-	if (colortype == DISP_FRONTGROUND)
+	if (colortype == DISP_FOREGROUND)
 	{
 		sprintf( color_string, "\e[38;%d;%d;%d;%dm%s\e[0m\e[0m",colorstyle, fg.red, fg.green, fg.blue, content);
 	}
@@ -124,7 +124,7 @@ colortheme::display_256color(int colortype, int colorstyle, true_color fg, true_
 	char color_string[COLOR_STRING_LEN];
 
 	memset(color_string,0x0,sizeof(color_string));
-	if (colortype == DISP_FRONTGROUND)
+	if (colortype == DISP_FOREGROUND)
 	{
 		sprintf( color_string, "\e[38;%d;%dm%s\e[0m\e[0m",colorstyle, fg.red, content);
 	}
@@ -137,6 +137,19 @@ colortheme::display_256color(int colortype, int colorstyle, true_color fg, true_
 		sprintf( color_string, "\e[38;%d;%dm\e[48;%d;%dm%s\e[0m\e[0m", \
 					colorstyle, fg.red, \
 					colorstyle, bg.red, content);
+		// sprintf( color_string, "%s",content);
+	}
+	else if (colortype == DISP_FOREGROUND_PART)
+	{
+		sprintf( color_string, "\e[38;%d;%dm", colorstyle, fg.red);
+	}
+	else if (colortype == DISP_BACKGROUND_PART)
+	{
+		sprintf( color_string, "\e[48;%d;%dm", colorstyle, fg.red);
+	}
+	else if (colortype == DISP_END)
+	{
+		sprintf( color_string, "\e[0m", colorstyle, fg.red);
 	}
 	else
 		return -1;
@@ -144,6 +157,7 @@ colortheme::display_256color(int colortype, int colorstyle, true_color fg, true_
 	*dest = (char*)malloc(strlen(color_string) + 1);
 	memset(*dest,0x0,strlen(color_string)+1);
 	memcpy(*dest, color_string, strlen(color_string)+1);
+	JCG();
 	return 0;
 }
 
@@ -169,7 +183,7 @@ colortheme::show_truecolor_map()
 		bg.red = i0;
 		fg.blue = 255 - i0;
 		display_truecolor(DISP_BACKGROUND, style, fg, bg, content, &color_string_value);
-		// display_truecolor(DISP_FRONTGROUND, style, fg, bg, content, &color_string_value);
+		// display_truecolor(DISP_FOREGROUND, style, fg, bg, content, &color_string_value);
 		// display_truecolor(DISP_BOTH, style, fg, bg, content, &color_string_value);
 		if (color_string_value != NULL) {
 			JDG("\e[0m\e[0m%s\e[0m\e[0m",color_string_value);
@@ -190,7 +204,7 @@ colortheme::show_truecolor_map()
 		bg.red = i0;
 		fg.blue = 255 - i0;
 		// display_truecolor(DISP_BACKGROUND, style, fg, bg, content, &color_string_value);
-		display_truecolor(DISP_FRONTGROUND, style, fg, bg, content, &color_string_value);
+		display_truecolor(DISP_FOREGROUND, style, fg, bg, content, &color_string_value);
 		// display_truecolor(DISP_BOTH, style, fg, bg, content, &color_string_value);
 		if (color_string_value != NULL) {
 			JDG("\e[0m\e[0m%s\e[0m\e[0m",color_string_value);
@@ -214,7 +228,7 @@ colortheme::show_truecolor_map()
 		fg.blue = 255 - i0;
 		fg.green = 255 - i0;
 		// display_truecolor(DISP_BACKGROUND, style, fg, bg, content, &color_string_value);
-		// display_truecolor(DISP_FRONTGROUND, style, fg, bg, content, &color_string_value);
+		// display_truecolor(DISP_FOREGROUND, style, fg, bg, content, &color_string_value);
 		display_truecolor(DISP_BOTH, style, fg, bg, content, &color_string_value);
 		if (color_string_value != NULL) {
 			JDG("\e[0m\e[0m%s\e[0m\e[0m",color_string_value);
@@ -255,7 +269,7 @@ colortheme::show_256color_map()
 		bg.red = i0;
 		fg.red = 0;
 		// display_256color(DISP_BACKGROUND, style, fg, bg, content, &color_string_value);
-		// display_256color(DISP_FRONTGROUND, style, fg, bg, content, &color_string_value);
+		// display_256color(DISP_FOREGROUND, style, fg, bg, content, &color_string_value);
 
 		if (i0 == 0 || i0 == 8 || (i0 >= 16 && i0<=21)|| (i0>=232 && i0< 232 + 6 + 6)) {
 			fg.red = 255;

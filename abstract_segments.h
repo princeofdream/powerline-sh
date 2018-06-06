@@ -39,7 +39,8 @@ public:
 	int get_segment_list(char** value_list);
 	int get_segment_value_list(char** value_list);
 	int get_segment_pvalue_list(char** value_list);
-	int get_segment_color_list(char** value_list);
+	int get_segment_color_list(char** value_list, segmentaction action);
+	int get_segment_output_list(char** value_list, segmentaction action);
 	int get_segment_by_name(char* name, segment_unit** unit);
 	int get_segment_by_order(unsigned int index, segment_unit** unit);
 

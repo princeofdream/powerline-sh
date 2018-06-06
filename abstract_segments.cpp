@@ -125,9 +125,16 @@ abstract_segments::get_segment_pvalue_list(char** value_list)
 }
 
 int
-abstract_segments::get_segment_color_list(char** value_list)
+abstract_segments::get_segment_color_list(char** value_list, segmentaction action)
 {
-	m_segments.get_segment_color_list(value_list);
+	m_segments.get_segment_color_list(value_list, action);
+	return 0;
+}
+
+int
+abstract_segments::get_segment_output_list(char** value_list, segmentaction action)
+{
+	m_segments.get_segment_output_list(value_list, action);
 	return 0;
 }
 

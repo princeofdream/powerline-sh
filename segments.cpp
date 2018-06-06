@@ -82,11 +82,12 @@ segments::register_segment(char* item)
 #endif
 #endif
 	segments_count++;
+	current_unit = m_unit[segments_count -1];
 	return 0;
 }
 
 int
-segments::get_segment_list_common(char** value_list, char* type)
+segments::get_segment_list_common(char** value_list, char* type, segmentaction action)
 {
 	int i0 = 0;
 	char item_value[MAXLEN];
@@ -121,6 +122,27 @@ segments::get_segment_list_common(char** value_list, char* type)
 		{
 			sprintf(item_value,"<%d:%d>",m_unit[i0]->color.fg_color[SEGMENT_ACTION_NORMAL].red, m_unit[i0]->color.bg_color[SEGMENT_ACTION_NORMAL].red);
 		}
+		else if (strcmp(type, "output") == 0 && m_unit[i0]->pvalue != NULL)
+		{
+			char* color_str = NULL;
+			colortheme m_theme;
+			int style = 5;
+			JCG("-----------------------%s",m_unit[i0]->value);
+			m_theme.display_256color(DISP_BOTH, style, \
+					m_unit[i0]->color.fg_color[SEGMENT_ACTION_NORMAL], \
+					m_unit[i0]->color.bg_color[SEGMENT_ACTION_NORMAL], \
+					m_unit[i0]->value, &color_str);
+				JCG();
+			if (color_str != NULL) {
+				JCG();
+				sprintf(item_value,"%s", color_str);
+				JCG();
+				// free(color_str);
+			// } else {
+				// JCG();
+			}
+			JCG();
+		}
 		else
 		{
 			i0++;
@@ -141,27 +163,34 @@ segments::get_segment_list_common(char** value_list, char* type)
 int
 segments::get_segment_list(char** value_list)
 {
-	get_segment_list_common(value_list,"name");
+	get_segment_list_common(value_list,"name", SEGMENT_ACTION_NORMAL);
 	return 0;
 }
 
 int
 segments::get_segment_value_list(char** value_list)
 {
-	get_segment_list_common(value_list,"value");
+	get_segment_list_common(value_list,"value", SEGMENT_ACTION_NORMAL);
 	return 0;
 }
 
 int
 segments::get_segment_pvalue_list(char** value_list)
 {
-	get_segment_list_common(value_list,"pvalue");
+	get_segment_list_common(value_list,"pvalue", SEGMENT_ACTION_NORMAL);
 }
 
 int
-segments::get_segment_color_list(char** value_list)
+segments::get_segment_color_list(char** value_list, segmentaction SEGMENT_ACTION_NORMAL)
 {
-	get_segment_list_common(value_list,"color");
+	get_segment_list_common(value_list,"color", SEGMENT_ACTION_NORMAL);
+	return 0;
+}
+
+int
+segments::get_segment_output_list(char** value_list, segmentaction action)
+{
+	get_segment_list_common(value_list,"output", action);
 	return 0;
 }
 
@@ -182,6 +211,7 @@ segments::get_segment_by_name(char* name, segment_unit** unit)
 		else if (strcmp(m_unit[i0]->name, name) == 0)
 		{
 			*unit = m_unit[i0];
+			current_unit = m_unit[i0];
 			break;
 		}
 		i0++;
@@ -211,7 +241,7 @@ int
 segments::segment_set_color(segment_color* s_color)
 {
 	if (s_color != NULL)
-		m_unit[segments_count]->color = *s_color;
+		current_unit->color = *s_color;
 	return 0;
 }
 

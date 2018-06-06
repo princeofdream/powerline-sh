@@ -48,11 +48,12 @@ public:
 public:
 	// int delete_segment_from_list(char* item);
 	int register_segment(char* item);
-	int get_segment_list_common(char** value_list, char* type);
+	int get_segment_list_common(char** value_list, char* type, segmentaction action);
 	int get_segment_list(char** value_list);
 	int get_segment_value_list(char** value_list);
 	int get_segment_pvalue_list(char** value_list);
-	int get_segment_color_list(char** value_list);
+	int get_segment_color_list(char** value_list, segmentaction action);
+	int get_segment_output_list(char** value_list, segmentaction action);
 	int get_segment_by_name(char* name, segment_unit** unit);
 	int get_segment_by_order(unsigned int index);
 
@@ -62,6 +63,7 @@ public:
 
 private:
 	segment_unit **m_unit = NULL;
+	segment_unit *current_unit = NULL;
 	char** segments_list = NULL;
 	unsigned int segments_count = 0;
 };

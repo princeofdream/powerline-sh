@@ -41,7 +41,7 @@
 #endif
 
 
-#define COLOR_STRING_LEN 64
+#define COLOR_STRING_LEN 1024
 #define SEGMENT_NAME_MAX_LEN 64
 #define MAX_SEGMENTS 256
 #define MAX_THEME_SIZE (MAX_SEGMENTS * 8)
@@ -61,9 +61,12 @@
  *  Detailed description
  */
 enum displaytype {
-	DISP_FRONTGROUND = 0,
+	DISP_FOREGROUND = 0,
 	DISP_BACKGROUND,
 	DISP_BOTH,
+	DISP_FOREGROUND_PART,
+	DISP_BACKGROUND_PART,
+	DISP_END,
 };
 
 /*! \enum colorformat

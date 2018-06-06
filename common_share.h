@@ -16,6 +16,8 @@
  * =====================================================================================
  */
 
+#include <segments.h>
+
 class common_share
 {
 public:
@@ -23,6 +25,7 @@ public:
 	virtual ~common_share ();
 
 	int get_config_file(int* fd, char* name, char* extern_path);
+	int init_segment_color(segment_color* s_color);
 
 private:
 	/* data */

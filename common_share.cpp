@@ -91,4 +91,42 @@ common_share::get_config_file(int* fd, char* name, char* extern_path)
 	return 0;
 }
 
+int
+common_share::init_segment_color(segment_color* s_color)
+{
+	(s_color)->fg_color[SEGMENT_ACTION_NORMAL].red     = 244;
+	(s_color)->fg_color[SEGMENT_ACTION_NORMAL].blue    = 0;
+	(s_color)->fg_color[SEGMENT_ACTION_NORMAL].green   = 0;
+	(s_color)->fg_color[SEGMENT_ACTION_ACTIVE].red     = 245;
+	(s_color)->fg_color[SEGMENT_ACTION_ACTIVE].blue    = 0;
+	(s_color)->fg_color[SEGMENT_ACTION_ACTIVE].green   = 0;
+	(s_color)->fg_color[SEGMENT_ACTION_DEACTIVE].red   = 246;
+	(s_color)->fg_color[SEGMENT_ACTION_DEACTIVE].blue  = 0;
+	(s_color)->fg_color[SEGMENT_ACTION_DEACTIVE].green = 0;
+	(s_color)->fg_color[SEGMENT_ACTION_WARNING].red    = 247;
+	(s_color)->fg_color[SEGMENT_ACTION_WARNING].blue   = 0;
+	(s_color)->fg_color[SEGMENT_ACTION_WARNING].green  = 0;
+	(s_color)->fg_color[SEGMENT_ACTION_ERROR].red      = 248;
+	(s_color)->fg_color[SEGMENT_ACTION_ERROR].blue     = 0;
+	(s_color)->fg_color[SEGMENT_ACTION_ERROR].green    = 0;
+
+	(s_color)->bg_color[SEGMENT_ACTION_NORMAL].red     = 244;
+	(s_color)->bg_color[SEGMENT_ACTION_NORMAL].blue    = 0;
+	(s_color)->bg_color[SEGMENT_ACTION_NORMAL].green   = 0;
+	(s_color)->bg_color[SEGMENT_ACTION_ACTIVE].red     = 245;
+	(s_color)->bg_color[SEGMENT_ACTION_ACTIVE].blue    = 0;
+	(s_color)->bg_color[SEGMENT_ACTION_ACTIVE].green   = 0;
+	(s_color)->bg_color[SEGMENT_ACTION_DEACTIVE].red   = 246;
+	(s_color)->bg_color[SEGMENT_ACTION_DEACTIVE].blue  = 0;
+	(s_color)->bg_color[SEGMENT_ACTION_DEACTIVE].green = 0;
+	(s_color)->bg_color[SEGMENT_ACTION_WARNING].red    = 247;
+	(s_color)->bg_color[SEGMENT_ACTION_WARNING].blue   = 0;
+	(s_color)->bg_color[SEGMENT_ACTION_WARNING].green  = 0;
+	(s_color)->bg_color[SEGMENT_ACTION_ERROR].red      = 248;
+	(s_color)->bg_color[SEGMENT_ACTION_ERROR].blue     = 0;
+	(s_color)->bg_color[SEGMENT_ACTION_ERROR].green    = 0;
+
+
+	return 0;
+}
 

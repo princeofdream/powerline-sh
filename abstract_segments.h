@@ -35,18 +35,20 @@ public:
 	// virtual int test_vt() = 0;
 	int segment_set_value_with_color(char* value, true_color fg, true_color bg);
 	int segment_set_value(char* value);
-	int register_segment(char* name);
+	int register_segment(char* name, segment_color *s_color);
 	int get_segment_list(char** value_list);
 	int get_segment_value_list(char** value_list);
 	int get_segment_pvalue_list(char** value_list);
+	int get_segment_color_list(char** value_list);
 	int get_segment_by_name(char* name, segment_unit** unit);
 	int get_segment_by_order(unsigned int index, segment_unit** unit);
 
 	int on_segment_change(int action);
 
-	virtual int segment_get_foreground(segment_color** value) = 0;
-	virtual int segment_get_background(segment_color** value) = 0;
+	virtual int segment_get_foreground(char* name, segment_color** value) = 0;
+	virtual int segment_get_background(char* name, segment_color** value) = 0;
 	virtual int segment_get_value(char* name, char** value) = 0;
+	virtual int segment_get_color(char* fg_color_name, char* bg_color_name, segment_color* value) = 0;
 
 private:
 	/* data */

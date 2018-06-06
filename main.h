@@ -28,6 +28,7 @@
 #include <cwd_segment.h>
 #include <host_segment.h>
 #include <common_segment_manager.h>
+#include <common_share.h>
 
 class colortheme *m_colortheme;
 class cwd_segment *m_cwd;

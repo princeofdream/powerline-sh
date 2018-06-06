@@ -30,13 +30,13 @@ host_segment::~host_segment()
 }
 
 int
-host_segment::segment_get_foreground(segment_color** value)
+host_segment::segment_get_foreground(char* name, segment_color** value)
 {
 	return 0;
 }
 
 int
-host_segment::segment_get_background(segment_color** value)
+host_segment::segment_get_background(char* name, segment_color** value)
 {
 	return 0;
 }
@@ -61,4 +61,11 @@ host_segment::segment_get_value(char* name, char** value)
 
 	return 0;
 }
+
+int
+host_segment::segment_get_color(char* fg_color_name, char* bg_color_name, segment_color* value)
+{
+	return 0;
+}
+
 

@@ -104,6 +104,7 @@ segments::get_segment_list_common(char** value_list, char* type)
 	while( i0 < segments_count )
 	{
 		memset(item_value, 0x0, sizeof(item_value));
+		JCG("type:%s. m_unit[%d] name: %s, value: %s",type, i0,m_unit[i0]->name,m_unit[i0]->value);
 		if (strcmp(type, "name") == 0 && m_unit[i0]->name != NULL)
 		{
 			sprintf(item_value,"%s",m_unit[i0]->name);
@@ -116,6 +117,10 @@ segments::get_segment_list_common(char** value_list, char* type)
 		{
 			sprintf(item_value,"%s",m_unit[i0]->pvalue);
 		}
+		else if (strcmp(type, "color") == 0 && m_unit[i0]->pvalue != NULL)
+		{
+			sprintf(item_value,"<%d:%d>",m_unit[i0]->color.fg_color[SEGMENT_ACTION_NORMAL].red, m_unit[i0]->color.bg_color[SEGMENT_ACTION_NORMAL].red);
+		}
 		else
 		{
 			i0++;
@@ -124,6 +129,8 @@ segments::get_segment_list_common(char** value_list, char* type)
 
 		if (strlen(*value_list) <= 0)
 			sprintf(*value_list,"%s",item_value);
+		// else if (strlen(item_value) > 0)
+			// sprintf(*value_list,"%s%s",*value_list,item_value);
 		else if (strlen(item_value) > 0)
 			sprintf(*value_list,"%s%s%s",*value_list,SEPERATE_SYMBOL,item_value);
 		i0++;
@@ -152,6 +159,13 @@ segments::get_segment_pvalue_list(char** value_list)
 }
 
 int
+segments::get_segment_color_list(char** value_list)
+{
+	get_segment_list_common(value_list,"color");
+	return 0;
+}
+
+int
 segments::get_segment_by_name(char* name, segment_unit** unit)
 {
 	int i0 = 0;
@@ -160,7 +174,7 @@ segments::get_segment_by_name(char* name, segment_unit** unit)
 		// JCG("segments[%d] name:%s",i0,m_unit[i0]->name);
 		/* *unit = (segment_unit*)malloc(sizeof(segment_unit)); */
 		// memcpy(*unit,m_unit[i0],sizeof(segment_unit));
-		JCG("segment [%s] address: 0x%x, name address: 0x%x, value: 0x%x",m_unit[i0]->name, m_unit[i0], m_unit[i0]->name, m_unit[i0]->value);
+		// JCG("segment [%s] address: 0x%x, name address: 0x%x, value: 0x%x",m_unit[i0]->name, m_unit[i0], m_unit[i0]->name, m_unit[i0]->value);
 		if(name == NULL)
 		{
 			JCG("segments[%d] name:%s",i0,m_unit[i0]->name);
@@ -182,20 +196,22 @@ segments::get_segment_by_order(unsigned int index)
 }
 
 int
-segments::segment_get_foreground(segment_color** fg_color)
+segments::segment_get_foreground(char* name, segment_color** fg_color)
 {
 	return 0;
 }
 
 int
-segments::segment_get_background(segment_color** bg_color)
+segments::segment_get_background(char* name, segment_color** bg_color)
 {
 	return 0;
 }
 
 int
-segments::segment_set_color(segment_color** fg_color,segment_color** bg_color)
+segments::segment_set_color(segment_color* s_color)
 {
+	if (s_color != NULL)
+		m_unit[segments_count]->color = *s_color;
 	return 0;
 }
 

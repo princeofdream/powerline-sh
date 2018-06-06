@@ -25,10 +25,20 @@
 #include <unistd.h>
 #include <string.h>
 
+#ifdef DEBUG
+#undef DEBUG
+#endif
+#define DEBUG
 
+#ifdef DEBUG
 #define JCG(frm,args...) printf("---<%s:%d>---" frm "\n",__FILE__,__LINE__,##args)
 #define JEG(frm,args...) printf("---<%s:%d>---" frm "\n",__FILE__,__LINE__,##args)
 #define JDG(frm,args...) printf(frm,##args)
+#else
+#define JCG(frm,args...) while(0){;}
+#define JEG(frm,args...) while(0){;}
+#define JDG(frm,args...) while(0){;}
+#endif
 
 
 #define COLOR_STRING_LEN 64

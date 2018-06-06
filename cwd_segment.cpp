@@ -30,23 +30,23 @@ cwd_segment::~cwd_segment ()
 }
 
 int
-cwd_segment::segment_get_foreground(segment_color** value)
+cwd_segment::segment_get_foreground(char* name, segment_color** value)
 {
 	// segment_color m_color[sizeof(segmentaction)];
-	*value = (segment_color*)malloc(sizeof(segment_color));
+	// *value = (segment_color*)malloc(sizeof(segment_color));
 
-	(*value)->fg_color[SEGMENT_ACTION_NORMAL].red   = 244;
-	(*value)->fg_color[SEGMENT_ACTION_ACTIVE].red   = 245;
-	(*value)->fg_color[SEGMENT_ACTION_DEACTIVE].red = 246;
-	(*value)->fg_color[SEGMENT_ACTION_WARNING].red  = 247;
-	(*value)->fg_color[SEGMENT_ACTION_ERROR].red    = 248;
+	// (*value)->fg_color[SEGMENT_ACTION_NORMAL].red   = 244;
+	// (*value)->fg_color[SEGMENT_ACTION_ACTIVE].red   = 245;
+	// (*value)->fg_color[SEGMENT_ACTION_DEACTIVE].red = 246;
+	// (*value)->fg_color[SEGMENT_ACTION_WARNING].red  = 247;
+	// (*value)->fg_color[SEGMENT_ACTION_ERROR].red    = 248;
 
 	JCG("sizeof segment true color: %d, action: %d",sizeof(segment_color), sizeof(segmentaction));
 	return 0;
 }
 
 int
-cwd_segment::segment_get_background(segment_color** value)
+cwd_segment::segment_get_background(char* name, segment_color** value)
 {
 	return 0;
 }
@@ -70,6 +70,27 @@ cwd_segment::segment_get_value(char* name,char** value)
 #endif
 	}
 
+	return 0;
+}
+
+int
+cwd_segment::segment_get_color(char* fg_color_name, char* bg_color_name, segment_color* value)
+{
+	value = (segment_color*)malloc(sizeof(segment_color));
+
+	(value)->fg_color[SEGMENT_ACTION_NORMAL].red   = 244;
+	(value)->fg_color[SEGMENT_ACTION_ACTIVE].red   = 245;
+	(value)->fg_color[SEGMENT_ACTION_DEACTIVE].red = 246;
+	(value)->fg_color[SEGMENT_ACTION_WARNING].red  = 247;
+	(value)->fg_color[SEGMENT_ACTION_ERROR].red    = 248;
+
+	(value)->bg_color[SEGMENT_ACTION_NORMAL].red   = 244;
+	(value)->bg_color[SEGMENT_ACTION_ACTIVE].red   = 245;
+	(value)->bg_color[SEGMENT_ACTION_DEACTIVE].red = 246;
+	(value)->bg_color[SEGMENT_ACTION_WARNING].red  = 247;
+	(value)->bg_color[SEGMENT_ACTION_ERROR].red    = 248;
+
+	JCG("sizeof segment true color: %d, action: %d",sizeof(segment_color), sizeof(segmentaction));
 	return 0;
 }
 

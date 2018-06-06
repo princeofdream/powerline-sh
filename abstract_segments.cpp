@@ -65,10 +65,11 @@ abstract_segments::segment_set_value(char* value)
 }
 
 int
-abstract_segments::register_segment(char* name)
+abstract_segments::register_segment(char* name, segment_color* s_color)
 {
 	char* value = NULL;
-	segment_color* m_color = NULL;
+	segment_color* m_color_fg = NULL;
+	segment_color* m_color_bg = NULL;
 
 	memset(segment_value,0x0,sizeof(segment_value));
 	memset(segment_name,0x0,sizeof(segment_name));
@@ -84,14 +85,21 @@ abstract_segments::register_segment(char* name)
 		free(value);
 		value = NULL;
 	}
-	segment_get_foreground(&m_color);
-	if (m_color != NULL)
+	segment_get_foreground(NULL, &m_color_fg);
+	if (m_color_fg != NULL)
 	{
 		// JCG("color: %d",m_color->red);
-		// JCG("m_color:%s",m_color);
-		free(m_color);
-		m_color = NULL;
+		free(m_color_fg);
+		m_color_fg = NULL;
 	}
+	segment_get_background(NULL, &m_color_bg);
+	if (m_color_bg != NULL)
+	{
+		// JCG("color: %d",m_color->red);
+		free(m_color_bg);
+		m_color_bg = NULL;
+	}
+	m_segments.segment_set_color(s_color);
 	return 0;
 }
 
@@ -113,6 +121,13 @@ int
 abstract_segments::get_segment_pvalue_list(char** value_list)
 {
 	m_segments.get_segment_pvalue_list(value_list);
+	return 0;
+}
+
+int
+abstract_segments::get_segment_color_list(char** value_list)
+{
+	m_segments.get_segment_color_list(value_list);
 	return 0;
 }
 
@@ -139,6 +154,12 @@ abstract_segments::segment_get_foreground(true_color value)
 
 int
 abstract_segments::segment_get_background(true_color value)
+{
+	return 0;
+}
+
+int
+abstract_segments::segment_get_color(char* fg_color_name, char* bg_color_name, segment_color* value)
 {
 	return 0;
 }

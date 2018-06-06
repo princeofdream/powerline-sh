@@ -18,6 +18,8 @@
 
 #include <main.h>
 
+common_share m_share;
+
 int main(int argc, char *argv[])
 {
 	int i0 = 0, i1 = 0;
@@ -28,6 +30,10 @@ int main(int argc, char *argv[])
 	segment_unit *cwd_unit;
 	char* segment_list = NULL;
 	unsigned int color_value;
+	unsigned int color_fg;
+	unsigned int color_bg;
+	segment_color s_color;
+	int pre_process_stat = 0;
 
 	memset(string_content,0x0,sizeof(string_content));
 	style = 38;
@@ -38,11 +44,23 @@ int main(int argc, char *argv[])
 	// m_colortheme->show_256color_map();
 	m_colortheme->get_color_theme(NULL);
 
-
+	if (argc >= 2) {
+		pre_process_stat = atoi(argv[1]);
+	}
 
 	m_sgmgr = new common_segment_manager();
-	m_sgmgr->register_segment("user");
-	m_sgmgr->register_segment("ssh");
+	m_colortheme->get_color_by_name("USERNAME_FG",(unsigned short*)&color_fg);
+	m_colortheme->get_color_by_name("USERNAME_BG",(unsigned short*)&color_bg);
+
+	m_share.init_segment_color(&s_color);
+	s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
+	s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
+
+	JCG("%d:%d", s_color.fg_color[SEGMENT_ACTION_NORMAL].blue, s_color.bg_color[SEGMENT_ACTION_NORMAL].red);
+	m_sgmgr->register_segment("user", NULL);
+	// m_sgmgr->register_segment("user", &s_color);
+	// m_sgmgr->segment_get_color(NULL,&s_color);
+	m_sgmgr->register_segment("ssh", NULL);
 
 	/* ************************************** */
 	// m_host = new host_segment();
@@ -50,11 +68,12 @@ int main(int argc, char *argv[])
 
 	/* ************************************** */
 	m_cwd = new cwd_segment();
-	m_cwd->register_segment("cwd");
+	m_cwd->register_segment("cwd", NULL);
 
 	/* ************************************** */
-	m_sgmgr->register_segment("git");
-	m_sgmgr->register_segment("prompt");
+	m_sgmgr->register_segment("prompt", NULL);
+	m_sgmgr->register_segment("git", NULL);
+	m_sgmgr->register_segment("newline", NULL);
 
 	// m_sgmgr->get_segment_list(&segment_list);
 	// JCG("segments list: %s",segment_list);
@@ -64,6 +83,14 @@ int main(int argc, char *argv[])
 		segment_list = NULL;
 	}
 	m_sgmgr->get_segment_value_list(&segment_list);
+	JCG("segments list: %s",segment_list);
+	printf("%s\n",segment_list);
+	if (segment_list!=NULL)
+	{
+		free(segment_list);
+		segment_list = NULL;
+	}
+	m_sgmgr->get_segment_color_list(&segment_list);
 	JCG("segments list: %s",segment_list);
 	if (segment_list!=NULL)
 	{

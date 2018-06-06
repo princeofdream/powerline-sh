@@ -30,13 +30,13 @@ common_segment_manager::~common_segment_manager ()
 }
 
 int
-common_segment_manager::segment_get_foreground(segment_color** value)
+common_segment_manager::segment_get_foreground(char* name, segment_color** value)
 {
 	return 0;
 }
 
 int
-common_segment_manager::segment_get_background(segment_color** value)
+common_segment_manager::segment_get_background(char* name, segment_color** value)
 {
 	return 0;
 }
@@ -71,6 +71,22 @@ common_segment_manager::segment_get_value(char* name, char** value)
 			sprintf(common_value, "%s", get_value);
 		}
 	}
+	else if (strcmp(name,"prompt") == 0)
+	{
+		get_value = getenv("USER");
+		if (strcmp(get_value,"root") == 0)
+			sprintf(common_value, "%s", "#");
+		else
+			sprintf(common_value, "%s", "$");
+	}
+	else if (strcmp(name,"seperate") == 0)
+	{
+		sprintf(common_value, "%s", SEPERATE_SYMBOL);
+	}
+	else if (strcmp(name,"newline") == 0)
+	{
+		sprintf(common_value, "%s", "\n");
+	}
 
 	if (common_value!= NULL && strlen(common_value) > 0)
 	{
@@ -86,6 +102,12 @@ common_segment_manager::segment_get_value(char* name, char** value)
 	return 0;
 
 
+}
+
+int
+common_segment_manager::segment_get_color(char* fg_color_name, char* bg_color_name, segment_color* value)
+{
+	return 0;
 }
 
 

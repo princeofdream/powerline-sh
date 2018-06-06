@@ -28,7 +28,7 @@ OBJS+=common_segment_manager.o
 OBJS+=common_share.o
 
 
-INCS=abstract_segments.h
+INCS=abstract_segments.h basic.h
 
 OUTPUT=powerline-sh
 
@@ -37,10 +37,10 @@ CFLAGS += -I./
 LDFLAGS=-L/home/james/Environment/env_rootfs/lib64 -Wl,-rpath=/home/james/Environment/env_rootfs/lib64
 LDFLAGS+=-L/home/james/Environment/env_rootfs/lib -Wl,-rpath=/home/james/Environment/env_rootfs/lib
 
-all: $(OBJS) $(INS)
-	$(CXX) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $(OUTPUT)
+all: $(OBJS) $(INCS)
+	$(CXX) $(CFLAGS) $(OBJS) $(INCS) $(LDFLAGS) -o $(OUTPUT)
 
-%.o: %.cpp %.h
+%.o: %.cpp %.h $(INCS)
 	$(CXX) $(CFLAGS) -c $< -o $@
 
 

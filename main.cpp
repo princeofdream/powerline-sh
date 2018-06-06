@@ -83,8 +83,8 @@ int main(int argc, char *argv[])
 	s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
 	m_sgmgr->register_segment("git", &s_color);
 
-	m_colortheme->get_color_by_name("PATH_FG",(unsigned short*)&color_fg);
-	m_colortheme->get_color_by_name("PATH_BG",(unsigned short*)&color_bg);
+	m_colortheme->get_color_by_name("PROMPT_FG",(unsigned short*)&color_fg);
+	m_colortheme->get_color_by_name("PROMPT_BG",(unsigned short*)&color_bg);
 	s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
 	s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
 	m_sgmgr->register_segment("prompt", &s_color);
@@ -104,7 +104,6 @@ int main(int argc, char *argv[])
 	}
 	m_sgmgr->get_segment_value_list(&segment_list);
 	JCG("segments list: %s",segment_list);
-	printf("%s\n",segment_list);
 	if (segment_list!=NULL)
 	{
 		free(segment_list);
@@ -120,6 +119,7 @@ int main(int argc, char *argv[])
 
 	m_sgmgr->get_segment_output_list(&segment_list, SEGMENT_ACTION_NORMAL);
 	JCG("segments list: %s",segment_list);
+	printf("%s\n",segment_list);
 	if (segment_list!=NULL)
 	{
 		free(segment_list);

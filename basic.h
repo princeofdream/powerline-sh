@@ -28,7 +28,7 @@
 #ifdef DEBUG
 #undef DEBUG
 #endif
-#define DEBUG
+// #define DEBUG
 
 #ifdef DEBUG
 #define JCG(frm,args...) printf("---<%s:%d>---" frm "\n",__FILE__,__LINE__,##args)

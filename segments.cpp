@@ -131,6 +131,12 @@ segments::get_segment_list_common(char** value_list, char* type, segmentaction a
 			char* color_end = NULL;
 			colortheme m_theme;
 			int style = 5;
+
+			if (strlen(m_unit[i0]->value) == 0) {
+				i0++;
+				continue;
+			}
+
 			m_theme.display_256color(DISP_BOTH, style, \
 					m_unit[i0]->color.fg_color[SEGMENT_ACTION_NORMAL], \
 					m_unit[i0]->color.bg_color[SEGMENT_ACTION_NORMAL], \

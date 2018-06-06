@@ -73,6 +73,8 @@ theme_color_map default_theme[] =
 	{ "AWS_PROFILE_BG"       , 238 } ,
 	{ "TIME_FG"              , 250 } ,
 	{ "TIME_BG"              , 238 } ,
+	{ "PROMPT_FG"            , 234 } ,
+	{ "PROMPT_BG"            , 117 } ,
 };
 
 colortheme::colortheme(void)

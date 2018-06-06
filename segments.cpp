@@ -125,23 +125,61 @@ segments::get_segment_list_common(char** value_list, char* type, segmentaction a
 		else if (strcmp(type, "output") == 0 && m_unit[i0]->pvalue != NULL)
 		{
 			char* color_str = NULL;
+			char* color_seperate_fg = NULL;
+			char* color_seperate_bg = NULL;
+			char* color_seperate_prebg = NULL;
+			char* color_end = NULL;
 			colortheme m_theme;
 			int style = 5;
-			JCG("-----------------------%s",m_unit[i0]->value);
 			m_theme.display_256color(DISP_BOTH, style, \
 					m_unit[i0]->color.fg_color[SEGMENT_ACTION_NORMAL], \
 					m_unit[i0]->color.bg_color[SEGMENT_ACTION_NORMAL], \
 					m_unit[i0]->value, &color_str);
-				JCG();
-			if (color_str != NULL) {
-				JCG();
+			m_theme.display_256color(DISP_FOREGROUND_PART, style, \
+					m_unit[i0]->color.fg_color[SEGMENT_ACTION_NORMAL], \
+					m_unit[i0]->color.bg_color[SEGMENT_ACTION_NORMAL], \
+					NULL, &color_seperate_fg);
+			//get current background color and set as pre background
+			m_theme.display_256color(DISP_BACKGROUND_PART, style, \
+					m_unit[i0]->color.bg_color[SEGMENT_ACTION_NORMAL], \
+					m_unit[i0]->color.bg_color[SEGMENT_ACTION_NORMAL], \
+					NULL, &color_seperate_bg);
+			//get current background color and set as next foreground
+			m_theme.display_256color(DISP_FOREGROUND_PART, style, \
+					m_unit[i0]->color.bg_color[SEGMENT_ACTION_NORMAL], \
+					m_unit[i0]->color.bg_color[SEGMENT_ACTION_NORMAL], \
+					NULL, &color_seperate_prebg);
+			m_theme.display_256color(DISP_FOREGROUND_PART, style, \
+					m_unit[i0]->color.fg_color[SEGMENT_ACTION_NORMAL], \
+					m_unit[i0]->color.bg_color[SEGMENT_ACTION_NORMAL], \
+					NULL, &color_end);
+
+			if (color_str != NULL)
 				sprintf(item_value,"%s", color_str);
-				JCG();
-				// free(color_str);
-			// } else {
-				// JCG();
-			}
-			JCG();
+
+			if (color_seperate_prebg != NULL)
+				sprintf(item_value,"%s%s", item_value, color_seperate_prebg);
+
+			JCG("----->>%s<<-----",*value_list);
+			if (strlen(*value_list) <= 0)
+				sprintf(*value_list,"%s",item_value);
+			else if (strlen(item_value) > 0)
+				sprintf(*value_list,"%s%s%s%s%s%s",*value_list,color_seperate_bg, SEPERATE_SYMBOL, color_end,color_end, item_value);
+
+			JCG("----->>%s<<-----",*value_list);
+			if (color_str != NULL)
+				free(color_str);
+			if (color_seperate_fg != NULL)
+				free(color_seperate_fg);
+			if (color_seperate_bg != NULL)
+				free(color_seperate_bg);
+			if (color_seperate_prebg != NULL)
+				free(color_seperate_prebg);
+			if (color_end != NULL)
+				free(color_end);
+
+			i0++;
+			continue;
 		}
 		else
 		{

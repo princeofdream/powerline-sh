@@ -56,6 +56,11 @@
 #define DEFAULT_THEME_CONFIG_FILE_NAME ".powershell_sh_rc"
 #define DEFAULT_THEME_CONFIG_THEME_NAME ".powershell_sh_theme"
 
+
+#define BASH_FOREGROUND "\e[38;"
+#define BASH_BACKGROUND "\e[48;"
+#define BASH_END        "\e[0m"
+
 /*! \enum displaytype
  *
  *  Detailed description

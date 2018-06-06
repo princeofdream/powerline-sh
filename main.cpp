@@ -83,8 +83,16 @@ int main(int argc, char *argv[])
 	s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
 	m_sgmgr->register_segment("git", &s_color);
 
-	m_colortheme->get_color_by_name("PROMPT_FG",(unsigned short*)&color_fg);
-	m_colortheme->get_color_by_name("PROMPT_BG",(unsigned short*)&color_bg);
+	if (pre_process_stat != 0)
+	{
+		m_colortheme->get_color_by_name("PROMPT_NG_FG",(unsigned short*)&color_fg);
+		m_colortheme->get_color_by_name("PROMPT_NG_BG",(unsigned short*)&color_bg);
+	}
+	else
+	{
+		m_colortheme->get_color_by_name("PROMPT_FG",(unsigned short*)&color_fg);
+		m_colortheme->get_color_by_name("PROMPT_BG",(unsigned short*)&color_bg);
+	}
 	s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
 	s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
 	m_sgmgr->register_segment("prompt", &s_color);

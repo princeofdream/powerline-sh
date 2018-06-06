@@ -22,23 +22,6 @@
 #include <basic.h>
 #include <colortheme.h>
 
-
-typedef	struct segment_color_t {
-	/* data */
-	true_color fg_color[SEGMENT_ACTION_COUNT];
-	true_color bg_color[SEGMENT_ACTION_COUNT];
-} segment_color;
-
-typedef	struct segments_unit_t {
-	/* data */
-	unsigned short index;
-	char* name;
-	char* value;
-	char* pvalue;
-	segment_color color;
-	// struct segment_unit_t *next_unit;
-} segment_unit;
-
 class segments
 {
 public:

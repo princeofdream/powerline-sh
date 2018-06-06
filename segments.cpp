@@ -166,7 +166,6 @@ segments::get_segment_list_common(char** value_list, char* type, segmentaction a
 			if (color_seperate_prebg != NULL)
 				sprintf(item_value,"%s%s", item_value, color_seperate_prebg);
 
-			JCG("----->>%s<<---->%s<---",*value_list,color_end);
 			if (strlen(*value_list) <= 0)
 				sprintf(*value_list,"%s",item_value);
 			else if (strlen(item_value) > 0 && i0 != segments_count - 1)
@@ -174,7 +173,6 @@ segments::get_segment_list_common(char** value_list, char* type, segmentaction a
 			else if (strlen(item_value) > 0 && i0 == segments_count - 1)
 				sprintf(*value_list,"%s%s%s%s%s%s%s",*value_list,color_seperate_bg, SEPERATE_SYMBOL, color_end,color_end, item_value,color_end);
 
-			JCG("----->>%s<<-----",*value_list);
 			if (color_str != NULL)
 				free(color_str);
 			if (color_seperate_fg != NULL)

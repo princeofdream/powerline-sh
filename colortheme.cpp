@@ -75,6 +75,8 @@ theme_color_map default_theme[] =
 	{ "TIME_BG"              , 238 } ,
 	{ "PROMPT_FG"            , 234 } ,
 	{ "PROMPT_BG"            , 117 } ,
+	{ "PROMPT_NG_FG"         , 236 } ,
+	{ "PROMPT_NG_BG"         , 198 } ,
 };
 
 colortheme::colortheme(void)

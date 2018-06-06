@@ -16,7 +16,10 @@
  * =====================================================================================
  */
 
-#include <segments.h>
+#ifndef __COMMON_SHARE_HEADER__
+#define __COMMON_SHARE_HEADER__
+
+#include <basic.h>
 
 class common_share
 {
@@ -26,9 +29,12 @@ public:
 
 	int get_config_file(int* fd, char* name, char* extern_path);
 	int init_segment_color(segment_color* s_color);
+	int run_cmd(char* cmd, char** result);
+	int command_stream(char* cmd, char** result);
 
 private:
 	/* data */
 };
 
+#endif /* ifndef __COMMON_SHARE_HEADER__ */
 

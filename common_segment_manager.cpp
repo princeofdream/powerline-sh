@@ -83,6 +83,40 @@ common_segment_manager::segment_get_value(char* name, char** value)
 	{
 		sprintf(common_value, "%s", SEPERATE_SYMBOL);
 	}
+	else if (strcmp(name,"git") == 0)
+	{
+		char* result = NULL;
+		char cmd[MAXLEN];
+		common_share m_share;
+		char branch[MAXLEN];
+		int i0;
+
+		memset(cmd,0x0,sizeof(cmd));
+		sprintf(cmd, "%s", "git branch");
+		// m_share.run_cmd(cmd, &result);
+		m_share.command_stream(cmd, &result);
+
+		i0 = 0;
+		memset(branch,0x0,sizeof(branch));
+		while(i0 < strlen(result))
+		{
+			sprintf(branch,"%s%c",branch,result[i0]);
+			if (result[i0] == '\n')
+			{
+				branch[strlen(branch) -1] = '\0';
+				if (branch[0] == '*') {
+					sprintf(branch," %s",branch + 2);
+					break;
+				}
+				memset(branch,0x0,sizeof(branch));
+			}
+			i0++;
+		}
+		sprintf(common_value, "%s", branch);
+		if (result != NULL) {
+			free(result);
+		}
+	}
 	else if (strcmp(name,"newline") == 0)
 	{
 		sprintf(common_value, "%s", "\n");

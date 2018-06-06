@@ -24,6 +24,9 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <string.h>
+#include <sys/wait.h>
+#include <sys/types.h>
+#include <errno.h>
 
 #ifdef DEBUG
 #undef DEBUG
@@ -134,6 +137,22 @@ typedef	struct true_color_t {
 	unsigned short blue;
 	colortype type;
 } true_color;
+
+typedef	struct segment_color_t {
+	/* data */
+	true_color fg_color[SEGMENT_ACTION_COUNT];
+	true_color bg_color[SEGMENT_ACTION_COUNT];
+} segment_color;
+
+typedef	struct segments_unit_t {
+	/* data */
+	unsigned short index;
+	char* name;
+	char* value;
+	char* pvalue;
+	segment_color color;
+	// struct segment_unit_t *next_unit;
+} segment_unit;
 
 #if 0
 typedef struct 16bit_color_t {

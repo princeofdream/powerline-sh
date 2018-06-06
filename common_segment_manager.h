@@ -22,6 +22,7 @@
 
 #include <basic.h>
 #include <abstract_segments.h>
+#include <common_share.h>
 
 
 // class common_segment_manager

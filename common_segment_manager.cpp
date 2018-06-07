@@ -68,7 +68,7 @@ common_segment_manager::segment_get_value(char* name, char** value)
 		get_value = getenv("USER");
 		if (strlen(get_value) > 0)
 		{
-			sprintf(common_value, "%s", get_value);
+			sprintf(common_value, " %s ", get_value);
 		}
 	}
 	else if (strcmp(name,"prompt") == 0)

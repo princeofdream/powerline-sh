@@ -21,8 +21,8 @@
 theme_color_map combile_color_map[MAX_THEME_SIZE];
 theme_color_map default_theme[] =
 {
-	{ "USERNAME_FG"          , 250 } ,
-	{ "USERNAME_BG"          , 240 } ,
+	{ "USERNAME_FG"          , 254 } ,
+	{ "USERNAME_BG"          , 31  } ,
 	{ "USERNAME_ROOT_BG"     , 124 } ,
 	{ "HOSTNAME_FG"          , 250 } ,
 	{ "HOSTNAME_BG"          , 238 } ,
@@ -43,8 +43,8 @@ theme_color_map default_theme[] =
 	{ "REPO_DIRTY_FG"        , 15  } ,  // white
 	{ "JOBS_FG"              , 39  } ,
 	{ "JOBS_BG"              , 238 } ,
-	{ "CMD_PASSED_BG"        , 63  } ,
-	{ "CMD_PASSED_FG"        , 15  } ,
+	{ "CMD_PASSED_BG"        , 245 } ,
+	{ "CMD_PASSED_FG"        , 232  } ,
 	{ "CMD_FAILED_BG"        , 161 } ,
 	{ "CMD_FAILED_FG"        , 15  } ,
 	{ "SVN_CHANGES_BG"       , 148 } ,

@@ -34,8 +34,8 @@ OUTPUT=powerline-sh
 
 CFLAGS = -I$(HOME)/Environment/env_rootfs/include
 CFLAGS += -I./
-LDFLAGS=-L/home/james/Environment/env_rootfs/lib64 -Wl,-rpath=/home/james/Environment/env_rootfs/lib64
-LDFLAGS+=-L/home/james/Environment/env_rootfs/lib -Wl,-rpath=/home/james/Environment/env_rootfs/lib
+LDFLAGS=-L$(HOME)/Environment/env_rootfs/lib64 -Wl,-rpath=$(HOME)/Environment/env_rootfs/lib64
+LDFLAGS+=-L$(HOME)/Environment/env_rootfs/lib -Wl,-rpath=$(HOME)/Environment/env_rootfs/lib
 
 all: $(OBJS) $(INCS)
 	$(CXX) $(CFLAGS) $(OBJS) $(INCS) $(LDFLAGS) -o $(OUTPUT)
@@ -43,6 +43,8 @@ all: $(OBJS) $(INCS)
 %.o: %.cpp %.h $(INCS)
 	$(CXX) $(CFLAGS) -c $< -o $@
 
+install:
+	cp powerline-sh $(HOME)/Environment/env_rootfs/bin/
 
 clean:
 	rm -rf *.o $(OUTPUT)

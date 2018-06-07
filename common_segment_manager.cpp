@@ -124,7 +124,11 @@ common_segment_manager::segment_get_value(char* name, char** value)
 			}
 			i0++;
 		}
-		sprintf(common_value, " %s ", branch);
+		if (strlen(branch) > 0) {
+			sprintf(common_value, " %s ", branch);
+		} else {
+			sprintf(common_value, "%s", branch);
+		}
 		if (result != NULL) {
 			free(result);
 		}

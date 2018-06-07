@@ -43,7 +43,7 @@ theme_color_map default_theme[] =
 	{ "REPO_DIRTY_FG"        , 15  } ,  // white
 	{ "JOBS_FG"              , 39  } ,
 	{ "JOBS_BG"              , 238 } ,
-	{ "CMD_PASSED_BG"        , 236 } ,
+	{ "CMD_PASSED_BG"        , 63  } ,
 	{ "CMD_PASSED_FG"        , 15  } ,
 	{ "CMD_FAILED_BG"        , 161 } ,
 	{ "CMD_FAILED_FG"        , 15  } ,

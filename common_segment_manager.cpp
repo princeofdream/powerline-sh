@@ -75,9 +75,21 @@ common_segment_manager::segment_get_value(char* name, char** value)
 	{
 		get_value = getenv("USER");
 		if (strcmp(get_value,"root") == 0)
-			sprintf(common_value, "%s", "#");
+			sprintf(common_value, " %s ", "#");
 		else
-			sprintf(common_value, "%s", "$");
+			sprintf(common_value, " %s ", "$");
+	}
+	else if (strcmp(name,"jobs") == 0)
+	{
+	}
+	else if (strcmp(name,"android_env") == 0)
+	{
+		get_value = getenv("TARGET_PRODUCT");
+		if (get_value == NULL)
+			return 0;
+		sprintf(common_value, " %s", get_value);
+		get_value = getenv("TARGET_BUILD_VARIANT");
+		sprintf(common_value, "%s-%s ", common_value,get_value);
 	}
 	else if (strcmp(name,"seperate") == 0)
 	{
@@ -105,14 +117,14 @@ common_segment_manager::segment_get_value(char* name, char** value)
 			{
 				branch[strlen(branch) -1] = '\0';
 				if (branch[0] == '*') {
-					sprintf(branch," %s",branch + 2);
+					sprintf(branch, "%s",branch + 2);
 					break;
 				}
 				memset(branch,0x0,sizeof(branch));
 			}
 			i0++;
 		}
-		sprintf(common_value, "%s", branch);
+		sprintf(common_value, " %s ", branch);
 		if (result != NULL) {
 			free(result);
 		}

@@ -77,6 +77,8 @@ theme_color_map default_theme[] =
 	{ "PROMPT_BG"            , 117 } ,
 	{ "PROMPT_NG_FG"         , 236 } ,
 	{ "PROMPT_NG_BG"         , 198 } ,
+	{ "ANDROID_ENV_FG"       , 235 } ,
+	{ "ANDROID_ENV_BG"       , 147 } ,
 };
 
 colortheme::colortheme(void)

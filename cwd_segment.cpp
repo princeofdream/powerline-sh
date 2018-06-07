@@ -55,16 +55,22 @@ int
 cwd_segment::segment_get_value(char* name,char** value)
 {
 	char cwd_path[MAXLEN];
+	char* get_value;
 
 	JCG("%s",__FUNCTION__);
 
 	getcwd(cwd_path,MAXLEN);
+	get_value = getenv("HOME");
 
 	if (cwd_path!= NULL && strlen(cwd_path) > 0)
 	{
 #if 1
 		*value = (char*)malloc(MAXLEN);
-		sprintf(*value,"%s",cwd_path);
+		if (strncmp(cwd_path, get_value, strlen(get_value)) == 0) {
+			sprintf(*value," ~%s ",cwd_path + strlen(get_value));
+		} else {
+			sprintf(*value," %s ",cwd_path);
+		}
 #else
 		segment_set_value(cwd_path);
 #endif

@@ -132,6 +132,20 @@ common_segment_manager::segment_get_value(char* name, char** value)
 		get_value = getenv("TARGET_BUILD_VARIANT");
 		sprintf(common_value, "%s-%s ", common_value,get_value);
 	}
+	else if (strcmp(name,"time") == 0)
+	{
+		char* get_value = NULL;
+		common_share m_share;
+
+		m_share.GetLocalTime(&get_value);
+
+		sprintf(common_value, " %s ", get_value);
+
+		if (get_value != NULL) {
+			free(get_value);
+			get_value = NULL;
+		}
+	}
 	else if (strcmp(name,"seperate") == 0)
 	{
 		sprintf(common_value, "%s", SEPERATE_SYMBOL);

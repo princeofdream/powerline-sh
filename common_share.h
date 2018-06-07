@@ -32,6 +32,9 @@ public:
 	int run_cmd(char* cmd, char** result);
 	int command_stream(char* cmd, char** result);
 
+	int GetLocalTime(char** value);
+	int Conv_Time_Set_to_String(struct tm *m_tm, char** value);
+
 private:
 	/* data */
 };

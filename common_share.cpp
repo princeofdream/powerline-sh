@@ -257,3 +257,79 @@ common_share::command_stream(char* cmd, char** result)
 	return NULL;
 }
 
+int
+common_share::GetLocalTime(char** value)
+{
+	int m_sec  = 0;
+	int m_min  = 0;
+	int m_hour = 0;
+	int m_day  = 0;
+	int m_year = 0;
+
+	struct tm *m_tm;
+	struct tm *r_tm;
+	time_t m_time;
+	struct timeval d_tv;
+	char* to_str = NULL;
+
+	time(&m_time);
+	//r_tm = localtime_r(&m_time, m_tm);
+	r_tm = localtime(&m_time);
+	gettimeofday(&d_tv,NULL);
+
+	m_sec = d_tv.tv_sec;
+	m_min = m_sec/60;
+	m_hour = m_min/60;
+	m_day = m_hour/24;
+	m_year = m_day/365;
+
+	JCG();
+
+	if (*value == NULL) {
+		*value = (char*)malloc(MAXLEN);
+		memset(*value,0x0,MAXLEN);
+	} else {
+		return -1;
+	}
+
+	JCG();
+	Conv_Time_Set_to_String(r_tm, &to_str);
+	JCG("current time: %s",to_str);
+	sprintf(*value, "%s", to_str);
+
+	if (to_str != NULL) {
+		free(to_str);
+		to_str = NULL;
+	}
+	JCG();
+	return 0;
+}
+
+int
+common_share::Conv_Time_Set_to_String(struct tm *m_tm, char** value)
+{
+	char m_time_str[MAXLEN];
+	memset(m_time_str,0x0,sizeof(m_time_str));
+	// sprintf(m_time_str,"%d/%d/%d %d:%d:%d weekday:%d yearday:%d dst:%d \n",
+		// (*m_tm).tm_year+1900,(*m_tm).tm_mon+1,(*m_tm).tm_mday,
+		// (*m_tm).tm_hour,(*m_tm).tm_min,(*m_tm).tm_sec,
+		// (*m_tm).tm_wday+1,(*m_tm).tm_yday,(*m_tm).tm_isdst);
+
+	sprintf(m_time_str,"%d-%d-%d %d:%d:%d",
+		(*m_tm).tm_year+1900,(*m_tm).tm_mon+1,(*m_tm).tm_mday,
+		(*m_tm).tm_hour,(*m_tm).tm_min,(*m_tm).tm_sec);
+
+	if (*value == NULL) {
+		*value = (char*)malloc(MAXLEN);
+		memset(*value,0x0,MAXLEN);
+	} else {
+		return -1;
+	}
+
+	sprintf(*value, "%s", m_time_str);
+	JCG("%s",m_time_str);
+
+	return	0;
+}
+
+

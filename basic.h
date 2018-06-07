@@ -27,6 +27,13 @@
 #include <sys/wait.h>
 #include <sys/types.h>
 #include <errno.h>
+#include <sys/times.h>
+#include <sys/time.h>
+#include <time.h>
+#include <termios.h>
+#include <unistd.h>
+#include <sched.h>
+
 
 #ifdef DEBUG
 #undef DEBUG

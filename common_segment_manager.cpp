@@ -84,26 +84,40 @@ common_segment_manager::segment_get_value(char* name, char** value)
 		char* result = NULL;
 		char cmd[MAXLEN];
 		common_share m_share;
-		char hangups[MAXLEN];
 		int i0;
+		pid_t p_pid;
+		int jobs_count;
+		char get_bash_ppid[MAXLEN];
 
 		memset(cmd,0x0,sizeof(cmd));
-		sprintf(cmd, "%s", "/usr/bin/jobs");
+		memset(get_bash_ppid,0x0,sizeof(get_bash_ppid));
+		p_pid = getppid();
+		JCG("get parent id: %d", p_pid);
+		sprintf(cmd, "ps -p %d -o ppid | tail -n 1", p_pid);
+		m_share.command_stream(cmd, &result);
+		JCG("get resule: %s", result);
+		sprintf(get_bash_ppid,"%s",result);
+		// printf("-->%s<--",get_bash_ppid);
+		free(result);
+		result = NULL;
+		sprintf(cmd, "ps -a -o ppid | grep %d", atoi(get_bash_ppid));
 		// m_share.run_cmd(cmd, &result);
 		m_share.command_stream(cmd, &result);
 		JCG("get resule: %s", result);
 
 		i0 = 0;
-		memset(hangups,0x0,sizeof(hangups));
+		jobs_count = 0;
 		while(i0 < strlen(result))
 		{
-			sprintf(hangups,"%s%c",hangups,result[i0]);
+			if (result[i0] == '\n')
+				jobs_count++;
 			i0++;
 		}
-		if (strlen(hangups) > 0) {
-			sprintf(common_value, " %s ", hangups);
+		jobs_count--;
+		if ( jobs_count > 0) {
+			sprintf(common_value, " %d ", jobs_count);
 		} else {
-			sprintf(common_value, "%s", hangups);
+			sprintf(common_value, "%s","");
 		}
 		if (result != NULL) {
 			free(result);

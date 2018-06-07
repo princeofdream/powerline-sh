@@ -81,6 +81,33 @@ common_segment_manager::segment_get_value(char* name, char** value)
 	}
 	else if (strcmp(name,"jobs") == 0)
 	{
+		char* result = NULL;
+		char cmd[MAXLEN];
+		common_share m_share;
+		char hangups[MAXLEN];
+		int i0;
+
+		memset(cmd,0x0,sizeof(cmd));
+		sprintf(cmd, "%s", "/usr/bin/jobs");
+		// m_share.run_cmd(cmd, &result);
+		m_share.command_stream(cmd, &result);
+		JCG("get resule: %s", result);
+
+		i0 = 0;
+		memset(hangups,0x0,sizeof(hangups));
+		while(i0 < strlen(result))
+		{
+			sprintf(hangups,"%s%c",hangups,result[i0]);
+			i0++;
+		}
+		if (strlen(hangups) > 0) {
+			sprintf(common_value, " %s ", hangups);
+		} else {
+			sprintf(common_value, "%s", hangups);
+		}
+		if (result != NULL) {
+			free(result);
+		}
 	}
 	else if (strcmp(name,"android_env") == 0)
 	{
@@ -125,7 +152,7 @@ common_segment_manager::segment_get_value(char* name, char** value)
 			i0++;
 		}
 		if (strlen(branch) > 0) {
-			sprintf(common_value, " %s ", branch);
+			sprintf(common_value, " (%s) ", branch);
 		} else {
 			sprintf(common_value, "%s", branch);
 		}

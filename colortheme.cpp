@@ -18,6 +18,9 @@
 #include <colortheme.h>
 #include <common_share.h>
 
+#define DEFAULT_THEME_DARK
+// #define DEFAULT_THEME_LIGHT
+
 theme_color_map combile_color_map[MAX_THEME_SIZE];
 theme_color_map default_theme[] =
 {
@@ -53,14 +56,16 @@ theme_color_map default_theme[] =
 	{ "ANDROID_ENV_FG"       , 235 } ,
 	{ "ANDROID_ENV_BG"       , 147 } ,
 
-#if 1
+#if defined(DEFAULT_THEME_DARK)
+	// { "USERNAME_FG"          , 254 } ,
+	// { "USERNAME_BG"          , 31  } ,
 	{ "USERNAME_FG"          , 254 } ,
 	{ "USERNAME_BG"          , 31  } ,
 	{ "USERNAME_ROOT_BG"     , 124 } ,
 	{ "HOSTNAME_FG"          , 250 } ,
 	{ "HOSTNAME_BG"          , 238 } ,
 	{ "PATH_BG"              , 237 } ,  // dark grey
-	{ "PATH_FG"              , 250 } ,  // light grey
+	{ "PATH_FG"              , 254 } ,  // light grey
 	{ "CWD_FG"               , 254 } ,  // nearly-white grey
 	{ "SEPARATOR_FG"         , 244 } ,
 	{ "READONLY_BG"          , 124 } ,
@@ -74,14 +79,49 @@ theme_color_map default_theme[] =
 	{ "JOBS_FG"              , 39  } ,
 	{ "JOBS_BG"              , 238 } ,
 	{ "CMD_PASSED_BG"        , 245 } ,
-	{ "CMD_PASSED_FG"        , 232  } ,
+	{ "CMD_PASSED_FG"        , 232 } ,
 	{ "CMD_FAILED_BG"        , 161 } ,
 	{ "CMD_FAILED_FG"        , 15  } ,
 	{ "VIRTUAL_ENV_BG"       , 35  } ,  // a mid-tone green
-	{ "VIRTUAL_ENV_FG"       , 00  } ,
-	{ "TIME_FG"              , 250 } ,
-	{ "TIME_BG"              , 238 } ,
+	{ "VIRTUAL_ENV_FG"       , 0   } ,
+	// { "TIME_FG"              , 250 } ,
+	// { "TIME_BG"              , 238 } ,
+	{ "TIME_FG"              , 19 } ,
+	{ "TIME_BG"              , 222 } ,
+#elif defined(DEFAULT_THEME_LIGHT)
+	// { "USERNAME_FG"          , 254 } ,
+	// { "USERNAME_BG"          , 31  } ,
+	{ "USERNAME_BG"          , 254 } ,
+	{ "USERNAME_FG"          , 31  } ,
+	{ "USERNAME_ROOT_BG"     , 124 } ,
+	{ "HOSTNAME_FG"          , 250 } ,
+	{ "HOSTNAME_BG"          , 238 } ,
+	{ "PATH_FG"              , 237 } ,  // dark grey
+	{ "PATH_BG"              , 254 } ,  // light grey
+	{ "CWD_FG"               , 254 } ,  // nearly-white grey
+	{ "SEPARATOR_FG"         , 244 } ,
+	{ "READONLY_BG"          , 124 } ,
+	{ "READONLY_FG"          , 254 } ,
+	{ "SSH_FG"               , 166 } ,  // medium orange
+	{ "SSH_BG"               , 254 } ,
+	{ "REPO_CLEAN_FG"        , 148 } ,  // a light green color
+	{ "REPO_CLEAN_BG"        , 0   } ,  // black
+	{ "REPO_DIRTY_FG"        , 161 } ,  // pink/red
+	{ "REPO_DIRTY_BG"        , 15  } ,  // white
+	{ "JOBS_BG"              , 39  } ,
+	{ "JOBS_FG"              , 238 } ,
+	{ "CMD_PASSED_FG"        , 245 } ,
+	{ "CMD_PASSED_BG"        , 232 } ,
+	{ "CMD_FAILED_FG"        , 161 } ,
+	{ "CMD_FAILED_BG"        , 15  } ,
+	{ "VIRTUAL_ENV_FG"       , 35  } ,  // a mid-tone green
+	{ "VIRTUAL_ENV_BG"       , 0   } ,
+	{ "TIME_BG"              , 19 } ,
+	{ "TIME_FG"              , 222 } ,
 #endif
+
+
+
 #if 0
 	{ "USERNAME_FG"      , 15 } ,
 	{ "USERNAME_BG"      , 4  } ,

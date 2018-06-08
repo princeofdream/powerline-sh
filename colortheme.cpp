@@ -18,8 +18,15 @@
 #include <colortheme.h>
 #include <common_share.h>
 
-#define DEFAULT_THEME_DARK
-// #define DEFAULT_THEME_LIGHT
+#define THEME_DEFAULT
+#define THEME_DARK
+
+#ifdef THEME_DARK
+	#undef THEME_LIGHT
+#else
+	#define THEME_LIGHT
+#endif
+
 
 theme_color_map combile_color_map[MAX_THEME_SIZE];
 theme_color_map default_theme[] =
@@ -56,7 +63,8 @@ theme_color_map default_theme[] =
 	{ "ANDROID_ENV_FG"       , 235 } ,
 	{ "ANDROID_ENV_BG"       , 147 } ,
 
-#if defined(DEFAULT_THEME_DARK)
+#if defined(THEME_DEFAULT)
+	#if defined(THEME_DARK)
 	// { "USERNAME_FG"          , 254 } ,
 	// { "USERNAME_BG"          , 31  } ,
 	{ "USERNAME_FG"          , 254 } ,
@@ -88,68 +96,39 @@ theme_color_map default_theme[] =
 	// { "TIME_BG"              , 238 } ,
 	{ "TIME_FG"              , 19 } ,
 	{ "TIME_BG"              , 222 } ,
-#elif defined(DEFAULT_THEME_LIGHT)
+	#elif defined(THEME_LIGHT)
 	// { "USERNAME_FG"          , 254 } ,
 	// { "USERNAME_BG"          , 31  } ,
-	{ "USERNAME_BG"          , 254 } ,
-	{ "USERNAME_FG"          , 31  } ,
+	{ "USERNAME_FG"          , 255 } ,
+	{ "USERNAME_BG"          , 75  } ,
 	{ "USERNAME_ROOT_BG"     , 124 } ,
 	{ "HOSTNAME_FG"          , 250 } ,
 	{ "HOSTNAME_BG"          , 238 } ,
-	{ "PATH_FG"              , 237 } ,  // dark grey
+	{ "PATH_FG"              , 238 } ,  // dark grey
 	{ "PATH_BG"              , 254 } ,  // light grey
 	{ "CWD_FG"               , 254 } ,  // nearly-white grey
 	{ "SEPARATOR_FG"         , 244 } ,
 	{ "READONLY_BG"          , 124 } ,
 	{ "READONLY_FG"          , 254 } ,
-	{ "SSH_FG"               , 166 } ,  // medium orange
-	{ "SSH_BG"               , 254 } ,
-	{ "REPO_CLEAN_FG"        , 148 } ,  // a light green color
-	{ "REPO_CLEAN_BG"        , 0   } ,  // black
+	{ "SSH_BG"               , 166 } ,  // medium orange
+	{ "SSH_FG"               , 254 } ,
+	{ "REPO_CLEAN_BG"        , 154 } ,  // a light green color
+	{ "REPO_CLEAN_FG"        , 27  } ,  // black
 	{ "REPO_DIRTY_FG"        , 161 } ,  // pink/red
 	{ "REPO_DIRTY_BG"        , 15  } ,  // white
 	{ "JOBS_BG"              , 39  } ,
 	{ "JOBS_FG"              , 238 } ,
-	{ "CMD_PASSED_FG"        , 245 } ,
-	{ "CMD_PASSED_BG"        , 232 } ,
-	{ "CMD_FAILED_FG"        , 161 } ,
-	{ "CMD_FAILED_BG"        , 15  } ,
+	{ "CMD_PASSED_BG"        , 249 } ,
+	{ "CMD_PASSED_FG"        , 238 } ,
+	{ "CMD_FAILED_BG"        , 207 } ,
+	{ "CMD_FAILED_FG"        , 15  } ,
 	{ "VIRTUAL_ENV_FG"       , 35  } ,  // a mid-tone green
 	{ "VIRTUAL_ENV_BG"       , 0   } ,
-	{ "TIME_BG"              , 19 } ,
-	{ "TIME_FG"              , 222 } ,
-#endif
-
-
-
-#if 0
-	{ "USERNAME_FG"      , 15 } ,
-	{ "USERNAME_BG"      , 4  } ,
-	{ "USERNAME_ROOT_BG" , 1  } ,
-	{ "HOSTNAME_FG"      , 15 } ,
-	{ "HOSTNAME_BG"      , 10 } ,
-	{ "PATH_FG"          , 10 } ,
-	{ "PATH_BG"          , 7  } ,
-	{ "CWD_FG"           , 0  } ,
-	{ "SEPARATOR_FG"     , 14 } ,
-	{ "READONLY_BG"      , 1  } ,
-	{ "READONLY_FG"      , 7  } ,
-	{ "REPO_CLEAN_FG"    , 0  } ,
-	{ "REPO_CLEAN_BG"    , 15 } ,
-	{ "REPO_DIRTY_FG"    , 1  } ,
-	{ "REPO_DIRTY_BG"    , 15 } ,
-	{ "JOBS_FG"          , 4  } ,
-	{ "JOBS_BG"          , 7  } ,
-	{ "CMD_PASSED_FG"    , 15 } ,
-	{ "CMD_PASSED_BG"    , 2  } ,
-	{ "CMD_FAILED_FG"    , 15 } ,
-	{ "CMD_FAILED_BG"    , 1  } ,
-	{ "VIRTUAL_ENV_BG"   , 15 } ,
-	{ "VIRTUAL_ENV_FG"   , 2  } ,
-	{ "TIME_FG"          , 15 } ,
-	{ "TIME_BG"          , 10 } ,
-#endif
-#if 0
+	{ "TIME_FG"              , 25  } ,
+	{ "TIME_BG"              , 229 } ,
+	#endif
+#else
+	#if defined(THEME_DARK)
 	{ "USERNAME_FG"      , 15  } ,
 	{ "USERNAME_BG"      , 4   } ,
 	{ "USERNAME_ROOT_BG" , 1   } ,
@@ -177,6 +156,33 @@ theme_color_map default_theme[] =
 	{ "AWS_PROFILE_BG"   , 2   } ,
 	{ "TIME_FG"          , 15  } ,
 	{ "TIME_BG"          , 10  } ,
+	#elif defined(THEME_LIGHT)
+	{ "USERNAME_FG"      , 15 } ,
+	{ "USERNAME_BG"      , 4  } ,
+	{ "USERNAME_ROOT_BG" , 1  } ,
+	{ "HOSTNAME_FG"      , 15 } ,
+	{ "HOSTNAME_BG"      , 10 } ,
+	{ "PATH_FG"          , 10 } ,
+	{ "PATH_BG"          , 7  } ,
+	{ "CWD_FG"           , 0  } ,
+	{ "SEPARATOR_FG"     , 14 } ,
+	{ "READONLY_BG"      , 1  } ,
+	{ "READONLY_FG"      , 7  } ,
+	{ "REPO_CLEAN_FG"    , 0  } ,
+	{ "REPO_CLEAN_BG"    , 15 } ,
+	{ "REPO_DIRTY_FG"    , 1  } ,
+	{ "REPO_DIRTY_BG"    , 15 } ,
+	{ "JOBS_FG"          , 4  } ,
+	{ "JOBS_BG"          , 7  } ,
+	{ "CMD_PASSED_FG"    , 15 } ,
+	{ "CMD_PASSED_BG"    , 2  } ,
+	{ "CMD_FAILED_FG"    , 15 } ,
+	{ "CMD_FAILED_BG"    , 1  } ,
+	{ "VIRTUAL_ENV_BG"   , 15 } ,
+	{ "VIRTUAL_ENV_FG"   , 2  } ,
+	{ "TIME_FG"          , 15 } ,
+	{ "TIME_BG"          , 10 } ,
+	#endif
 #endif
 };
 

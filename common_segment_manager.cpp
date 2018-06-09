@@ -191,7 +191,7 @@ common_segment_manager::segment_get_value(char* name, char** value)
 	}
 	else if (strcmp(name,"newline") == 0)
 	{
-		sprintf(common_value, "%s", "\n");
+		sprintf(common_value, "%s", " ");
 	}
 
 	if (common_value!= NULL && strlen(common_value) > 0)

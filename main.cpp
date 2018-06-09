@@ -147,6 +147,8 @@ int main(int argc, char *argv[])
 	m_sgmgr->get_segment_output_list(&segment_list, SEGMENT_ACTION_NORMAL);
 	JCG("segments list: %s",segment_list);
 	printf("%s\n",segment_list);
+	// printf("-12345-\n");
+	printf("\\[\\e[0m\\]\\[\\e[0m\\]\\[\\e[0m\\]");
 	if (segment_list!=NULL)
 	{
 		free(segment_list);

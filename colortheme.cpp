@@ -95,7 +95,7 @@ theme_color_map default_theme[] =
 	// { "TIME_FG"              , 250 } ,
 	// { "TIME_BG"              , 238 } ,
 	{ "TIME_FG"              , 236 } ,
-	{ "TIME_BG"              , 98  } ,
+	{ "TIME_BG"              , 122  } ,
 	#elif defined(THEME_LIGHT)
 	// { "USERNAME_FG"          , 254 } ,
 	// { "USERNAME_BG"          , 31  } ,

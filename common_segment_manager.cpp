@@ -47,7 +47,7 @@ common_segment_manager::segment_get_value(char* name, char** value)
 	char common_value[MAXLEN];
 	char* get_value;
 
-	JCG("%s",__FUNCTION__);
+	JCG("%s, name:%s",__FUNCTION__,name);
 
 	memset(common_value,0x0,sizeof(common_value));
 	if (strcmp(name,"cwd") == 0)
@@ -58,7 +58,7 @@ common_segment_manager::segment_get_value(char* name, char** value)
 	{
 		get_value = getenv("SSH_CLIENT");
 		// sprintf(common_value, "%s", get_value);
-		if (strlen(get_value) > 0)
+		if (get_value != NULL && strlen(get_value) > 0)
 		{
 			// sprintf(common_value, "%s", "⌁");
 			sprintf(common_value, "%s", "➿➿");
@@ -67,7 +67,7 @@ common_segment_manager::segment_get_value(char* name, char** value)
 	else if (strcmp(name,"user") == 0)
 	{
 		get_value = getenv("USER");
-		if (strlen(get_value) > 0)
+		if (get_value != NULL && strlen(get_value) > 0)
 		{
 			sprintf(common_value, " %s ", get_value);
 		}

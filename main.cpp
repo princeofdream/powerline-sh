@@ -168,22 +168,22 @@ int main(int argc, char *argv[])
 	}
 	if (m_colortheme != NULL)
 	{
-		delete(m_colortheme);
+		free(m_colortheme);
 		m_colortheme = NULL;
 	}
 	if (m_cwd != NULL)
 	{
-		delete(m_cwd);
+		free(m_cwd);
 		m_cwd = NULL;
 	}
 	if (m_host != NULL)
 	{
-		delete(m_host);
+		free(m_host);
 		m_host = NULL;
 	}
 	if (m_sgmgr != NULL)
 	{
-		delete(m_sgmgr);
+		free(m_sgmgr);
 		m_sgmgr = NULL;
 	}
 	return 0;

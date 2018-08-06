@@ -44,10 +44,12 @@
 #define JCG(frm,args...) printf("---<%s:%d>---" frm "\n",__FILE__,__LINE__,##args)
 #define JEG(frm,args...) printf("---<%s:%d>---" frm "\n",__FILE__,__LINE__,##args)
 #define JDG(frm,args...) printf(frm,##args)
+#define JJG(frm,args...) printf("---<%s:%d>---" frm "\n",__FILE__,__LINE__,##args)
 #else
 #define JCG(frm,args...) while(0){;}
 #define JEG(frm,args...) while(0){;}
 #define JDG(frm,args...) while(0){;}
+#define JJG(frm,args...) while(0){;}
 #endif
 
 
@@ -67,13 +69,13 @@
 #define DEFAULT_THEME_CONFIG_THEME_NAME ".powershell_sh_theme"
 
 #if 1
-#define BASH_FOREGROUND "\e[38;"
-#define BASH_BACKGROUND "\e[48;"
-#define BASH_END        "\e[0m"
+#define BASH_FOREGROUND "\\[\\e[38;"
+#define BASH_BACKGROUND "\\[\\e[48;"
+#define BASH_END        "\\[\\e[0m"
 #else
-#define BASH_FOREGROUND "(38;"
-#define BASH_BACKGROUND "(48;"
-#define BASH_END        "(0m"
+#define BASH_FOREGROUND "\\[(38;"
+#define BASH_BACKGROUND "\\[(48;"
+#define BASH_END        "\\[(0m\\]"
 #endif
 
 /*! \enum displaytype

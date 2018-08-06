@@ -90,6 +90,7 @@ int
 segments::get_segment_list_common(char** value_list, char* type, segmentaction action)
 {
 	int i0 = 0;
+	int line_count = 0;
 	char item_value[MAXLEN];
 
 	*value_list = (char*)malloc(MAXLEN*2);
@@ -104,22 +105,41 @@ segments::get_segment_list_common(char** value_list, char* type, segmentaction a
 
 	while( i0 < segments_count )
 	{
+		if (strlen(m_unit[i0]->value) == 0) {
+			i0++;
+			continue;
+		}
+
+		if (strcmp(type, "output") == 0 && m_unit[i0]->pvalue != NULL && i0 != (segments_count -1))
+			line_count = i0;
+		i0++;
+	}
+
+	JJG("line end count is: %d, count from 0\n",line_count);
+
+	i0 = 0;
+	while( i0 < segments_count )
+	{
 		memset(item_value, 0x0, sizeof(item_value));
 		JCG("type:%s. m_unit[%d] name: %s, value: %s",type, i0,m_unit[i0]->name,m_unit[i0]->value);
 		if (strcmp(type, "name") == 0 && m_unit[i0]->name != NULL)
 		{
+				JJG("--------->><%s:%d>[%d:%d]value_list:%s\n",__FILE__,__LINE__,i0,segments_count,*value_list);
 			sprintf(item_value,"%s",m_unit[i0]->name);
 		}
 		else if (strcmp(type, "value") == 0 && m_unit[i0]->value != NULL)
 		{
+				JJG("--------->><%s:%d>[%d:%d]value_list:%s\n",__FILE__,__LINE__,i0,segments_count,*value_list);
 			sprintf(item_value,"%s",m_unit[i0]->value);
 		}
 		else if (strcmp(type, "pvalue") == 0 && m_unit[i0]->pvalue != NULL)
 		{
+				JJG("--------->><%s:%d>[%d:%d]value_list:%s\n",__FILE__,__LINE__,i0,segments_count,*value_list);
 			sprintf(item_value,"%s",m_unit[i0]->pvalue);
 		}
 		else if (strcmp(type, "color") == 0 && m_unit[i0]->pvalue != NULL)
 		{
+				JJG("--------->><%s:%d>[%d:%d]value_list:%s\n",__FILE__,__LINE__,i0,segments_count,*value_list);
 			sprintf(item_value,"<%d:%d>",m_unit[i0]->color.fg_color[SEGMENT_ACTION_NORMAL].red, m_unit[i0]->color.bg_color[SEGMENT_ACTION_NORMAL].red);
 		}
 		else if (strcmp(type, "output") == 0 && m_unit[i0]->pvalue != NULL)
@@ -160,18 +180,48 @@ segments::get_segment_list_common(char** value_list, char* type, segmentaction a
 					m_unit[i0]->color.bg_color[SEGMENT_ACTION_NORMAL], \
 					NULL, &color_end);
 
-			if (color_str != NULL)
+			if (color_str != NULL && strcmp (m_unit[i0]->name, "newline" ) != 0)
+			{
+				JJG("%s\n",m_unit[i0]->name);
+				JJG("--------->><%s:%d>[%d:%d]value_list:%s\n",__FILE__,__LINE__,i0,segments_count,*value_list);
 				sprintf(item_value,"%s", color_str);
+			}
 
-			if (color_seperate_prebg != NULL)
+			if (color_seperate_prebg != NULL && i0 != line_count && strcmp(m_unit[i0]->name, "newline") != 0)
+			{
+				JJG("[%d:%d]list:%s-------%s\n",i0,segments_count,item_value,color_seperate_prebg);
 				sprintf(item_value,"%s%s", item_value, color_seperate_prebg);
+			}
+			else if (color_seperate_prebg != NULL && i0 == line_count)
+			{
+				JJG("--------->><%s:%d>[%d:%d]value_list:%s\n",__FILE__,__LINE__,i0,segments_count,*value_list);
+				sprintf(item_value,"%s%s\\]%s%s%s\\]%s\\]", item_value, BASH_END,color_seperate_prebg,SEPERATE_SYMBOL,BASH_END,BASH_END);
+			}
 
 			if (strlen(*value_list) <= 0)
+			{
+				JJG("--------->><%s:%d>[%d:%d]value_list:%s\n",__FILE__,__LINE__,i0,segments_count,*value_list);
 				sprintf(*value_list,"%s",item_value);
-			else if (strlen(item_value) > 0 && i0 != segments_count - 1)
+				JJG("=========>><%s:%d>[%d:%d]value_list:%s\n",__FILE__,__LINE__,i0,segments_count,*value_list);
+			}
+			else if (strlen(item_value) > 0 && i0 != segments_count - 1 && i0 != line_count)
+			{
+				JJG("--------->><%s:%d>[%d:%d]value_list:%s\n",__FILE__,__LINE__,i0,segments_count,*value_list);
 				sprintf(*value_list,"%s%s%s%s%s%s",*value_list,color_seperate_bg, SEPERATE_SYMBOL, color_end,color_end, item_value);
+				JJG("=========>><%s:%d>[%d:%d]value_list:%s\n",__FILE__,__LINE__,i0,segments_count,*value_list);
+			}
+			else if (strlen(item_value) > 0 && i0 != segments_count - 1 && i0 == line_count)
+			{
+				JJG("--------->><%s:%d>[%d:%d]value_list:%s\n",__FILE__,__LINE__,i0,segments_count,*value_list);
+				// sprintf(*value_list,"%s%s%s%s%s%s",*value_list,color_seperate_bg, SEPERATE_SYMBOL, color_end,color_end, item_value);
+				sprintf(*value_list,"%s%s%s%s",*value_list,color_seperate_bg, SEPERATE_SYMBOL, item_value);
+				JJG("=========>><%s:%d>[%d:%d]value_list:%s\n",__FILE__,__LINE__,i0,segments_count,*value_list);
+			}
 			else if (strlen(item_value) > 0 && i0 == segments_count - 1)
+			{
+				JJG("<%s:%d>[%d:%d]value_list:%s\n",__FILE__,__LINE__,i0,segments_count,*value_list);
 				sprintf(*value_list,"%s%s%s%s%s%s%s",*value_list,color_seperate_bg, SEPERATE_SYMBOL, color_end,color_end, item_value,color_end);
+			}
 
 			if (color_str != NULL)
 				free(color_str);
@@ -194,11 +244,22 @@ segments::get_segment_list_common(char** value_list, char* type, segmentaction a
 		}
 
 		if (strlen(*value_list) <= 0)
+		{
+			JJG("--[%s:%d]--%d--\n",__FILE__,__LINE__,i0);
 			sprintf(*value_list,"%s",item_value);
+		}
 		// else if (strlen(item_value) > 0)
 			// sprintf(*value_list,"%s%s",*value_list,item_value);
-		else if (strlen(item_value) > 0)
+		else if (strlen(item_value) > 0 && i0 != line_count)
+		{
+			JJG("--[%s:%d]--%d--\n",__FILE__,__LINE__,i0);
 			sprintf(*value_list,"%s%s%s",*value_list,SEPERATE_SYMBOL,item_value);
+		}
+		else if (strlen(item_value) > 0 && i0 == line_count)
+		{
+			JJG("--[%s:%d]--%d--\n",__FILE__,__LINE__,i0);
+			sprintf(*value_list,"%s%s%s\\]%s\\]",*value_list,SEPERATE_SYMBOL,BASH_END,BASH_END);
+		}
 		i0++;
 	}
 	return 0;

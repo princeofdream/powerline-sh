@@ -70,13 +70,19 @@ cwd_segment::segment_get_value(char* name,char** value)
 	{
 #if 1
 		*value = (char*)malloc(MAXLEN);
+#if 0
 		if (strncmp(cwd_path, abs_path_buff, strlen(abs_path_buff)) == 0) {
-			// sprintf(*value," ~%s ",cwd_path + strlen(abs_path_buff));
+			sprintf(*value," ~%s ",cwd_path + strlen(abs_path_buff));
+		} else {
+			sprintf(*value," %s ",cwd_path);
+		}
+#else
+		if (strncmp(pwd_path, abs_path_buff, strlen(abs_path_buff)) == 0) {
 			sprintf(*value," ~%s ",pwd_path + strlen(abs_path_buff));
 		} else {
-			// sprintf(*value," %s ",cwd_path);
 			sprintf(*value," %s ",pwd_path);
 		}
+#endif
 #else
 		segment_set_value(cwd_path);
 #endif

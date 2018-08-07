@@ -79,6 +79,8 @@ cwd_segment::segment_get_value(char* name,char** value)
 #else
 		if (strncmp(pwd_path, abs_path_buff, strlen(abs_path_buff)) == 0) {
 			sprintf(*value," ~%s ",pwd_path + strlen(abs_path_buff));
+		} else if (strncmp(pwd_path, get_value, strlen(get_value)) == 0) {
+			sprintf(*value," ~%s ",pwd_path + strlen(get_value));
 		} else {
 			sprintf(*value," %s ",pwd_path);
 		}

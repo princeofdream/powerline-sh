@@ -223,6 +223,7 @@ common_share::command_stream(char* cmd, char** result)
 	memset(full_cmd,0x0, sizeof(full_cmd));
 	sprintf(full_cmd,"%s 2>/dev/null",cmd);
 	JCG("command: %s", cmd);
+	close(STDERR_FILENO);
 	cmd_stream = popen(full_cmd,"r");
 	/* if(cmd_stream == NULL) */
 	JCG("by James %s",strerror(errno));

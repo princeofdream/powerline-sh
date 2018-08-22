@@ -66,30 +66,14 @@ cwd_segment::segment_get_value(char* name,char** value)
 	pwd_path = getenv("PWD");
 	realpath(get_value, abs_path_buff);
 
-	if (cwd_path!= NULL && strlen(cwd_path) > 0)
-	{
-#if 1
-		*value = (char*)malloc(MAXLEN);
-#if 0
-		if (strncmp(cwd_path, abs_path_buff, strlen(abs_path_buff)) == 0) {
-			sprintf(*value," ~%s ",cwd_path + strlen(abs_path_buff));
-		} else {
-			sprintf(*value," %s ",cwd_path);
-		}
-#else
-		if (strncmp(pwd_path, abs_path_buff, strlen(abs_path_buff)) == 0) {
-			sprintf(*value," ~%s ",pwd_path + strlen(abs_path_buff));
-		} else if (strncmp(pwd_path, get_value, strlen(get_value)) == 0) {
-			sprintf(*value," ~%s ",pwd_path + strlen(get_value));
-		} else {
-			sprintf(*value," %s ",pwd_path);
-		}
-#endif
-#else
-		segment_set_value(cwd_path);
-#endif
+	*value = (char*)malloc(MAXLEN);
+	if (strncmp(pwd_path, abs_path_buff, strlen(abs_path_buff)) == 0) {
+		sprintf(*value," ~%s ",pwd_path + strlen(abs_path_buff));
+	} else if (strncmp(pwd_path, get_value, strlen(get_value)) == 0) {
+		sprintf(*value," ~%s ",pwd_path + strlen(get_value));
+	} else {
+		sprintf(*value," %s ",pwd_path);
 	}
-
 	return 0;
 }
 

@@ -124,6 +124,18 @@ common_segment_manager::segment_get_value(char* name, char** value)
 			free(result);
 		}
 	}
+	else if (strcmp(name,"path_stat") == 0)
+	{
+		char cwd_path[MAXLEN];
+
+		memset(cwd_path,0x0,sizeof(cwd_path));
+		getcwd(cwd_path,sizeof(cwd_path));
+
+		if (strlen(cwd_path) > 0)
+			return 0;
+		sprintf(common_value, " %s ", "✗");
+		// sprintf(common_value, " %s ", "⚠");
+	}
 	else if (strcmp(name,"android_env") == 0)
 	{
 		get_value = getenv("TARGET_PRODUCT");

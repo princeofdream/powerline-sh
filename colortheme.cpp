@@ -62,6 +62,8 @@ theme_color_map default_theme[] =
 	{ "PROMPT_NG_BG"         , 198 } ,
 	{ "ANDROID_ENV_FG"       , 235 } ,
 	{ "ANDROID_ENV_BG"       , 147 } ,
+	{ "PATH_STAT_FG"         , 196 } ,
+	{ "PATH_STAT_BG"         , 255 } ,
 
 #if defined(THEME_DEFAULT)
 	#if defined(THEME_DARK)

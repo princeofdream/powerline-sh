@@ -27,6 +27,10 @@
 	#define THEME_LIGHT
 #endif
 
+char SHELL_FOREGROUND[128];
+char SHELL_BACKGROUND[128];
+char SHELL_FG_BG_END[128];
+char SHELL_COLOR_END[128];
 
 theme_color_map combile_color_map[MAX_THEME_SIZE];
 theme_color_map default_theme[] =
@@ -64,6 +68,8 @@ theme_color_map default_theme[] =
 	{ "ANDROID_ENV_BG"       , 147 } ,
 	{ "PATH_STAT_FG"         , 196 } ,
 	{ "PATH_STAT_BG"         , 255 } ,
+	{ "Z_SHELL_FG"           , 255 } ,
+	{ "Z_SHELL_BG"           , 198 } ,
 
 #if defined(THEME_DEFAULT)
 	#if defined(THEME_DARK)

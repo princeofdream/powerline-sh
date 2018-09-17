@@ -69,15 +69,33 @@
 #define DEFAULT_THEME_CONFIG_THEME_NAME ".powershell_sh_theme"
 
 #if 1
-#define SHELL_FOREGROUND "\\[\\e[38;"
-#define SHELL_BACKGROUND "\\[\\e[48;"
-#define SHELL_FG_BG_END        "\\[\\e[0m"
-#define SHELL_COLOR_END  "\\]"
+extern char SHELL_FOREGROUND[128];
+extern char SHELL_BACKGROUND[128];
+extern char SHELL_FG_BG_END[128];
+extern char SHELL_COLOR_END[128];
+
+#define BASH_FOREGROUND  "\\[\\e[38;"
+#define BASH_BACKGROUND  "\\[\\e[48;"
+#define BASH_FG_BG_END   "\\[\\e[0m"
+#define BASH_COLOR_END   "\\]"
+#define ZSH_FOREGROUND   "%{[38;"
+#define ZSH_BACKGROUND   "%{[48;"
+#define ZSH_FG_BG_END    "%{[0m"
+#define ZSH_COLOR_END    "%}"
 #else
 #define SHELL_FOREGROUND "\\[(38;"
 #define SHELL_BACKGROUND "\\[(48;"
-#define SHELL_FG_BG_END        "\\[(0m\\]"
+#define SHELL_FG_BG_END  "\\[(0m\\]"
 #endif
+
+/*! \enum shell_type
+ *
+ *  shell type
+ */
+enum shell_type {
+	SHELL_BASH = 0,
+	SHELL_ZSH,
+};
 
 /*! \enum displaytype
  *

@@ -23,6 +23,7 @@ common_share m_share;
 int main(int argc, char *argv[])
 {
 	int i0 = 0, i1 = 0;
+	int arg_count;
 	char string_content[1024];
 	int style;
 	true_color fg;
@@ -34,23 +35,57 @@ int main(int argc, char *argv[])
 	unsigned int color_bg;
 	segment_color s_color;
 	int pre_process_stat = 0;
+	int shell_type = SHELL_BASH;
 
 	memset(string_content,0x0,sizeof(string_content));
 	style = 38;
 	// sprintf(string_content,"\e[%d;%d;%dm=======\n",i0,5,48);
 	// printf("\e[38;5;%dm\e[48;5;240m test[%d] \e[48;5;166m\e[38;5;%dm\n",i0,i0,i0);
 
+	arg_count = 1;
+	while (arg_count <= argc ) {
+		if (arg_count == 2) {
+			pre_process_stat = atoi(argv[arg_count-1]);
+		}
+
+		// printf("--<%s:%d>--%d:%s--\n",__FILE__,__LINE__,arg_count-1,argv[arg_count-1]);
+		if (arg_count >= 2 && argv[arg_count - 1] != NULL && strcasecmp(argv[arg_count-1], "zsh") == 0) {
+			shell_type = SHELL_ZSH;
+		}
+		arg_count++;
+	}
+
+	memset(SHELL_FOREGROUND , 0x0 , sizeof(SHELL_FOREGROUND));
+	memset(SHELL_BACKGROUND , 0x0 , sizeof(SHELL_BACKGROUND));
+	memset(SHELL_FG_BG_END  , 0x0 , sizeof(SHELL_FG_BG_END));
+	memset(SHELL_COLOR_END  , 0x0 , sizeof(SHELL_COLOR_END));
+	if (shell_type == SHELL_ZSH) {
+		sprintf(SHELL_FOREGROUND , "%s" , ZSH_FOREGROUND);
+		sprintf(SHELL_BACKGROUND , "%s" , ZSH_BACKGROUND);
+		sprintf(SHELL_FG_BG_END  , "%s" , ZSH_FG_BG_END);
+		sprintf(SHELL_COLOR_END  , "%s" , ZSH_COLOR_END);
+	} else {
+		sprintf(SHELL_FOREGROUND , "%s" , BASH_FOREGROUND);
+		sprintf(SHELL_BACKGROUND , "%s" , BASH_BACKGROUND);
+		sprintf(SHELL_FG_BG_END  , "%s" , BASH_FG_BG_END);
+		sprintf(SHELL_COLOR_END  , "%s" , BASH_COLOR_END);
+	}
 	m_colortheme = new colortheme();
 	// m_colortheme->show_256color_map();
 	m_colortheme->get_color_theme(NULL);
 
-	if (argc >= 2) {
-		pre_process_stat = atoi(argv[1]);
-	}
-
 	m_sgmgr = new common_segment_manager();
 
 	m_share.init_segment_color(&s_color);
+
+	if (shell_type == SHELL_ZSH) {
+		m_colortheme->get_color_by_name("Z_SHELL_FG",(unsigned short*)&color_fg);
+		m_colortheme->get_color_by_name("Z_SHELL_BG",(unsigned short*)&color_bg);
+		s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
+		s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
+		m_sgmgr->register_segment("zsh", &s_color);
+	}
+
 	m_colortheme->get_color_by_name("USERNAME_FG",(unsigned short*)&color_fg);
 	m_colortheme->get_color_by_name("USERNAME_BG",(unsigned short*)&color_bg);
 	s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;

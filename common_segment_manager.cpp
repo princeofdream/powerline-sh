@@ -74,11 +74,15 @@ common_segment_manager::segment_get_value(char* name, char** value)
 	}
 	else if (strcmp(name,"prompt") == 0)
 	{
-		// get_value = getenv("USER");
-		// if (strcmp(get_value,"root") == 0)
-		//     sprintf(common_value, " %s ", "#");
-		// else
-			sprintf(common_value, " %s ", "\\$");
+		get_value = getenv("USER");
+		if (strcmp(get_value,"root") == 0)
+			sprintf(common_value, " %s ", "#");
+		else
+			sprintf(common_value, " %s ", "$");
+	}
+	else if (strcmp(name,"zsh") == 0)
+	{
+		sprintf(common_value, " %s ", "z");
 	}
 	else if (strcmp(name,"jobs") == 0)
 	{

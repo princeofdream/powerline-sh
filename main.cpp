@@ -154,7 +154,10 @@ int main(int argc, char *argv[])
 	JCG("segments list: %s",segment_list);
 	printf("%s\n",segment_list);
 	// printf("-12345-\n");
-	printf("\\[\\e[0m\\]\\[\\e[0m\\]\\[\\e[0m\\]");
+	printf("%s%s%s%s%s%s",
+		   SHELL_FG_BG_END, SHELL_COLOR_END,
+		   SHELL_FG_BG_END, SHELL_COLOR_END,
+		   SHELL_FG_BG_END, SHELL_COLOR_END);
 	if (segment_list!=NULL)
 	{
 		free(segment_list);

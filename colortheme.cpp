@@ -239,30 +239,31 @@ colortheme::display_256color(int colortype, int colorstyle, true_color fg, true_
 	memset(color_string,0x0,sizeof(color_string));
 	if (colortype == DISP_FOREGROUND)
 	{
-		sprintf( color_string, BASH_FOREGROUND"%d;%dm\\]%s",colorstyle, fg.red, content);
+		sprintf( color_string, "%s%d;%dm%s%s",SHELL_FOREGROUND,colorstyle, fg.red, SHELL_COLOR_END, content);
 	}
 	else if (colortype == DISP_BACKGROUND)
 	{
-		sprintf( color_string, BASH_BACKGROUND"%d;%dm\\]%s",colorstyle, bg.red, content);
+		sprintf( color_string, "%s%d;%dm%s%s",SHELL_BACKGROUND,colorstyle, bg.red, SHELL_COLOR_END, content);
 	}
 	else if (colortype == DISP_BOTH)
 	{
-		sprintf( color_string, BASH_FOREGROUND"%d;%dm\\]"BASH_BACKGROUND"%d;%dm\\]%s",
-				 colorstyle, fg.red,
-				 colorstyle, bg.red, content);
+		sprintf( color_string, "%s%d;%dm%s%s%d;%dm%s%s",
+				 SHELL_FOREGROUND, colorstyle, fg.red, SHELL_COLOR_END,
+				 SHELL_BACKGROUND, colorstyle, bg.red, SHELL_COLOR_END,
+				 content);
 	}
 	else if (colortype == DISP_FOREGROUND_PART)
 	{
-		sprintf( color_string, BASH_FOREGROUND"%d;%dm\\]", colorstyle, fg.red);
+		sprintf( color_string, "%s%d;%dm%s", SHELL_FOREGROUND,colorstyle, fg.red,SHELL_COLOR_END);
 	}
 	else if (colortype == DISP_BACKGROUND_PART)
 	{
-		sprintf( color_string, BASH_BACKGROUND"%d;%dm\\]", colorstyle, fg.red);
+		sprintf( color_string, "%s%d;%dm%s", SHELL_BACKGROUND,colorstyle, fg.red,SHELL_COLOR_END);
 	}
 #if 1
 	else if (colortype == DISP_END)
 	{
-		// sprintf( color_string, BASH_END);
+		// sprintf( color_string, SHELL_FG_BG_END);
 		sprintf( color_string, "");
 	}
 #endif

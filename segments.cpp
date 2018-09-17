@@ -195,7 +195,11 @@ segments::get_segment_list_common(char** value_list, char* type, segmentaction a
 			else if (color_seperate_prebg != NULL && i0 == line_count)
 			{
 				JJG("--------->><%s:%d>[%d:%d]value_list:%s\n",__FILE__,__LINE__,i0,segments_count,*value_list);
-				sprintf(item_value,"%s%s\\]%s%s%s\\]%s\\]", item_value, BASH_END,color_seperate_prebg,SEPERATE_SYMBOL,BASH_END,BASH_END);
+				sprintf(item_value,"%s%s%s%s%s%s%s%s%s", item_value,
+						SHELL_FG_BG_END, SHELL_COLOR_END,
+						color_seperate_prebg,SEPERATE_SYMBOL,
+						SHELL_FG_BG_END, SHELL_COLOR_END,
+						SHELL_FG_BG_END, SHELL_COLOR_END);
 			}
 
 			if (strlen(*value_list) <= 0)
@@ -258,7 +262,10 @@ segments::get_segment_list_common(char** value_list, char* type, segmentaction a
 		else if (strlen(item_value) > 0 && i0 == line_count)
 		{
 			JJG("--[%s:%d]--%d--\n",__FILE__,__LINE__,i0);
-			sprintf(*value_list,"%s%s%s\\]%s\\]",*value_list,SEPERATE_SYMBOL,BASH_END,BASH_END);
+			sprintf(*value_list,"%s%s%s%s%s%s",
+					*value_list,SEPERATE_SYMBOL,
+					SHELL_FG_BG_END, SHELL_COLOR_END,
+					SHELL_FG_BG_END, SHELL_COLOR_END);
 		}
 		i0++;
 	}

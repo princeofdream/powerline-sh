@@ -69,13 +69,14 @@
 #define DEFAULT_THEME_CONFIG_THEME_NAME ".powershell_sh_theme"
 
 #if 1
-#define BASH_FOREGROUND "\\[\\e[38;"
-#define BASH_BACKGROUND "\\[\\e[48;"
-#define BASH_END        "\\[\\e[0m"
+#define SHELL_FOREGROUND "\\[\\e[38;"
+#define SHELL_BACKGROUND "\\[\\e[48;"
+#define SHELL_FG_BG_END        "\\[\\e[0m"
+#define SHELL_COLOR_END  "\\]"
 #else
-#define BASH_FOREGROUND "\\[(38;"
-#define BASH_BACKGROUND "\\[(48;"
-#define BASH_END        "\\[(0m\\]"
+#define SHELL_FOREGROUND "\\[(38;"
+#define SHELL_BACKGROUND "\\[(48;"
+#define SHELL_FG_BG_END        "\\[(0m\\]"
 #endif
 
 /*! \enum displaytype

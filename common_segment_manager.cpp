@@ -66,7 +66,10 @@ common_segment_manager::segment_get_value(char* name, char** value)
 	}
 	else if (strcmp(name,"user") == 0)
 	{
-		get_value = getenv("USER");
+		int uid = getuid();
+		struct passwd *pw = getpwuid(uid);
+
+		get_value = pw->pw_name;
 		if (get_value != NULL && strlen(get_value) > 0)
 		{
 			sprintf(common_value, " %s ", get_value);

@@ -33,6 +33,7 @@
 #include <termios.h>
 #include <unistd.h>
 #include <sched.h>
+#include <pwd.h>
 
 
 #ifdef DEBUG

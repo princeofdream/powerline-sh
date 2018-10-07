@@ -77,6 +77,8 @@ theme_color_map default_theme[] =
 	// { "USERNAME_BG"          , 31  } ,
 	{ "USERNAME_FG"          , 254 } ,
 	{ "USERNAME_BG"          , 31  } ,
+	{ "USER_ROOT_FG"         , 254 } ,
+	{ "USER_ROOT_BG"         , 196 } ,
 	{ "USERNAME_ROOT_BG"     , 124 } ,
 	{ "HOSTNAME_FG"          , 250 } ,
 	{ "HOSTNAME_BG"          , 238 } ,
@@ -139,6 +141,8 @@ theme_color_map default_theme[] =
 	#if defined(THEME_DARK)
 	{ "USERNAME_FG"      , 15  } ,
 	{ "USERNAME_BG"      , 4   } ,
+	{ "USER_ROOT_FG"     , 15 } ,
+	{ "USER_ROOT_BG"     , 196 } ,
 	{ "USERNAME_ROOT_BG" , 1   } ,
 	{ "HOSTNAME_FG"      , 15  } ,
 	{ "HOSTNAME_BG"      , 10  } ,

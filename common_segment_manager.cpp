@@ -77,8 +77,7 @@ common_segment_manager::segment_get_value(char* name, char** value)
 	}
 	else if (strcmp(name,"prompt") == 0)
 	{
-		get_value = getenv("USER");
-		if (strcmp(get_value,"root") == 0)
+		if ( 0 == getuid())
 			sprintf(common_value, " %s ", "#");
 		else
 			sprintf(common_value, " %s ", "$");

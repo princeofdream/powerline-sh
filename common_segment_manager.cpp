@@ -42,7 +42,7 @@ common_segment_manager::segment_get_background(char* name, segment_color** value
 }
 
 int
-common_segment_manager::segment_get_value(char* name, char** value)
+common_segment_manager::segment_get_value(char* name, char** value, void* param)
 {
 	char common_value[MAXLEN];
 	char* get_value;
@@ -73,6 +73,17 @@ common_segment_manager::segment_get_value(char* name, char** value)
 		if (get_value != NULL && strlen(get_value) > 0)
 		{
 			sprintf(common_value, " %s ", get_value);
+		}
+	}
+	else if (strcmp(name,"prompt_stat") == 0)
+	{
+		if (param != NULL)
+		{
+			sprintf(common_value, " \u2718%d ", (int)param);
+		}
+		else
+		{
+			sprintf(common_value, " \u2718 ", "");
 		}
 	}
 	else if (strcmp(name,"prompt") == 0)

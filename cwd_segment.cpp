@@ -52,7 +52,7 @@ cwd_segment::segment_get_background(char* name, segment_color** value)
 }
 
 int
-cwd_segment::segment_get_value(char* name,char** value)
+cwd_segment::segment_get_value(char* name,char** value, void* param)
 {
 	char cwd_path[MAXLEN];
 	char* get_value;

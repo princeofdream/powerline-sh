@@ -42,7 +42,7 @@ host_segment::segment_get_background(char* name, segment_color** value)
 }
 
 int
-host_segment::segment_get_value(char* name, char** value)
+host_segment::segment_get_value(char* name, char** value, void* param)
 {
 	char host_name[MAXLEN];
 

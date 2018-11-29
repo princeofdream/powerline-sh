@@ -65,7 +65,7 @@ abstract_segments::segment_set_value(char* value)
 }
 
 int
-abstract_segments::register_segment(char* name, segment_color* s_color)
+abstract_segments::register_segment(char* name, segment_color* s_color, void* param)
 {
 	char* value = NULL;
 	segment_color* m_color_fg = NULL;
@@ -76,7 +76,7 @@ abstract_segments::register_segment(char* name, segment_color* s_color)
 
 	sprintf(segment_name,"%s",name);
 	m_segments.register_segment(name);
-	segment_get_value(name, &value);
+	segment_get_value(name, &value, param);
 	JCG("%s get value---->%s",name, value);
 	if (value != NULL)
 	{

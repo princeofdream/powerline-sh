@@ -98,7 +98,7 @@ theme_color_map default_theme[] =
 	{ "JOBS_BG"              , 238 } ,
 	{ "CMD_PASSED_BG"        , 245 } ,
 	{ "CMD_PASSED_FG"        , 232 } ,
-	{ "CMD_FAILED_BG"        , 161 } ,
+	{ "CMD_FAILED_BG"        , 204 } ,
 	{ "CMD_FAILED_FG"        , 15  } ,
 	{ "VIRTUAL_ENV_BG"       , 35  } ,  // a mid-tone green
 	{ "VIRTUAL_ENV_FG"       , 0   } ,

@@ -34,6 +34,7 @@ OUTPUT=powerline-sh
 
 CFLAGS = -I$(HOME)/Environment/env_rootfs/include
 CFLAGS += -I./
+CFLAGS += -fpermissive
 LDFLAGS=-L$(HOME)/Environment/env_rootfs/lib64 -Wl,-rpath=$(HOME)/Environment/env_rootfs/lib64
 LDFLAGS+=-L$(HOME)/Environment/env_rootfs/lib -Wl,-rpath=$(HOME)/Environment/env_rootfs/lib
 

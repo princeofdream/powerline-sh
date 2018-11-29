@@ -83,7 +83,7 @@ int main(int argc, char *argv[])
 		m_colortheme->get_color_by_name("Z_SHELL_BG",(unsigned short*)&color_bg);
 		s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
 		s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
-		m_sgmgr->register_segment("zsh", &s_color);
+		m_sgmgr->register_segment("zsh", &s_color, NULL);
 	}
 
 	m_colortheme->get_color_by_name("USERNAME_FG",(unsigned short*)&color_fg);
@@ -95,14 +95,14 @@ int main(int argc, char *argv[])
 	}
 	s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
 	s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
-	m_sgmgr->register_segment("user", &s_color);
+	m_sgmgr->register_segment("user", &s_color, NULL);
 	// m_sgmgr->segment_get_color(NULL,&s_color);
 
 	m_colortheme->get_color_by_name("SSH_FG",(unsigned short*)&color_fg);
 	m_colortheme->get_color_by_name("SSH_BG",(unsigned short*)&color_bg);
 	s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
 	s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
-	m_sgmgr->register_segment("ssh", &s_color);
+	m_sgmgr->register_segment("ssh", &s_color, NULL);
 
 	/* ************************************** */
 	// m_host = new host_segment();
@@ -114,13 +114,13 @@ int main(int argc, char *argv[])
 	m_colortheme->get_color_by_name("PATH_BG",(unsigned short*)&color_bg);
 	s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
 	s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
-	m_cwd->register_segment("cwd", &s_color);
+	m_cwd->register_segment("cwd", &s_color, NULL);
 
 	m_colortheme->get_color_by_name("PATH_STAT_FG",(unsigned short*)&color_fg);
 	m_colortheme->get_color_by_name("PATH_STAT_BG",(unsigned short*)&color_bg);
 	s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
 	s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
-	m_sgmgr->register_segment("path_stat", &s_color);
+	m_sgmgr->register_segment("path_stat", &s_color, NULL);
 
 	/* ************************************** */
 
@@ -128,45 +128,45 @@ int main(int argc, char *argv[])
 	{
 		m_colortheme->get_color_by_name("CMD_FAILED_FG",(unsigned short*)&color_fg);
 		m_colortheme->get_color_by_name("CMD_FAILED_BG",(unsigned short*)&color_bg);
+		s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
+		s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
+		m_sgmgr->register_segment("prompt_stat", &s_color, (void*)pre_process_stat);
 	}
-	else
-	{
-		m_colortheme->get_color_by_name("CMD_PASSED_FG",(unsigned short*)&color_fg);
-		m_colortheme->get_color_by_name("CMD_PASSED_BG",(unsigned short*)&color_bg);
-	}
+	m_colortheme->get_color_by_name("CMD_PASSED_FG",(unsigned short*)&color_fg);
+	m_colortheme->get_color_by_name("CMD_PASSED_BG",(unsigned short*)&color_bg);
 	s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
 	s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
-	m_sgmgr->register_segment("prompt", &s_color);
+	m_sgmgr->register_segment("prompt", &s_color, NULL);
 
 	m_colortheme->get_color_by_name("JOBS_FG",(unsigned short*)&color_fg);
 	m_colortheme->get_color_by_name("JOBS_BG",(unsigned short*)&color_bg);
 	s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
 	s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
-	m_sgmgr->register_segment("jobs", &s_color);
+	m_sgmgr->register_segment("jobs", &s_color, NULL);
 
 	m_colortheme->get_color_by_name("REPO_CLEAN_FG",(unsigned short*)&color_fg);
 	m_colortheme->get_color_by_name("REPO_CLEAN_BG",(unsigned short*)&color_bg);
 	s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
 	s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
-	m_sgmgr->register_segment("git", &s_color);
+	m_sgmgr->register_segment("git", &s_color, NULL);
 
 	m_colortheme->get_color_by_name("ANDROID_ENV_FG",(unsigned short*)&color_fg);
 	m_colortheme->get_color_by_name("ANDROID_ENV_BG",(unsigned short*)&color_bg);
 	s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
 	s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
-	m_sgmgr->register_segment("android_env", &s_color);
+	m_sgmgr->register_segment("android_env", &s_color, NULL);
 
 	m_colortheme->get_color_by_name("TIME_FG",(unsigned short*)&color_fg);
 	m_colortheme->get_color_by_name("TIME_BG",(unsigned short*)&color_bg);
 	s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
 	s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
-	// m_sgmgr->register_segment("time", &s_color);
+	// m_sgmgr->register_segment("time", &s_color, NULL);
 
 	m_colortheme->get_color_by_name("PATH_FG",(unsigned short*)&color_fg);
 	m_colortheme->get_color_by_name("PATH_BG",(unsigned short*)&color_bg);
 	s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
 	s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
-	m_sgmgr->register_segment("newline", NULL);
+	m_sgmgr->register_segment("newline", NULL, NULL);
 
 	// m_sgmgr->get_segment_list(&segment_list);
 	// JCG("segments list: %s",segment_list);

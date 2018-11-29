@@ -36,7 +36,7 @@ public:
 	// int segment_set_value(char* value, segment_color fg, segment_color bg);
 	int segment_get_foreground(char* name, segment_color** value);
 	int segment_get_background(char* name, segment_color** value);
-	int segment_get_value(char* name, char** value);
+	int segment_get_value(char* name, char** value, void* param);
 	int segment_get_color(char* fg_color_name, char* bg_color_name, segment_color* value);
 private:
 	/* data */

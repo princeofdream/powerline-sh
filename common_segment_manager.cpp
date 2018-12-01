@@ -79,7 +79,7 @@ common_segment_manager::segment_get_value(char* name, char** value, void* param)
 	{
 		if (param != NULL)
 		{
-			sprintf(common_value, " \u2718%d ", (int)param);
+			sprintf(common_value, " \u2718%d ",(long)param );
 		}
 		else
 		{

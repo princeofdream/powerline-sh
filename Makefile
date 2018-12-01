@@ -34,12 +34,12 @@ OUTPUT=powerline-sh
 
 CFLAGS = -I$(HOME)/Environment/env_rootfs/include
 CFLAGS += -I./
-CFLAGS += -fpermissive
-LDFLAGS=-L$(HOME)/Environment/env_rootfs/lib64 -Wl,-rpath=$(HOME)/Environment/env_rootfs/lib64
-LDFLAGS+=-L$(HOME)/Environment/env_rootfs/lib -Wl,-rpath=$(HOME)/Environment/env_rootfs/lib
+CFLAGS += -fpermissive -Wno-format-extra-args
+#LDFLAGS=-L$(HOME)/Environment/env_rootfs/lib64 -Wl,-rpath=$(HOME)/Environment/env_rootfs/lib64
+#LDFLAGS+=-L$(HOME)/Environment/env_rootfs/lib -Wl,-rpath=$(HOME)/Environment/env_rootfs/lib
 
 all: $(OBJS) $(INCS)
-	$(CXX) $(CFLAGS) $(OBJS) $(INCS) $(LDFLAGS) -o $(OUTPUT)
+	$(CXX) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $(OUTPUT)
 
 %.o: %.cpp %.h $(INCS)
 	$(CXX) $(CFLAGS) -c $< -o $@

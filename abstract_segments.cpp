@@ -78,12 +78,15 @@ abstract_segments::register_segment(char* name, segment_color* s_color, void* pa
 	m_segments.register_segment(name);
 	segment_get_value(name, &value, param);
 	JCG("%s get value---->%s",name, value);
+
 	if (value != NULL)
 	{
-		JCG("value:%s",value);
-		segment_set_value(value);
-		free(value);
-		value = NULL;
+		if (strlen(value)> 0) {
+			JCG("value:%s",value);
+			segment_set_value(value);
+			free(value);
+			value = NULL;
+		}
 	}
 	segment_get_foreground(NULL, &m_color_fg);
 	if (m_color_fg != NULL)

@@ -233,6 +233,10 @@ common_segment_manager::segment_get_value(char* name, char** value, void* param)
 		segment_set_value(common_value);
 #endif
 	}
+	else
+	{
+		*value=NULL;
+	}
 
 	return 0;
 

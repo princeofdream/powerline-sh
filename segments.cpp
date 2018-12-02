@@ -68,6 +68,7 @@ segments::register_segment(char* item)
 	m_unit[segments_count]->pvalue = (char*)malloc(MAXLEN);
 	m_unit[segments_count]->index = segments_count;
 	sprintf(m_unit[segments_count]->name, "%s", item);
+	memset(m_unit[segments_count]->value,0x0,MAXLEN);
 	JCG("segment [%s] address: 0x%x, name address: 0x%x, value: 0x%x",m_unit[segments_count]->name, m_unit[segments_count], m_unit[segments_count]->name, m_unit[segments_count]->value);
 #else
 	segments_list[segments_count] = (char*)malloc(SEGMENT_NAME_MAX_LEN);

@@ -317,7 +317,7 @@ common_share::Conv_Time_Set_to_String(struct tm *m_tm, char** value)
 		// (*m_tm).tm_wday+1,(*m_tm).tm_yday,(*m_tm).tm_isdst);
 
 	sprintf(m_time_str,"%02d:%02d:%02d",
-		(*m_tm).tm_year+1900,(*m_tm).tm_mon+1,(*m_tm).tm_mday,
+		// (*m_tm).tm_year+1900,(*m_tm).tm_mon+1,(*m_tm).tm_mday,
 		(*m_tm).tm_hour,(*m_tm).tm_min,(*m_tm).tm_sec);
 
 	if (*value == NULL) {

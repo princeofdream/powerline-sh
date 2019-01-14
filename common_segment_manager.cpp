@@ -61,7 +61,7 @@ common_segment_manager::segment_get_value(char* name, char** value, void* param)
 		if (get_value != NULL && strlen(get_value) > 0)
 		{
 			// sprintf(common_value, "%s", "⌁");
-			sprintf(common_value, "%s", "➿➿");
+			sprintf(common_value, "%s", " ⌁ ");
 		}
 	}
 	else if (strcmp(name,"user") == 0)

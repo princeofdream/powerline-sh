@@ -243,7 +243,6 @@ colortheme::display_truecolor(int colortype, int colorstyle, true_color fg, true
 int
 colortheme::display_256color(int colortype, int colorstyle, true_color fg, true_color bg, char* content, char** dest)
 {
-	// JDG("\e[38;5;%dm\e[48;5;240m test[%d] \e[48;5;166m\e[38;5;%dm\n",i0,i0,i0);
 	char color_string[COLOR_STRING_LEN];
 
 	memset(color_string,0x0,sizeof(color_string));

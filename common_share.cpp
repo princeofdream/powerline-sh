@@ -225,8 +225,6 @@ common_share::command_stream(char* cmd, char** result)
 	JCG("command: %s", cmd);
 	close(STDERR_FILENO);
 	cmd_stream = popen(full_cmd,"r");
-	/* if(cmd_stream == NULL) */
-	JCG("by James %s",strerror(errno));
 	while(1)
 	{
 		memset(m_val,0x0,sizeof(m_val));
@@ -239,8 +237,6 @@ common_share::command_stream(char* cmd, char** result)
 			read_byte = fread(buf, sizeof(char), sizeof(buf) - 2, cmd_stream);
 			if(read_byte <= 0)
 			{
-				JCG("by James %s",strerror(errno));
-				JCG("finish");
 				end_of_file = true;
 				break;
 			}
@@ -284,8 +280,6 @@ common_share::GetLocalTime(char** value)
 	m_day = m_hour/24;
 	m_year = m_day/365;
 
-	JCG();
-
 	if (*value == NULL) {
 		*value = (char*)malloc(MAXLEN);
 		memset(*value,0x0,MAXLEN);
@@ -293,7 +287,6 @@ common_share::GetLocalTime(char** value)
 		return -1;
 	}
 
-	JCG();
 	Conv_Time_Set_to_String(r_tm, &to_str);
 	JCG("current time: %s",to_str);
 	sprintf(*value, "%s", to_str);
@@ -302,7 +295,6 @@ common_share::GetLocalTime(char** value)
 		free(to_str);
 		to_str = NULL;
 	}
-	JCG();
 	return 0;
 }
 
@@ -328,7 +320,6 @@ common_share::Conv_Time_Set_to_String(struct tm *m_tm, char** value)
 	}
 
 	sprintf(*value, "%s", m_time_str);
-	JCG("%s",m_time_str);
 
 	return	0;
 }

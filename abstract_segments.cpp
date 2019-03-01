@@ -52,7 +52,7 @@ abstract_segments::segment_set_value(char* value)
 		memset(unit->value,0x0,MAXLEN);
 		sprintf(unit->value,"%s",value);
 		// memcpy(unit->value,value,strlen(value)+1);
-		JCG("\nget segment info\nname:\t%s\nvalue:\t%s\npvalue:\t%s\nindex:\t%d",unit->name, unit->value,unit->pvalue,unit->index);
+		JCG("get segment info:\tname:\t%s;\tvalue:\t%s\tpvalue:\t%s\tindex:\t%d",unit->name, unit->value,unit->pvalue,unit->index);
 		// JCG("segment [%s] address: 0x%x, name address: 0x%x, value: 0x%x",unit->name, unit, unit->name, unit->value);
 	}
 	else
@@ -82,7 +82,6 @@ abstract_segments::register_segment(char* name, segment_color* s_color, void* pa
 	if (value != NULL)
 	{
 		if (strlen(value)> 0) {
-			JCG("value:%s",value);
 			segment_set_value(value);
 			free(value);
 			value = NULL;

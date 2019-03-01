@@ -169,31 +169,28 @@ int main(int argc, char *argv[])
 	m_sgmgr->register_segment("newline", NULL, NULL);
 
 	// m_sgmgr->get_segment_list(&segment_list);
-	// JCG("segments list: %s",segment_list);
 	if (segment_list!=NULL)
 	{
 		free(segment_list);
 		segment_list = NULL;
 	}
 	m_sgmgr->get_segment_value_list(&segment_list);
-	JCG("segments list: %s",segment_list);
 	if (segment_list!=NULL)
 	{
 		free(segment_list);
 		segment_list = NULL;
 	}
+#if 0
 	m_sgmgr->get_segment_color_list(&segment_list, SEGMENT_ACTION_NORMAL);
-	JCG("segments list: %s",segment_list);
 	if (segment_list!=NULL)
 	{
 		free(segment_list);
 		segment_list = NULL;
 	}
+#endif
 
 	m_sgmgr->get_segment_output_list(&segment_list, SEGMENT_ACTION_NORMAL);
-	JCG("segments list: %s",segment_list);
 	printf("%s\n",segment_list);
-	// printf("-12345-\n");
 	printf("%s%s%s%s%s%s",
 		   SHELL_FG_BG_END, SHELL_COLOR_END,
 		   SHELL_FG_BG_END, SHELL_COLOR_END,
@@ -204,11 +201,9 @@ int main(int argc, char *argv[])
 		segment_list = NULL;
 	}
 
-	m_sgmgr->get_segment_pvalue_list(&segment_list);
-	JCG("segments list: %s",segment_list);
+	// m_sgmgr->get_segment_pvalue_list(&segment_list);
 
 	m_colortheme->get_color_by_name("TIME_BG", (unsigned short*)&color_value);
-	JCG("get theme value: %d", color_value);
 
 	if (segment_list!=NULL)
 	{

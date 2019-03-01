@@ -63,6 +63,7 @@
 #endif
 #define MAXLEN 1024
 #define SEPERATE_SYMBOL ""
+#define SEPERATE_RSIDE_SYMBOL ""
 
 #define SEGMENT_ACTION_COUNT 8
 
@@ -179,6 +180,7 @@ typedef	struct segments_unit_t {
 	char* name;
 	char* value;
 	char* pvalue;
+	bool leftside;
 	segment_color color;
 	// struct segment_unit_t *next_unit;
 } segment_unit;

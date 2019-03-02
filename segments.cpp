@@ -468,6 +468,66 @@ segments::get_segment_color_list(char** value_list, segmentaction SEGMENT_ACTION
 }
 
 int
+segments::combile_to_one_line(char** value_list, char* val_left, char* val_right){
+	common_share mshare;
+	char* result = NULL;
+	int row = 0, colum = 0;
+	char mspace[MAXLEN];
+	int left_size = 0;
+	int right_size = 0;
+	int i0 = 0;
+	bool isUTF8 = false;
+	char length_cmd[MAXLEN];
+	char* left_size_str = NULL;
+	char* left_value_list = NULL;
+
+	char* get_home_path;
+	char get_length_script[MAXLEN];
+
+
+	memset(mspace,0x0,sizeof(mspace));
+	memset(length_cmd,0x0,sizeof(length_cmd));
+	memset(get_length_script,0x0,sizeof(get_length_script));
+
+	get_home_path = getenv("HOME");
+	sprintf(get_length_script, "%s/.env_tools.sh", get_home_path);
+	get_segment_value_list(&left_value_list);
+
+
+	mshare.command_stream("stty size", &result);
+	sscanf(result,"%d %d", &row,&colum);
+
+#if 1
+	if (access(get_length_script, F_OK) != 0) {
+		JCG("--->%s--->%d<---", get_length_script,access(get_length_script, X_OK));
+		left_size = -1;
+	} else {
+		sprintf(length_cmd,"%s -l \"%s\"", get_length_script, left_value_list);
+		mshare.command_stream(length_cmd, &left_size_str);
+		sscanf(left_size_str,"%d", &left_size);
+	}
+#else
+	// This use sh instead bash to echo, so length is incorrect
+	// sprintf(length_cmd,"TMP_POWERLINE_SH=\"%s\" && bash echo ${#TMP_POWERLINE_SH} && bash echo \"--->${TMP_POWERLINE_SH}<---\"", left_value_list);
+	sprintf(length_cmd,"source %s/.common.sh && get_message_length \"%s\"", get_home_path, left_value_list);
+	mshare.command_stream(length_cmd, &left_size_str);
+	JCG("--->>>%s",left_size_str);
+	// sscanf(left_size_str,"%d", &left_size);
+#endif
+
+	while(i0 < colum-left_size -4 && left_size >= 0)
+	{
+		sprintf(mspace,"%s%s", mspace, " ");
+		i0++;
+	}
+
+	// sprintf(*value_list, "%s%s<<<<", val_left, mspace, val_right);
+	sprintf(*value_list, "%s", val_left);
+	JCG("tty size is: <%d - %d>, left size: %d.\n%s%s%s\n",row ,colum, left_size,left_value_list,mspace,"<<<<");
+	return 0;
+}
+
+int
 segments::get_segment_output_list(char** value_list, segmentaction action)
 {
 	char* value_list_left;
@@ -481,8 +541,9 @@ segments::get_segment_output_list(char** value_list, segmentaction action)
 	get_segment_left_list_common(&value_list_left,"output", action);
 	get_segment_right_list_common(&value_list_right,"output", action);
 
-	sprintf(*value_list, "%s", value_list_left);
-	// sprintf(*value_list, "%s---%s", value_list_left, value_list_right);
+	// sprintf(*value_list, "%s", value_list_left);
+	// sprintf(*value_list, "%s%s", value_list_left, value_list_right);
+	combile_to_one_line(value_list, value_list_left, value_list_right);
 	return 0;
 }
 

@@ -22,6 +22,8 @@
 #include <basic.h>
 #include <colortheme.h>
 
+#include "common_share.h"
+
 class segments
 {
 public:
@@ -45,6 +47,7 @@ public:
 	int segment_get_background(char* name, segment_color** bg_color);
 	int segment_set_color(segment_color* s_color);
 	int segment_set_side(bool leftside);
+	int combile_to_one_line(char** value_list, char* val_left, char* val_right);
 
 private:
 	segment_unit **m_unit = NULL;

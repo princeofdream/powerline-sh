@@ -43,6 +43,7 @@ public:
 	int get_segment_output_list(char** value_list, segmentaction action);
 	int get_segment_by_name(char* name, segment_unit** unit);
 	int get_segment_by_order(unsigned int index, segment_unit** unit);
+	int segment_set_side(bool leftside);
 
 	int on_segment_change(int action);
 

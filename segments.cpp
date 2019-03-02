@@ -453,6 +453,22 @@ segments::get_segment_value_list(char** value_list)
 }
 
 int
+segments::get_segment_left_value_list(char** value_list)
+{
+	JCG("Enter %s.", __FUNCTION__);
+	get_segment_left_list_common(value_list,"value", SEGMENT_ACTION_NORMAL);
+	return 0;
+}
+
+int
+segments::get_segment_right_value_list(char** value_list)
+{
+	JCG("Enter %s.", __FUNCTION__);
+	get_segment_right_list_common(value_list,"value", SEGMENT_ACTION_NORMAL);
+	return 0;
+}
+
+int
 segments::get_segment_pvalue_list(char** value_list)
 {
 	JCG("Enter %s.", __FUNCTION__);
@@ -468,18 +484,22 @@ segments::get_segment_color_list(char** value_list, segmentaction SEGMENT_ACTION
 }
 
 int
-segments::combile_to_one_line(char** value_list, char* val_left, char* val_right){
+segments::combile_to_one_line(char** value_list, char* val_left, char* val_right, bool with_space){
 	common_share mshare;
 	char* result = NULL;
 	int row = 0, colum = 0;
 	char mspace[MAXLEN];
-	int left_size = 0;
-	int right_size = 0;
 	int i0 = 0;
 	bool isUTF8 = false;
 	char length_cmd[MAXLEN];
-	char* left_size_str = NULL;
+
+	int   left_size       = 0;
+	char* left_size_str   = NULL;
 	char* left_value_list = NULL;
+
+	int   right_size       = 0;
+	char* right_size_str   = NULL;
+	char* right_value_list = NULL;
 
 	char* get_home_path;
 	char get_length_script[MAXLEN];
@@ -491,7 +511,14 @@ segments::combile_to_one_line(char** value_list, char* val_left, char* val_right
 
 	get_home_path = getenv("HOME");
 	sprintf(get_length_script, "%s/.env_tools.sh", get_home_path);
-	get_segment_value_list(&left_value_list);
+
+	if (!with_space) {
+		sprintf(*value_list, "%s%s", val_left, val_right);
+		return 0;
+	}
+
+	get_segment_left_value_list(&left_value_list);
+	get_segment_right_value_list(&right_value_list);
 
 
 	mshare.command_stream("stty size", &result);
@@ -501,10 +528,16 @@ segments::combile_to_one_line(char** value_list, char* val_left, char* val_right
 	if (access(get_length_script, F_OK) != 0) {
 		JCG("--->%s--->%d<---", get_length_script,access(get_length_script, X_OK));
 		left_size = -1;
+		right_size = 0;
 	} else {
 		sprintf(length_cmd,"%s -l \"%s\"", get_length_script, left_value_list);
 		mshare.command_stream(length_cmd, &left_size_str);
 		sscanf(left_size_str,"%d", &left_size);
+
+		memset(length_cmd,0x0,sizeof(length_cmd));
+		sprintf(length_cmd,"%s -l \"%s\"", get_length_script, right_value_list);
+		mshare.command_stream(length_cmd, &right_size_str);
+		sscanf(right_size_str,"%d", &right_size);
 	}
 #else
 	// This use sh instead bash to echo, so length is incorrect
@@ -521,9 +554,18 @@ segments::combile_to_one_line(char** value_list, char* val_left, char* val_right
 		i0++;
 	}
 
-	// sprintf(*value_list, "%s%s<<<<", val_left, mspace, val_right);
-	sprintf(*value_list, "%s", val_left);
-	JCG("tty size is: <%d - %d>, left size: %d.\n%s%s%s\n",row ,colum, left_size,left_value_list,mspace,"<<<<");
+	sprintf(*value_list, "%s%s%s", val_left, mspace, val_right);
+	// sprintf(*value_list, "%s", val_left);
+	JCG("tty size is: <%d - %d>, left size: %d.\n%s%s%s\n",row ,colum, left_size,left_value_list,mspace,right_value_list);
+
+	if (left_size_str != NULL)
+		free(left_size_str);
+	if (right_size_str != NULL)
+		free(right_size_str);
+	if (left_value_list != NULL)
+		free(left_value_list);
+	if (right_value_list != NULL)
+		free(right_value_list);
 	return 0;
 }
 
@@ -543,7 +585,11 @@ segments::get_segment_output_list(char** value_list, segmentaction action)
 
 	// sprintf(*value_list, "%s", value_list_left);
 	// sprintf(*value_list, "%s%s", value_list_left, value_list_right);
-	combile_to_one_line(value_list, value_list_left, value_list_right);
+#if 0
+	combile_to_one_line(value_list, value_list_left, value_list_right, true);
+#else
+	combile_to_one_line(value_list, value_list_left, "", false);
+#endif
 	return 0;
 }
 

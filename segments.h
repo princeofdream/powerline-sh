@@ -36,9 +36,13 @@ public:
 	int get_segment_left_list_common(char** value_list, char* type, segmentaction action);
 	int get_segment_right_list_common(char** value_list, char* type, segmentaction action);
 	int get_segment_list(char** value_list);
+	int get_segment_left_value_list(char** value_list);
+	int get_segment_right_value_list(char** value_list);
 	int get_segment_value_list(char** value_list);
 	int get_segment_pvalue_list(char** value_list);
 	int get_segment_color_list(char** value_list, segmentaction action);
+	// int get_segment_left_output_list(char** value_list, segmentaction action);
+	// int get_segment_right_output_list(char** value_list, segmentaction action);
 	int get_segment_output_list(char** value_list, segmentaction action);
 	int get_segment_by_name(char* name, segment_unit** unit);
 	int get_segment_by_order(unsigned int index);
@@ -47,7 +51,7 @@ public:
 	int segment_get_background(char* name, segment_color** bg_color);
 	int segment_set_color(segment_color* s_color);
 	int segment_set_side(bool leftside);
-	int combile_to_one_line(char** value_list, char* val_left, char* val_right);
+	int combile_to_one_line(char** , char* , char* , bool);
 
 private:
 	segment_unit **m_unit = NULL;

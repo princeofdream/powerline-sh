@@ -174,3 +174,10 @@ abstract_segments::segment_get_color(char* fg_color_name, char* bg_color_name, s
 }
 #endif
 
+int
+abstract_segments::segment_set_side(bool leftside)
+{
+	m_segments.segment_set_side(leftside);
+	return 0;
+}
+

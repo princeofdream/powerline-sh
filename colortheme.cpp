@@ -218,11 +218,17 @@ colortheme::display_truecolor(int colortype, int colorstyle, true_color fg, true
 	memset(color_string,0x0,sizeof(color_string));
 	if (colortype == DISP_FOREGROUND)
 	{
-		sprintf( color_string, "\e[38;%d;%d;%d;%dm%s\e[0m\e[0m",colorstyle, fg.red, fg.green, fg.blue, content);
+		if (content!=NULL)
+			sprintf( color_string, "\e[38;%d;%d;%d;%dm%s\e[0m\e[0m",colorstyle, fg.red, fg.green, fg.blue, content);
+		else
+			sprintf( color_string, "\e[38;%d;%d;%d;%dm\e[0m\e[0m",colorstyle, fg.red, fg.green, fg.blue);
 	}
 	else if (colortype == DISP_BACKGROUND)
 	{
-		sprintf( color_string, "\e[48;%d;%d;%d;%dm%s\e[0m\e[0m",colorstyle, bg.red, bg.green, bg.blue, content);
+		if (content!=NULL)
+			sprintf( color_string, "\e[48;%d;%d;%d;%dm%s\e[0m\e[0m",colorstyle, bg.red, bg.green, bg.blue, content);
+		else
+			sprintf( color_string, "\e[48;%d;%d;%d;%dm\e[0m\e[0m",colorstyle, bg.red, bg.green, bg.blue);
 	}
 	else if (colortype == DISP_BOTH)
 	{
@@ -248,11 +254,17 @@ colortheme::display_256color(int colortype, int colorstyle, true_color fg, true_
 	memset(color_string,0x0,sizeof(color_string));
 	if (colortype == DISP_FOREGROUND)
 	{
-		sprintf( color_string, "%s%d;%dm%s%s",SHELL_FOREGROUND,colorstyle, fg.red, SHELL_COLOR_END, content);
+		if (content!=NULL)
+			sprintf( color_string, "%s%d;%dm%s%s",SHELL_FOREGROUND,colorstyle, fg.red, SHELL_COLOR_END, content);
+		else
+			sprintf( color_string, "%s%d;%dm%s%s",SHELL_FOREGROUND,colorstyle, fg.red, SHELL_COLOR_END, "");
 	}
 	else if (colortype == DISP_BACKGROUND)
 	{
-		sprintf( color_string, "%s%d;%dm%s%s",SHELL_BACKGROUND,colorstyle, bg.red, SHELL_COLOR_END, content);
+		if (content!=NULL)
+			sprintf( color_string, "%s%d;%dm%s%s",SHELL_BACKGROUND,colorstyle, bg.red, SHELL_COLOR_END, content);
+		else
+			sprintf( color_string, "%s%d;%dm%s%s",SHELL_BACKGROUND,colorstyle, bg.red, SHELL_COLOR_END, "");
 	}
 	else if (colortype == DISP_BOTH)
 	{
@@ -272,8 +284,8 @@ colortheme::display_256color(int colortype, int colorstyle, true_color fg, true_
 #if 1
 	else if (colortype == DISP_END)
 	{
-		// sprintf( color_string, SHELL_FG_BG_END);
-		sprintf( color_string, "");
+		sprintf( color_string, SHELL_FG_BG_END);
+		// sprintf( color_string, "");
 	}
 #endif
 	else

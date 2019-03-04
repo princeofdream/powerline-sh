@@ -48,8 +48,10 @@ segments::~segments()
 
 
 int
-segments::register_segment(char* item)
+segments::register_segment(char* item, void* param)
 {
+	segment_extra_param *mparam = (segment_extra_param*)param;
+
 	if (item == NULL)
 	{
 		JEG("item is null, will not add to list!");
@@ -63,18 +65,30 @@ segments::register_segment(char* item)
 #if 1
 	// JCG("segment [%s] address: 0x%x, name address: 0x%x, value: 0x%x",m_unit[segments_count]->name, m_unit[segments_count], m_unit[segments_count]->name, m_unit[segments_count]->value);
 	m_unit[segments_count]           = (segment_unit*)malloc(sizeof(segment_unit));
-	m_unit[segments_count]->name     = (char*)malloc(strlen(item)+1);
+	m_unit[segments_count]->name     = (char*)malloc(strlen(item) + 16);
 	m_unit[segments_count]->value    = (char*)malloc(MAXLEN);
 	m_unit[segments_count]->pvalue   = (char*)malloc(MAXLEN);
 	m_unit[segments_count]->index    = segments_count;
 	m_unit[segments_count]->leftside = true;
 
-	sprintf(m_unit[segments_count]->name, "%s", item);
+	if (mparam != NULL)
+	{
+		if (mparam->leftside == false)
+		{
+			m_unit[segments_count]->leftside = false;
+			sprintf(m_unit[segments_count]->name,"%s_rside", item);
+		}
+		else
+			sprintf(m_unit[segments_count]->name, "%s", item);
+	}
+	else
+		sprintf(m_unit[segments_count]->name, "%s", item);
 
 	memset(m_unit[segments_count]->value,0x0,MAXLEN);
 	memset(m_unit[segments_count]->pvalue,0x0,MAXLEN);
 
-	JCG("============>>> register segment [%s], value: %s, pvalue: %s, side:%s <<<================",
+	JCG("============>>> register segment <%d> [%s], value: %s, pvalue: %s, side:%s <<<================",
+		m_unit[segments_count]->index,
 		m_unit[segments_count]->name,
 		m_unit[segments_count]->value,
 		m_unit[segments_count]->pvalue,
@@ -513,6 +527,7 @@ segments::combile_to_one_line(char** value_list, char* val_left, char* val_right
 	sprintf(get_length_script, "%s/.env_tools.sh", get_home_path);
 
 	if (!with_space) {
+		JCG("no space, just combile");
 		sprintf(*value_list, "%s%s", val_left, val_right);
 		return 0;
 	}
@@ -548,10 +563,21 @@ segments::combile_to_one_line(char** value_list, char* val_left, char* val_right
 	// sscanf(left_size_str,"%d", &left_size);
 #endif
 
-	while(i0 < colum-left_size -4 && left_size >= 0)
+	if (colum > left_size+right_size)
 	{
-		sprintf(mspace,"%s%s", mspace, " ");
-		i0++;
+		while(i0 < colum - left_size - right_size && left_size >= 0)
+		{
+			sprintf(mspace,"%s%s", mspace, " ");
+			i0++;
+		}
+	}
+	else
+	{
+		while(i0 < left_size + right_size -colum && left_size >= 0)
+		{
+			sprintf(mspace,"%s%s", mspace, " ");
+			i0++;
+		}
 	}
 
 	sprintf(*value_list, "%s%s%s", val_left, mspace, val_right);
@@ -594,9 +620,23 @@ segments::get_segment_output_list(char** value_list, segmentaction action)
 }
 
 int
-segments::get_segment_by_name(char* name, segment_unit** unit)
+segments::get_segment_by_name(char* name, segment_unit** unit, void* param)
 {
 	int i0 = 0;
+	segment_extra_param *mparam = (segment_extra_param*)param;
+	char mname[MAXLEN];
+
+	memset(mname,0x0,sizeof(mname));
+	if (mparam != NULL)
+	{
+		if (mparam->leftside == false)
+			sprintf(mname, "%s_rside", name);
+		else
+			sprintf(mname, "%s", name);
+	}
+	else
+		sprintf(mname, "%s", name);
+
 	while( i0 < segments_count )
 	{
 		// JCG("segments[%d] name:%s",i0,m_unit[i0]->name);
@@ -607,7 +647,7 @@ segments::get_segment_by_name(char* name, segment_unit** unit)
 		{
 			JCG("segments[%d] name:%s",i0,m_unit[i0]->name);
 		}
-		else if (strcmp(m_unit[i0]->name, name) == 0)
+		else if (strcmp(m_unit[i0]->name, mname) == 0)
 		{
 			*unit = m_unit[i0];
 			current_unit = m_unit[i0];
@@ -651,8 +691,20 @@ segments::segment_set_color(segment_color* s_color)
 int
 segments::segment_set_side(bool leftside)
 {
+	int current_name_len = 0;
+	char* check_type;
+
 	JCG("Enter %s.", __FUNCTION__);
+
 	current_unit->leftside = leftside;
+
+	current_name_len = strlen(current_unit->name);
+	check_type = strstr(current_unit->name, "_rside");
+	if (check_type == NULL) {
+		// memset(current_unit->name, 0x0, check_type + 1);
+		sprintf(current_unit->name, "%s_rside", current_unit->name);
+	}
+
 	return 0;
 }
 

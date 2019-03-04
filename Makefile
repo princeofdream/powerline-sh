@@ -26,6 +26,7 @@ OBJS+=cwd_segment.o
 OBJS+=host_segment.o
 OBJS+=common_segment_manager.o
 OBJS+=common_share.o
+OBJS+=debug_utils.o
 
 
 INCS=abstract_segments.h basic.h

@@ -35,6 +35,7 @@
 #include <sched.h>
 #include <pwd.h>
 
+#include "debug_utils.h"
 
 #ifdef DEBUG
 #undef DEBUG
@@ -46,6 +47,11 @@
 #define JEG(frm,args...) printf("---<%s:%d>---" frm "\n",__FILE__,__LINE__,##args)
 #define JDG(frm,args...) printf(frm,##args)
 #define JJG(frm,args...) printf("---<%s:%d>---" frm "\n",__FILE__,__LINE__,##args)
+
+// #define JCG(frm,args...) debug_utils::log("---<%s:%d>---" frm "\n",__FILE__,__LINE__,##args)
+// #define JEG(frm,args...) debug_utils::log("---<%s:%d>---" frm "\n",__FILE__,__LINE__,##args)
+// #define JDG(frm,args...) debug_utils::log(frm,##args)
+// #define JJG(frm,args...) debug_utils::log("---<%s:%d>---" frm "\n",__FILE__,__LINE__,##args)
 #else
 #define JCG(frm,args...) while(0){;}
 #define JEG(frm,args...) while(0){;}
@@ -184,6 +190,10 @@ typedef	struct segments_unit_t {
 	segment_color color;
 	// struct segment_unit_t *next_unit;
 } segment_unit;
+
+typedef struct segments_extra_param_t {
+	bool leftside;
+} segment_extra_param;
 
 #if 0
 typedef struct 16bit_color_t {

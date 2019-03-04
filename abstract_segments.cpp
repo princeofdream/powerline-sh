@@ -39,13 +39,13 @@ abstract_segments::segment_set_value_with_color(char* value, true_color fg, true
 }
 
 int
-abstract_segments::segment_set_value(char* value)
+abstract_segments::segment_set_value(char* value, void*param)
 {
 	segment_unit *unit;
 
 	memset(segment_value,0x0,sizeof(segment_value));
 	sprintf(segment_value,"%s",value);
-	get_segment_by_name(segment_name, &unit);
+	get_segment_by_name(segment_name, &unit, param);
 
 	if (value != NULL)
 	{
@@ -74,15 +74,15 @@ abstract_segments::register_segment(char* name, segment_color* s_color, void* pa
 	memset(segment_value,0x0,sizeof(segment_value));
 	memset(segment_name,0x0,sizeof(segment_name));
 
-	sprintf(segment_name,"%s",name);
-	m_segments.register_segment(name);
-	segment_get_value(name, &value, param);
-	JCG("%s get value---->%s",name, value);
+	sprintf(segment_name, "%s", name);
+	m_segments.register_segment(segment_name, param);
+	segment_get_value(segment_name, &value, param);
+	JCG("%s get value---->%s",segment_name, value);
 
 	if (value != NULL)
 	{
 		if (strlen(value)> 0) {
-			segment_set_value(value);
+			segment_set_value(value, param);
 			free(value);
 			value = NULL;
 		}
@@ -141,9 +141,9 @@ abstract_segments::get_segment_output_list(char** value_list, segmentaction acti
 }
 
 int
-abstract_segments::get_segment_by_name(char* name, segment_unit** unit)
+abstract_segments::get_segment_by_name(char* name, segment_unit** unit, void* param)
 {
-	m_segments.get_segment_by_name(name,unit);
+	m_segments.get_segment_by_name(name,unit, param);
 	return 0;
 }
 

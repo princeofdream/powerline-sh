@@ -32,7 +32,7 @@ public:
 
 public:
 	// int delete_segment_from_list(char* item);
-	int register_segment(char* item);
+	int register_segment(char* item, void* param);
 	int get_segment_left_list_common(char** value_list, char* type, segmentaction action);
 	int get_segment_right_list_common(char** value_list, char* type, segmentaction action);
 	int get_segment_list(char** value_list);
@@ -44,7 +44,7 @@ public:
 	// int get_segment_left_output_list(char** value_list, segmentaction action);
 	// int get_segment_right_output_list(char** value_list, segmentaction action);
 	int get_segment_output_list(char** value_list, segmentaction action);
-	int get_segment_by_name(char* name, segment_unit** unit);
+	int get_segment_by_name(char*, segment_unit**, void*);
 	int get_segment_by_order(unsigned int index);
 
 	int segment_get_foreground(char* name, segment_color** fg_color);

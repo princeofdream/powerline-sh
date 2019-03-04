@@ -133,7 +133,7 @@ int main(int argc, char *argv[])
 		m_colortheme->get_color_by_name("CMD_FAILED_BG",(unsigned short*)&color_bg);
 		s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
 		s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
-		m_sgmgr->register_segment("prompt_stat", &s_color, (void*)&mprompt_stat_param);
+		// m_sgmgr->register_segment("prompt_stat", &s_color, (void*)&mprompt_stat_param);
 	}
 
 	m_colortheme->get_color_by_name("CMD_PASSED_FG",(unsigned short*)&color_fg);
@@ -187,7 +187,7 @@ int main(int argc, char *argv[])
 		m_colortheme->get_color_by_name("CMD_FAILED_BG",(unsigned short*)&color_bg);
 		s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
 		s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
-		// m_sgmgr->register_segment("prompt_stat", &s_color, (void*)&mprompt_stat_param);
+		m_sgmgr->register_segment("prompt_stat", &s_color, (void*)&mprompt_stat_param);
 	}
 
 	m_colortheme->get_color_by_name("REPO_CLEAN_FG",(unsigned short*)&color_fg);

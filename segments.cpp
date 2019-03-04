@@ -389,11 +389,11 @@ segments::get_segment_right_list_common(char** value_list, char* type, segmentac
 
 			if (strlen(*value_list) <= 0)
 			{
-				sprintf(*value_list,"%s%s%s%s%s",color_end,color_fg,SEPERATE_RSIDE_SYMBOL,color_end,item_value);
+				sprintf(*value_list,"%s%s%s%s",color_end,color_fg,SEPERATE_RSIDE_SYMBOL,item_value);
 			}
 			else if (strlen(item_value) > 0 && i0 != segments_count - 1 && i0 != line_count)
 			{
-				sprintf(*value_list,"%s%s%s%s%s%s%s",*value_list,color_seperate_prebg,color_bg, SEPERATE_RSIDE_SYMBOL, color_end,color_end, item_value);
+				sprintf(*value_list,"%s%s%s%s",*value_list,color_fg,SEPERATE_RSIDE_SYMBOL, item_value);
 			}
 			else if (strlen(item_value) > 0 && i0 != segments_count - 1 && i0 == line_count)
 			{
@@ -401,7 +401,6 @@ segments::get_segment_right_list_common(char** value_list, char* type, segmentac
 			}
 			else if (strlen(item_value) > 0 && i0 == segments_count - 1)
 			{
-				JJG("<%s:%d>[%d:%d]value_list:%s\n",__FILE__,__LINE__,i0,segments_count,*value_list);
 				sprintf(*value_list,"%s%s%s%s%s",*value_list, color_fg,SEPERATE_RSIDE_SYMBOL,  item_value,color_end);
 			}
 

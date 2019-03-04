@@ -193,6 +193,7 @@ typedef	struct segments_unit_t {
 
 typedef struct segments_extra_param_t {
 	bool leftside;
+	long extinfo;
 } segment_extra_param;
 
 #if 0

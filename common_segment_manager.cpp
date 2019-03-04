@@ -77,9 +77,10 @@ common_segment_manager::segment_get_value(char* name, char** value, void* param)
 	}
 	else if (strcmp(name,"prompt_stat") == 0)
 	{
-		if (param != NULL)
+		segment_extra_param *mprompt_stat_param = (segment_extra_param*)param;
+		if (mprompt_stat_param != NULL)
 		{
-			sprintf(common_value, " \u2718%d ",(long)param );
+			sprintf(common_value, " \u2718%d ",mprompt_stat_param->extinfo );
 		}
 		else
 		{

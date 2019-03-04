@@ -118,21 +118,23 @@ int main(int argc, char *argv[])
 
 	/* ************************************** */
 
+	m_colortheme->get_color_by_name("PATH_STAT_FG",(unsigned short*)&color_fg);
+	m_colortheme->get_color_by_name("PATH_STAT_BG",(unsigned short*)&color_bg);
+	s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
+	s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
+	m_sgmgr->register_segment("path_stat", &s_color, NULL);
+
 	if (pre_process_stat != 0)
 	{
+		segment_extra_param mprompt_stat_param;
+
+		mprompt_stat_param.leftside = true;
+		mprompt_stat_param.extinfo = pre_process_stat;
 		m_colortheme->get_color_by_name("CMD_FAILED_FG",(unsigned short*)&color_fg);
 		m_colortheme->get_color_by_name("CMD_FAILED_BG",(unsigned short*)&color_bg);
 		s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
 		s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
-		m_sgmgr->register_segment("prompt_stat", &s_color, (void*)pre_process_stat);
-	}
-	else
-	{
-		m_colortheme->get_color_by_name("PATH_STAT_FG",(unsigned short*)&color_fg);
-		m_colortheme->get_color_by_name("PATH_STAT_BG",(unsigned short*)&color_bg);
-		s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
-		s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
-		m_sgmgr->register_segment("path_stat", &s_color, NULL);
+		m_sgmgr->register_segment("prompt_stat", &s_color, (void*)&mprompt_stat_param);
 	}
 	m_colortheme->get_color_by_name("CMD_PASSED_FG",(unsigned short*)&color_fg);
 	m_colortheme->get_color_by_name("CMD_PASSED_BG",(unsigned short*)&color_bg);
@@ -171,7 +173,7 @@ int main(int argc, char *argv[])
 	m_sgmgr->register_segment("newline", NULL, NULL);
 
 
-#if 1 // right side
+#if 0 // right side
 	segment_extra_param mparam;
 	mparam.leftside = false;
 

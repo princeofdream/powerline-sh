@@ -573,7 +573,7 @@ segments::combile_to_one_line(char** value_list, char* val_left, char* val_right
 	}
 	else
 	{
-		while(i0 < left_size + right_size -colum && left_size >= 0)
+		while(i0 < colum + colum - left_size - right_size && left_size >= 0)
 		{
 			sprintf(mspace,"%s%s", mspace, " ");
 			i0++;

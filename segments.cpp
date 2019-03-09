@@ -397,7 +397,7 @@ segments::get_segment_right_list_common(char** value_list, char* type, segmentac
 			}
 			else if (strlen(item_value) > 0 && i0 != segments_count - 1 && i0 == line_count)
 			{
-				sprintf(*value_list,"%s%s%s%s",*value_list, color_fg,SEPERATE_RSIDE_SYMBOL, item_value);
+				sprintf(*value_list,"%s%s%s%s%s%s",*value_list, color_fg,SEPERATE_RSIDE_SYMBOL, item_value, SHELL_FG_BG_END,SHELL_FG_BG_END);
 			}
 			else if (strlen(item_value) > 0 && i0 == segments_count - 1)
 			{
@@ -573,7 +573,7 @@ segments::combile_to_one_line(char** value_list, char* val_left, char* val_right
 	}
 	else
 	{
-		while(i0 < colum + colum - left_size - right_size && left_size >= 0)
+		while(i0 < colum + colum - left_size - right_size && left_size -1 >= 0)
 		{
 			sprintf(mspace,"%s%s", mspace, " ");
 			i0++;

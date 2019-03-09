@@ -284,8 +284,8 @@ colortheme::display_256color(int colortype, int colorstyle, true_color fg, true_
 #if 1
 	else if (colortype == DISP_END)
 	{
-		sprintf( color_string, SHELL_FG_BG_END);
-		// sprintf( color_string, "");
+		// sprintf( color_string, SHELL_FG_BG_END);
+		sprintf( color_string, "");
 	}
 #endif
 	else

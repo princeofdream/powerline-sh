@@ -390,8 +390,8 @@ segments::get_segment_right_list_common(char** value_list, char* type, segmentac
 			if (strlen(*value_list) <= 0)
 			{
 				sprintf(*value_list,"%s%s%s%s",color_end,color_fg,SEPERATE_RSIDE_SYMBOL,item_value);
-				if (i0 == line_count)
-					sprintf(*value_list,"%s%s%s%s%s",*value_list, SHELL_FG_BG_END,BASH_COLOR_END,SHELL_FG_BG_END, BASH_COLOR_END);
+				// if (i0 == line_count)
+				//     sprintf(*value_list,"%s%s%s%s%s",*value_list, SHELL_FG_BG_END,BASH_COLOR_END,SHELL_FG_BG_END, BASH_COLOR_END);
 			}
 			else if (strlen(item_value) > 0 && i0 != segments_count - 1 && i0 != line_count)
 			{
@@ -400,7 +400,7 @@ segments::get_segment_right_list_common(char** value_list, char* type, segmentac
 			else if (strlen(item_value) > 0 && i0 != segments_count - 1 && i0 == line_count)
 			{
 				sprintf(*value_list,"%s%s%s%s",*value_list, color_fg,SEPERATE_RSIDE_SYMBOL, item_value);
-				sprintf(*value_list,"%s%s%s%s%s",*value_list, SHELL_FG_BG_END,BASH_COLOR_END,SHELL_FG_BG_END, BASH_COLOR_END);
+				// sprintf(*value_list,"%s%s%s%s%s",*value_list, SHELL_FG_BG_END,BASH_COLOR_END,SHELL_FG_BG_END, BASH_COLOR_END);
 			}
 			else if (strlen(item_value) > 0 && i0 == segments_count - 1)
 			{
@@ -612,6 +612,7 @@ segments::get_segment_output_list(char** value_list, segmentaction action)
 
 	get_segment_left_list_common(&value_list_left,"output", action);
 	get_segment_right_list_common(&value_list_right,"output", action);
+	sprintf(value_list_right,"%s%s%s%s%s",value_list_right, SHELL_FG_BG_END,BASH_COLOR_END,SHELL_FG_BG_END, BASH_COLOR_END);
 
 	// sprintf(*value_list, "%s", value_list_left);
 	// sprintf(*value_list, "%s%s", value_list_left, value_list_right);

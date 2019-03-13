@@ -116,6 +116,16 @@ common_segment_manager::segment_get_value(char* name, char** value, void* param)
 		sprintf(get_bash_ppid,"%s",result);
 		// printf("-->%s<--",get_bash_ppid);
 		free(result);
+
+		result = NULL;
+		sprintf(cmd, "ps ux| grep %d|grep -v grep|grep bash", p_pid);
+		// printf("-->%s<--",cmd);
+		m_share.command_stream(cmd, &result);
+		if (strlen(result) >= 1) {
+			sprintf(get_bash_ppid,"%d",p_pid);
+		}
+		free(result);
+
 		result = NULL;
 		sprintf(cmd, "ps -a -o ppid | grep %d", atoi(get_bash_ppid));
 		// m_share.run_cmd(cmd, &result);
@@ -131,7 +141,7 @@ common_segment_manager::segment_get_value(char* name, char** value, void* param)
 		}
 		jobs_count--;
 		if ( jobs_count > 0) {
-			sprintf(common_value, " %d ", jobs_count);
+			sprintf(common_value, " ⚙ %d ", jobs_count);
 		} else {
 			sprintf(common_value, "%s","");
 		}

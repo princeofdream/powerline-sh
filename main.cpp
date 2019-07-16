@@ -36,11 +36,18 @@ int main(int argc, char *argv[])
 	segment_color s_color;
 	int pre_process_stat = 0;
 	int shell_type = SHELL_BASH;
+	char* get_value;
+	bool left_mode = false;
 
 	memset(string_content,0x0,sizeof(string_content));
 	style = 38;
 	// sprintf(string_content,"\e[%d;%d;%dm=======\n",i0,5,48);
 	// printf("\e[38;5;%dm\e[48;5;240m test[%d] \e[48;5;166m\e[38;5;%dm\n",i0,i0,i0);
+
+	get_value = getenv("PSH_LEFT");
+	if (get_value != NULL && strcmp("true", get_value) == 0) {
+		left_mode=true;
+	}
 
 	arg_count = 1;
 	while (arg_count <= argc ) {
@@ -133,7 +140,8 @@ int main(int argc, char *argv[])
 		m_colortheme->get_color_by_name("CMD_FAILED_BG",(unsigned short*)&color_bg);
 		s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
 		s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
-		// m_sgmgr->register_segment("prompt_stat", &s_color, (void*)&mprompt_stat_param);
+		if (left_mode)
+			m_sgmgr->register_segment("prompt_stat", &s_color, (void*)&mprompt_stat_param);
 	}
 
 	m_colortheme->get_color_by_name("CMD_PASSED_FG",(unsigned short*)&color_fg);
@@ -146,32 +154,37 @@ int main(int argc, char *argv[])
 	m_colortheme->get_color_by_name("JOBS_BG",(unsigned short*)&color_bg);
 	s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
 	s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
-	// m_sgmgr->register_segment("jobs", &s_color, NULL);
+	if (left_mode)
+		m_sgmgr->register_segment("jobs", &s_color, NULL);
 
 	m_colortheme->get_color_by_name("REPO_CLEAN_FG",(unsigned short*)&color_fg);
 	m_colortheme->get_color_by_name("REPO_CLEAN_BG",(unsigned short*)&color_bg);
 	s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
 	s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
-	// m_sgmgr->register_segment("git", &s_color, NULL);
+	if (left_mode)
+		m_sgmgr->register_segment("git", &s_color, NULL);
 
 	m_colortheme->get_color_by_name("ANDROID_ENV_FG",(unsigned short*)&color_fg);
 	m_colortheme->get_color_by_name("ANDROID_ENV_BG",(unsigned short*)&color_bg);
 	s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
 	s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
-	// m_sgmgr->register_segment("android_env", &s_color, NULL);
+	if (left_mode)
+		m_sgmgr->register_segment("android_env", &s_color, NULL);
 
 	m_colortheme->get_color_by_name("TIME_FG",(unsigned short*)&color_fg);
 	m_colortheme->get_color_by_name("TIME_BG",(unsigned short*)&color_bg);
 	s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
 	s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
-	// m_sgmgr->register_segment("time", &s_color, NULL);
+	if (left_mode)
+		m_sgmgr->register_segment("time", &s_color, NULL);
 
-	// m_colortheme->get_color_by_name("PATH_FG",(unsigned short*)&color_fg);
-	// m_colortheme->get_color_by_name("PATH_BG",(unsigned short*)&color_bg);
-	// s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
-	// s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
-	// m_sgmgr->register_segment("newline", NULL, NULL);
-
+	if (left_mode) {
+		m_colortheme->get_color_by_name("PATH_FG",(unsigned short*)&color_fg);
+		m_colortheme->get_color_by_name("PATH_BG",(unsigned short*)&color_bg);
+		s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
+		s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
+		m_sgmgr->register_segment("newline", NULL, NULL);
+	}
 
 #if 1 // right side
 	segment_extra_param mparam;
@@ -181,7 +194,8 @@ int main(int argc, char *argv[])
 	m_colortheme->get_color_by_name("JOBS_BG",(unsigned short*)&color_bg);
 	s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
 	s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
-	m_sgmgr->register_segment("jobs", &s_color, (void*)&mparam);
+	if (!left_mode)
+		m_sgmgr->register_segment("jobs", &s_color, (void*)&mparam);
 
 	if (pre_process_stat != 0)
 	{
@@ -193,20 +207,23 @@ int main(int argc, char *argv[])
 		m_colortheme->get_color_by_name("CMD_FAILED_BG",(unsigned short*)&color_bg);
 		s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
 		s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
-		m_sgmgr->register_segment("prompt_stat", &s_color, (void*)&mprompt_stat_param);
+		if (!left_mode)
+			m_sgmgr->register_segment("prompt_stat", &s_color, (void*)&mprompt_stat_param);
 	}
 
 	m_colortheme->get_color_by_name("ANDROID_ENV_FG",(unsigned short*)&color_fg);
 	m_colortheme->get_color_by_name("ANDROID_ENV_BG",(unsigned short*)&color_bg);
 	s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
 	s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
-	m_sgmgr->register_segment("android_env", &s_color, (void*)&mparam);
+	if (!left_mode)
+		m_sgmgr->register_segment("android_env", &s_color, (void*)&mparam);
 
 	m_colortheme->get_color_by_name("REPO_CLEAN_FG",(unsigned short*)&color_fg);
 	m_colortheme->get_color_by_name("REPO_CLEAN_BG",(unsigned short*)&color_bg);
 	s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
 	s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
-	m_sgmgr->register_segment("git", &s_color, (void*)&mparam);
+	if (!left_mode)
+		m_sgmgr->register_segment("git", &s_color, (void*)&mparam);
 
 	m_colortheme->get_color_by_name("USERNAME_FG",(unsigned short*)&color_fg);
 	m_colortheme->get_color_by_name("USERNAME_BG",(unsigned short*)&color_bg);
@@ -223,13 +240,15 @@ int main(int argc, char *argv[])
 	m_colortheme->get_color_by_name("TIME_BG",(unsigned short*)&color_bg);
 	s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
 	s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
-	m_sgmgr->register_segment("time", &s_color, (void*)&mparam);
+	if (!left_mode)
+		m_sgmgr->register_segment("time", &s_color, (void*)&mparam);
 
 	m_colortheme->get_color_by_name("SSH_FG",(unsigned short*)&color_fg);
 	m_colortheme->get_color_by_name("SSH_BG",(unsigned short*)&color_bg);
 	s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
 	s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
-	m_sgmgr->register_segment("ssh", &s_color, (void*)&mparam);
+	if (!left_mode)
+		m_sgmgr->register_segment("ssh", &s_color, (void*)&mparam);
 
 #endif
 

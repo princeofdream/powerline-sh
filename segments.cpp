@@ -604,6 +604,8 @@ segments::get_segment_output_list(char** value_list, segmentaction action)
 {
 	char* value_list_left;
 	char* value_list_right;
+	char* get_value;
+	bool left_mode = false;
 
 	JCG("Enter %s.", __FUNCTION__);
 
@@ -616,11 +618,16 @@ segments::get_segment_output_list(char** value_list, segmentaction action)
 
 	// sprintf(*value_list, "%s", value_list_left);
 	// sprintf(*value_list, "%s%s", value_list_left, value_list_right);
-#if 1
-	combile_to_one_line(value_list, value_list_left, value_list_right, true);
-#else
-	combile_to_one_line(value_list, value_list_left, "", false);
-#endif
+	get_value = getenv("PSH_LEFT");
+	if (get_value != NULL && strcmp("true", get_value) == 0) {
+		left_mode=true;
+	}
+
+	if (left_mode)
+		combile_to_one_line(value_list, value_list_left, "", false);
+	else
+		combile_to_one_line(value_list, value_list_left, value_list_right, true);
+
 	return 0;
 }
 

@@ -108,7 +108,8 @@ int main(int argc, char *argv[])
 	m_colortheme->get_color_by_name("SSH_BG",(unsigned short*)&color_bg);
 	s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
 	s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
-	// m_sgmgr->register_segment("ssh", &s_color, NULL);
+	if (left_mode)
+		m_sgmgr->register_segment("ssh", &s_color, NULL);
 
 	/* ************************************** */
 	// m_host = new host_segment();

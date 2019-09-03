@@ -117,6 +117,8 @@ common_segment_manager::segment_get_value(char* name, char** value, void* param)
 		// printf("-->%s<--",get_bash_ppid);
 		free(result);
 
+		//basically it works fine in 5.0, apple bash is 4.4
+#ifndef __APPLE__
 		result = NULL;
 		sprintf(cmd, "ps ux| grep %d|grep -v grep|grep bash", p_pid);
 		// printf("-->%s<--",cmd);
@@ -125,6 +127,7 @@ common_segment_manager::segment_get_value(char* name, char** value, void* param)
 			sprintf(get_bash_ppid,"%d",p_pid);
 		}
 		free(result);
+#endif
 
 		result = NULL;
 		sprintf(cmd, "ps -a -o ppid | grep %d", atoi(get_bash_ppid));

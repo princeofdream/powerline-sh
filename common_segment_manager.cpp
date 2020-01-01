@@ -66,6 +66,7 @@ common_segment_manager::segment_get_value(char* name, char** value, void* param)
 	}
 	else if (strcmp(name,"user") == 0)
 	{
+#if (! (defined _WIN32)) && (!(defined _WIN64))
 		int uid = getuid();
 		struct passwd *pw = getpwuid(uid);
 
@@ -74,6 +75,13 @@ common_segment_manager::segment_get_value(char* name, char** value, void* param)
 		{
 			sprintf(common_value, " %s ", get_value);
 		}
+#else
+		get_value = "Windows";
+		if (get_value != NULL && strlen(get_value) > 0)
+		{
+			sprintf(common_value, " %s ", get_value);
+		}
+#endif
 	}
 	else if (strcmp(name,"prompt_stat") == 0)
 	{
@@ -89,9 +97,11 @@ common_segment_manager::segment_get_value(char* name, char** value, void* param)
 	}
 	else if (strcmp(name,"prompt") == 0)
 	{
+#if (! (defined _WIN32)) && (!(defined _WIN64))
 		if ( 0 == getuid())
 			sprintf(common_value, " %s ", "#");
 		else
+#endif
 			sprintf(common_value, " %s ", "$");
 	}
 	else if (strcmp(name,"zsh") == 0)
@@ -100,6 +110,7 @@ common_segment_manager::segment_get_value(char* name, char** value, void* param)
 	}
 	else if (strcmp(name,"jobs") == 0)
 	{
+#if (! (defined _WIN32)) && (!(defined _WIN64))
 		char* result = NULL;
 		char cmd[MAXLEN];
 		common_share m_share;
@@ -151,6 +162,9 @@ common_segment_manager::segment_get_value(char* name, char** value, void* param)
 		if (result != NULL) {
 			free(result);
 		}
+#else
+		sprintf(common_value, "%s","");
+#endif
 	}
 	else if (strcmp(name,"path_stat") == 0)
 	{

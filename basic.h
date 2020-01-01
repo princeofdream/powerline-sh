@@ -24,16 +24,18 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <string.h>
+#if (! (defined _WIN32)) && (!(defined _WIN64))
 #include <sys/wait.h>
+#include <sys/times.h>
+#include <termios.h>
+#include <pwd.h>
+#endif
 #include <sys/types.h>
 #include <errno.h>
-#include <sys/times.h>
 #include <sys/time.h>
 #include <time.h>
-#include <termios.h>
 #include <unistd.h>
 #include <sched.h>
-#include <pwd.h>
 
 #include "debug_utils.h"
 

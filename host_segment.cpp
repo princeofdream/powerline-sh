@@ -47,7 +47,12 @@ host_segment::segment_get_value(char* name, char** value, void* param)
 	char host_name[MAXLEN];
 
 	JCG("%s",__FUNCTION__);
+	memset(host_name, 0x0, sizeof(host_name));
+#if (! (defined _WIN32)) && (!(defined _WIN64))
 	gethostname(host_name,MAXLEN);
+#else
+	sprintf(host_name, "%s", "Windows");
+#endif
 
 	if (host_name!= NULL && strlen(host_name) > 0)
 	{

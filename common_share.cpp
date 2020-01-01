@@ -133,6 +133,7 @@ common_share::init_segment_color(segment_color* s_color)
 int
 common_share::run_cmd(char* cmd, char** result)
 {
+#if (! (defined _WIN32)) && (!(defined _WIN64))
 	pid_t m_pid;
 	int i0 = 0;
 	int ret;
@@ -199,6 +200,7 @@ common_share::run_cmd(char* cmd, char** result)
 	JCG();
 	close(cmd_pipe_fd0[0]);
 	close(cmd_pipe_fd0[1]);
+#endif
 	return 0;
 }
 

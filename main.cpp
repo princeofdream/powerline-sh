@@ -95,6 +95,7 @@ int main(int argc, char *argv[])
 
 	m_colortheme->get_color_by_name("USERNAME_FG",(unsigned short*)&color_fg);
 	m_colortheme->get_color_by_name("USERNAME_BG",(unsigned short*)&color_bg);
+#if (! (defined _WIN32)) && (!(defined _WIN64))
 	if ( 0 == getuid())
 	{
 		m_colortheme->get_color_by_name("USER_ROOT_FG",(unsigned short*)&color_fg);
@@ -114,6 +115,7 @@ int main(int argc, char *argv[])
 	s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
 	s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
 	m_sgmgr->register_segment("user", &s_color, NULL);
+#endif
 
 	m_colortheme->get_color_by_name("SSH_FG",(unsigned short*)&color_fg);
 	m_colortheme->get_color_by_name("SSH_BG",(unsigned short*)&color_bg);
@@ -242,6 +244,7 @@ int main(int argc, char *argv[])
 
 	m_colortheme->get_color_by_name("USERNAME_FG",(unsigned short*)&color_fg);
 	m_colortheme->get_color_by_name("USERNAME_BG",(unsigned short*)&color_bg);
+#if (! (defined _WIN32)) && (!(defined _WIN64))
 	if ( 0 == getuid())
 	{
 		m_colortheme->get_color_by_name("USER_ROOT_FG",(unsigned short*)&color_fg);
@@ -250,6 +253,7 @@ int main(int argc, char *argv[])
 	s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
 	s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
 	// m_sgmgr->register_segment("user", &s_color, (void*)&mparam);
+#endif
 
 	m_colortheme->get_color_by_name("TIME_FG",(unsigned short*)&color_fg);
 	m_colortheme->get_color_by_name("TIME_BG",(unsigned short*)&color_bg);

@@ -61,15 +61,12 @@ cwd_segment::segment_get_value(char* name,char** value, void* param)
 
 	JCG("%s",__FUNCTION__);
 
+	memset(abs_path_buff, 0x0, sizeof(abs_path_buff));
 	getcwd(cwd_path,sizeof(cwd_path));
+#if (! (defined _WIN32)) && (!(defined _WIN64))
 	get_value = getenv("HOME");
 	pwd_path = getenv("PWD");
-	memset(abs_path_buff, 0x0, sizeof(abs_path_buff));
-#if (! (defined _WIN32)) && (!(defined _WIN64))
 	realpath(get_value, abs_path_buff);
-#else
-	sprintf(abs_path_buff, "%s", pwd_path);
-#endif
 
 	*value = (char*)malloc(MAXLEN);
 	if (strncmp(pwd_path, abs_path_buff, strlen(abs_path_buff)) == 0) {
@@ -79,6 +76,14 @@ cwd_segment::segment_get_value(char* name,char** value, void* param)
 	} else {
 		sprintf(*value," %s ",pwd_path);
 	}
+#else
+	// get_value = getenv("HOME");
+	// pwd_path = getenv("PWD");
+
+	*value = (char*)malloc(MAXLEN);
+	get_value = getenv("PWD");
+	sprintf(*value," %s ",get_value);
+#endif
 	return 0;
 }
 

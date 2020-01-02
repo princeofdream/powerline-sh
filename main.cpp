@@ -101,6 +101,15 @@ int main(int argc, char *argv[])
 		m_colortheme->get_color_by_name("USER_ROOT_FG",(unsigned short*)&color_fg);
 		m_colortheme->get_color_by_name("USER_ROOT_BG",(unsigned short*)&color_bg);
 	}
+#else
+	{
+		char *system_type = getenv("MSYSTEM");
+		if (strncasecmp(system_type, "MINGW", strlen("MINGW")) == 0) {
+			m_colortheme->get_color_by_name("USER_MINGW_FG",(unsigned short*)&color_fg);
+			m_colortheme->get_color_by_name("USER_MINGW_BG",(unsigned short*)&color_bg);
+		}
+	}
+#endif
 
 	get_value = getenv("NAME_COLOR_SSH");
 	if (get_value != NULL && strlen(get_value) > 0)
@@ -115,7 +124,6 @@ int main(int argc, char *argv[])
 	s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
 	s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
 	m_sgmgr->register_segment("user", &s_color, NULL);
-#endif
 
 	m_colortheme->get_color_by_name("SSH_FG",(unsigned short*)&color_fg);
 	m_colortheme->get_color_by_name("SSH_BG",(unsigned short*)&color_bg);
@@ -250,10 +258,18 @@ int main(int argc, char *argv[])
 		m_colortheme->get_color_by_name("USER_ROOT_FG",(unsigned short*)&color_fg);
 		m_colortheme->get_color_by_name("USER_ROOT_BG",(unsigned short*)&color_bg);
 	}
+#else
+	{
+		char *system_type = getenv("MSYSTEM");
+		if (strncasecmp(system_type, "MINGW", strlen("MINGW")) == 0) {
+			m_colortheme->get_color_by_name("USER_ROOT_FG",(unsigned short*)&color_fg);
+			m_colortheme->get_color_by_name("USER_ROOT_BG",(unsigned short*)&color_bg);
+		}
+	}
+#endif
 	s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;
 	s_color.bg_color[SEGMENT_ACTION_NORMAL].red = color_bg;
 	// m_sgmgr->register_segment("user", &s_color, (void*)&mparam);
-#endif
 
 	m_colortheme->get_color_by_name("TIME_FG",(unsigned short*)&color_fg);
 	m_colortheme->get_color_by_name("TIME_BG",(unsigned short*)&color_bg);

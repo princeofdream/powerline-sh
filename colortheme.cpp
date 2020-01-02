@@ -81,6 +81,8 @@ theme_color_map default_theme[] =
 	{ "USERNAME_SSH_BG"      , 141 } ,
 	{ "USER_ROOT_FG"         , 254 } ,
 	{ "USER_ROOT_BG"         , 196 } ,
+	{ "USER_MINGW_FG"        , 236 } ,
+	{ "USER_MINGW_BG"        , 115 } ,
 	{ "HOSTNAME_FG"          , 250 } ,
 	{ "HOSTNAME_BG"          , 238 } ,
 	{ "PATH_BG"              , 237 } ,  // dark grey
@@ -116,6 +118,8 @@ theme_color_map default_theme[] =
 	{ "USERNAME_SSH_BG"      , 141 } ,
 	{ "USER_ROOT_FG"         , 254 } ,
 	{ "USER_ROOT_BG"         , 196 } ,
+	{ "USER_MINGW_FG"        , 254 } ,
+	{ "USER_MINGW_BG"        , 196 } ,
 	{ "HOSTNAME_FG"          , 250 } ,
 	{ "HOSTNAME_BG"          , 238 } ,
 	{ "PATH_FG"              , 238 } ,  // dark grey
@@ -147,6 +151,8 @@ theme_color_map default_theme[] =
 	{ "USERNAME_BG"      , 4   } ,
 	{ "USER_ROOT_FG"     , 15 } ,
 	{ "USER_ROOT_BG"     , 196 } ,
+	{ "USER_MINGW_FG"    , 236 } ,
+	{ "USER_MINGW_BG"    , 115 } ,
 	{ "HOSTNAME_FG"      , 15  } ,
 	{ "HOSTNAME_BG"      , 10  } ,
 	{ "PATH_FG"          , 7   } ,

@@ -76,7 +76,7 @@ common_segment_manager::segment_get_value(char* name, char** value, void* param)
 			sprintf(common_value, " %s ", get_value);
 		}
 #else
-		get_value = "Windows";
+		get_value = getenv("USERNAME");
 		if (get_value != NULL && strlen(get_value) > 0)
 		{
 			sprintf(common_value, " %s ", get_value);

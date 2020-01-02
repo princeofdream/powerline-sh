@@ -17,6 +17,7 @@
  */
 
 #include <cwd_segment.h>
+#include <stdlib.h>
 
 cwd_segment::cwd_segment ()
 {
@@ -59,11 +60,9 @@ cwd_segment::segment_get_value(char* name,char** value, void* param)
 	char abs_path_buff[MAXLEN];
 	char *pwd_path;
 
-	JCG("%s",__FUNCTION__);
-
+#if (! (defined _WIN32)) && (!(defined _WIN64))
 	memset(abs_path_buff, 0x0, sizeof(abs_path_buff));
 	getcwd(cwd_path,sizeof(cwd_path));
-#if (! (defined _WIN32)) && (!(defined _WIN64))
 	get_value = getenv("HOME");
 	pwd_path = getenv("PWD");
 	realpath(get_value, abs_path_buff);
@@ -77,12 +76,41 @@ cwd_segment::segment_get_value(char* name,char** value, void* param)
 		sprintf(*value," %s ",pwd_path);
 	}
 #else
-	// get_value = getenv("HOME");
-	// pwd_path = getenv("PWD");
+	// TODO
+	// Support HOME dir /home/$USERNAME only
+	char *system_type;
+	char *username;
+	char set_env_buf[MAXLEN];
+	char *path_buf;
+	int len;
 
 	*value = (char*)malloc(MAXLEN);
-	get_value = getenv("PWD");
-	sprintf(*value," %s ",get_value);
+
+	system_type = getenv("MSYSTEM");
+	pwd_path = getenv("PWD");
+	username = getenv("USERNAME");
+
+	// if (strncasecmp(system_type, "MINGW", strlen("MINGW")) == 0) {
+		memset(set_env_buf, 0x0, sizeof(set_env_buf));
+		sprintf(set_env_buf, "/home/%s", username);
+		path_buf = strstr(pwd_path, set_env_buf);
+		if (path_buf == NULL) {
+			get_value = getenv("PWD");
+			sprintf(*value," %s ",get_value);
+			return 0;
+		}
+		len = strlen(pwd_path) - strlen(path_buf) + strlen(set_env_buf);
+		memset(set_env_buf, 0x0, sizeof(set_env_buf));
+		snprintf(set_env_buf, len, "%s",pwd_path);
+		// printf("%s\n", set_env_buf);
+		// putenv(set_env_buf);
+	// }
+
+	if (strncmp(pwd_path, set_env_buf, strlen(set_env_buf)) == 0) {
+		sprintf(*value," ~%s ",pwd_path + strlen(set_env_buf));
+	} else {
+		sprintf(*value," %s ",pwd_path);
+	}
 #endif
 	return 0;
 }

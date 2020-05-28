@@ -118,32 +118,56 @@ common_segment_manager::segment_get_value(char* name, char** value, void* param)
 		pid_t p_pid;
 		int jobs_count;
 		char get_bash_ppid[MAXLEN];
+		char get_bash_version[MAXLEN];
+		char *str;
+		int bash_version = 4;
 
-		memset(cmd,0x0,sizeof(cmd));
-		memset(get_bash_ppid,0x0,sizeof(get_bash_ppid));
-		p_pid = getppid();
-		sprintf(cmd, "ps -p %d -o ppid | tail -n 1", p_pid);
+		memset(get_bash_ppid, 0x0, sizeof(get_bash_ppid));
+		memset(get_bash_version, 0x0, sizeof(get_bash_version));
+
+		// get bash version
+		memset(cmd, 0x0, sizeof(cmd));
+		sprintf(cmd, "bash --version|grep \"GNU bash\"", p_pid);
 		m_share.command_stream(cmd, &result);
-		sprintf(get_bash_ppid,"%s",result);
-		// printf("-->%s<--",get_bash_ppid);
+		sprintf(get_bash_version, "%s", result);
 		free(result);
-
-		//basically it works fine in 5.0, apple bash is 4.4
-#ifndef __APPLE__
 		result = NULL;
-		sprintf(cmd, "ps ux| grep %d|grep -v grep|grep bash", p_pid);
-		// printf("-->%s<--",cmd);
-		m_share.command_stream(cmd, &result);
-		if (strlen(result) >= 1) {
-			sprintf(get_bash_ppid,"%d",p_pid);
+
+		str = strstr(get_bash_version, " 5\.");
+		if (str != NULL) {
+			bash_version = 5;
 		}
-		free(result);
-#endif
+		str = strstr(get_bash_version, "\t5\.");
+		if (str != NULL) {
+			bash_version = 5;
+		}
 
-		result = NULL;
+		// we also can get id by ps -a -o pid -o ppid ...
+
+		// get bash pid
+		// bash 4.4 only get current pid
+		// bash 5.x will return bash pid
+		p_pid = getppid();
+		// printf("get bash id: %d\n",p_pid);
+
+		// if (bash_version < 5) {
+			memset(cmd, 0x0, sizeof(cmd));
+			sprintf(cmd, "ps -p %d -o ppid | tail -n 1", p_pid);
+			m_share.command_stream(cmd, &result);
+			sprintf(get_bash_ppid,"%d",atoi(result));
+			// printf("cmd: %s\n",cmd);
+			// printf("get bash id: %s\n",get_bash_ppid);
+			free(result);
+			result = NULL;
+		// } else {
+			// sprintf(get_bash_ppid,"%d",p_pid);
+		// }
+
+		// get bash sub process number
 		sprintf(cmd, "ps -a -o ppid | grep %d", atoi(get_bash_ppid));
-		// m_share.run_cmd(cmd, &result);
 		m_share.command_stream(cmd, &result);
+		// printf("cmd:%s\n", cmd);
+		// printf("result:%s\n", result);
 
 		i0 = 0;
 		jobs_count = 0;
@@ -161,6 +185,7 @@ common_segment_manager::segment_get_value(char* name, char** value, void* param)
 		}
 		if (result != NULL) {
 			free(result);
+			result = NULL;
 		}
 #else
 		sprintf(common_value, "%s","");

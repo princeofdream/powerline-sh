@@ -126,12 +126,8 @@ common_segment_manager::segment_get_value(char* name, char** value, void* param)
 		memset(get_bash_version, 0x0, sizeof(get_bash_version));
 
 		// get bash version
-		memset(cmd, 0x0, sizeof(cmd));
-		sprintf(cmd, "bash --version|grep \"GNU bash\"", p_pid);
-		m_share.command_stream(cmd, &result);
-		sprintf(get_bash_version, "%s", result);
-		free(result);
-		result = NULL;
+		get_value = getenv("BASH_VERSION");
+		sprintf(get_bash_version, "%s", get_value);
 
 		str = strstr(get_bash_version, " 5\.");
 		if (str != NULL) {
@@ -145,23 +141,27 @@ common_segment_manager::segment_get_value(char* name, char** value, void* param)
 		// we also can get id by ps -a -o pid -o ppid ...
 
 		// get bash pid
-		// bash 4.4 only get current pid
-		// bash 5.x will return bash pid
+		// bash 4.4 only get bash pid
+		// bash 5.x will return pid before pid
 		p_pid = getppid();
+		// printf("ppid: %d\n", p_pid);
 		// printf("get bash id: %d\n",p_pid);
 
-		// if (bash_version < 5) {
+		// check current
+
+
+		if (bash_version < 5) {
 			memset(cmd, 0x0, sizeof(cmd));
 			sprintf(cmd, "ps -p %d -o ppid | tail -n 1", p_pid);
 			m_share.command_stream(cmd, &result);
 			sprintf(get_bash_ppid,"%d",atoi(result));
 			// printf("cmd: %s\n",cmd);
-			// printf("get bash id: %s\n",get_bash_ppid);
 			free(result);
 			result = NULL;
-		// } else {
-			// sprintf(get_bash_ppid,"%d",p_pid);
-		// }
+		} else {
+			sprintf(get_bash_ppid,"%d",p_pid);
+		}
+		// printf("get bash id: %s\n",get_bash_ppid);
 
 		// get bash sub process number
 		sprintf(cmd, "ps -a -o ppid | grep %d", atoi(get_bash_ppid));

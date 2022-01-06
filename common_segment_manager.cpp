@@ -127,7 +127,9 @@ common_segment_manager::segment_get_value(char* name, char** value, void* param)
 
 		// get bash version
 		get_value = getenv("BASH_VERSION");
-		sprintf(get_bash_version, "%s", get_value);
+		if (get_value != NULL) {
+			sprintf(get_bash_version, "%s", get_value);
+		}
 
 		str = strstr(get_bash_version, " 5\.");
 		if (str != NULL) {

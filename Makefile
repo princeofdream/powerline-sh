@@ -39,6 +39,8 @@ CFLAGS += -fpermissive -Wno-format-extra-args
 #LDFLAGS=-L$(HOME)/Environment/env_rootfs/lib64 -Wl,-rpath=$(HOME)/Environment/env_rootfs/lib64
 #LDFLAGS+=-L$(HOME)/Environment/env_rootfs/lib -Wl,-rpath=$(HOME)/Environment/env_rootfs/lib
 
+PREFIX ?= /usr/local
+
 all: $(OBJS) $(INCS)
 	$(CXX) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $(OUTPUT)
 
@@ -46,11 +48,11 @@ all: $(OBJS) $(INCS)
 	$(CXX) $(CFLAGS) -c $< -o $@
 
 install:
-	mkdir -p $(HOME)/Environment/env_rootfs/bin/
-	install powerline-sh $(HOME)/Environment/env_rootfs/bin/
+	mkdir -p $(PREFIX)/bin/
+	install powerline-sh $(PREFIX)/bin/
 
 uninstall:
-	rm $(HOME)/Environment/env_rootfs/bin/powerline-sh
+	rm $(PREFIX)/bin/powerline-sh
 
 clean:
 	rm -rf *.o $(OUTPUT)

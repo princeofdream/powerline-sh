@@ -117,8 +117,13 @@ int main(int argc, char *argv[])
 		get_value = getenv("SSH_CLIENT");
 		if (get_value != NULL && strlen(get_value) > 0)
 		{
-			m_colortheme->get_color_by_name("USERNAME_SSH_FG",(unsigned short*)&color_fg);
-			m_colortheme->get_color_by_name("USERNAME_SSH_BG",(unsigned short*)&color_bg);
+            if (0 == getuid()) {
+                m_colortheme->get_color_by_name("USER_ROOT_SSH_FG",(unsigned short*)&color_fg);
+                m_colortheme->get_color_by_name("USER_ROOT_SSH_BG",(unsigned short*)&color_bg);
+            } else {
+                m_colortheme->get_color_by_name("USERNAME_SSH_FG",(unsigned short*)&color_fg);
+                m_colortheme->get_color_by_name("USERNAME_SSH_BG",(unsigned short*)&color_bg);
+            }
 		}
 	}
 	s_color.fg_color[SEGMENT_ACTION_NORMAL].red = color_fg;

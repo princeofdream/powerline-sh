@@ -88,7 +88,8 @@ theme_color_map default_theme[] =
 	{ "HOSTNAME_FG"          , 250 } ,
 	{ "HOSTNAME_BG"          , 238 } ,
 	{ "PATH_BG"              , 237 } ,  // dark grey
-	{ "PATH_FG"              , 254 } ,  // light grey
+	// { "PATH_FG"              , 254 } ,  // light grey
+	{ "PATH_FG"              , 222 } ,  // light grey
 	{ "CWD_FG"               , 254 } ,  // nearly-white grey
 	{ "SEPARATOR_FG"         , 244 } ,
 	{ "READONLY_BG"          , 124 } ,

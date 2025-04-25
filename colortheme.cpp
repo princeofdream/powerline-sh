@@ -96,6 +96,8 @@ theme_color_map default_theme[] =
 	{ "READONLY_FG"          , 254 } ,
 	{ "SSH_BG"               , 166 } ,  // medium orange
 	{ "SSH_FG"               , 254 } ,
+	{ "DOCKER_BG"            , 42 } ,  // medium orange
+	{ "DOCKER_FG"            , 236 } ,
 	{ "REPO_CLEAN_BG"        , 148 } ,  // a light green color
 	{ "REPO_CLEAN_FG"        , 0   } ,  // black
 	{ "REPO_DIRTY_BG"        , 161 } ,  // pink/red
@@ -135,6 +137,8 @@ theme_color_map default_theme[] =
 	{ "READONLY_FG"          , 254 } ,
 	{ "SSH_BG"               , 166 } ,  // medium orange
 	{ "SSH_FG"               , 254 } ,
+	{ "DOCKER_BG"            , 42 } ,
+	{ "DOCKER_FG"            , 236 } ,
 	{ "REPO_CLEAN_BG"        , 154 } ,  // a light green color
 	{ "REPO_CLEAN_FG"        , 27  } ,  // black
 	{ "REPO_DIRTY_FG"        , 161 } ,  // pink/red

@@ -69,7 +69,7 @@
 #ifdef MAXLEN
 #undef MAXLEN
 #endif
-#define MAXLEN 1024
+#define MAXLEN 4096
 #define SEPERATE_SYMBOL ""
 #define SEPERATE_RSIDE_SYMBOL ""
 

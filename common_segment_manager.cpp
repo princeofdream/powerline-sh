@@ -214,6 +214,19 @@ common_segment_manager::segment_get_value(char* name, char** value, void* param)
 		get_value = getenv("TARGET_BUILD_VARIANT");
 		sprintf(common_value, "%s-%s ", common_value,get_value);
 	}
+	else if (strcmp(name,"pyvirtenv") == 0)
+	{
+		get_value = getenv("VIRTUAL_ENV");
+		if (get_value == NULL)
+			return 0;
+		get_value = getenv("VIRTUAL_ENV_PROMPT");
+        memset(common_value,0x0,sizeof(common_value));
+		if (get_value == NULL) {
+            sprintf(common_value, "%s", "(venv) ");
+        } else {
+            sprintf(common_value, "(%s)", get_value);
+        }
+	}
 	else if (strcmp(name,"time") == 0)
 	{
 		char* get_value = NULL;

@@ -70,8 +70,8 @@ theme_color_map default_theme[] =
 	{ "PATH_STAT_BG"         , 255 } ,
 	{ "Z_SHELL_FG"           , 255 } ,
 	{ "Z_SHELL_BG"           , 198 } ,
-	{ "PY_VIRTENV_FG"        , 186 } ,
-	{ "PY_VIRTENV_BG"        , 69 } ,
+	{ "PY_VIRTENV_FG"        , 111 } ,
+	{ "PY_VIRTENV_BG"        , 241 } ,
 
 #if defined(THEME_DEFAULT)
 	#if defined(THEME_DARK)
@@ -116,8 +116,8 @@ theme_color_map default_theme[] =
 	// { "TIME_BG"              , 238 } ,
 	{ "TIME_FG"              , 236 } ,
 	{ "TIME_BG"              , 111  } ,
-	{ "PY_VIRTENV_FG"        , 186 } ,
-	{ "PY_VIRTENV_BG"        , 69 } ,
+	{ "PY_VIRTENV_FG"        , 111 } ,
+	{ "PY_VIRTENV_BG"        , 241 } ,
 	#elif defined(THEME_LIGHT)
 	// { "USERNAME_FG"          , 254 } ,
 	// { "USERNAME_BG"          , 31  } ,
@@ -157,8 +157,8 @@ theme_color_map default_theme[] =
 	{ "VIRTUAL_ENV_BG"       , 0   } ,
 	{ "TIME_FG"              , 25  } ,
 	{ "TIME_BG"              , 229 } ,
-	{ "PY_VIRTENV_FG"        , 186 } ,
-	{ "PY_VIRTENV_BG"        , 69 } ,
+	{ "PY_VIRTENV_FG"        , 111 } ,
+	{ "PY_VIRTENV_BG"        , 241 } ,
 	#endif
 #else
 	#if defined(THEME_DARK)
@@ -192,8 +192,8 @@ theme_color_map default_theme[] =
 	{ "AWS_PROFILE_BG"   , 2   } ,
 	{ "TIME_FG"          , 15  } ,
 	{ "TIME_BG"          , 10  } ,
-	{ "PY_VIRTENV_FG"        , 186 } ,
-	{ "PY_VIRTENV_BG"        , 69 } ,
+	{ "PY_VIRTENV_FG"        , 111 } ,
+	{ "PY_VIRTENV_BG"        , 241 } ,
 	#elif defined(THEME_LIGHT)
 	{ "USERNAME_FG"      , 15 } ,
 	{ "USERNAME_BG"      , 4  } ,
@@ -219,8 +219,8 @@ theme_color_map default_theme[] =
 	{ "VIRTUAL_ENV_FG"   , 2  } ,
 	{ "TIME_FG"          , 15 } ,
 	{ "TIME_BG"          , 10 } ,
-	{ "PY_VIRTENV_FG"        , 186 } ,
-	{ "PY_VIRTENV_BG"        , 69 } ,
+	{ "PY_VIRTENV_FG"        , 111 } ,
+	{ "PY_VIRTENV_BG"        , 241 } ,
 	#endif
 #endif
 };
